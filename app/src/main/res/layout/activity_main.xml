@@ -7,12 +7,47 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/teamNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Team 20"
+        android:textSize="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/apiServiceBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/apiServiceBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="At Your Service"
+        app:layout_constraintBottom_toTopOf="@+id/firebaseBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/teamNameText" />
+
+    <Button
+        android:id="@+id/firebaseBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Firebase"
+        app:layout_constraintBottom_toTopOf="@+id/projectBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/apiServiceBtn" />
+
+    <Button
+        android:id="@+id/projectBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Final Project"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firebaseBtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>
