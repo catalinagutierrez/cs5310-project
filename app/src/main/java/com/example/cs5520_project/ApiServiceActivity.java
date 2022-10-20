@@ -175,7 +175,6 @@ public class ApiServiceActivity extends AppCompatActivity implements AdapterView
             super.onPostExecute(s);
             loadingPanel.setVisibility(View.GONE);
             responseIV.setImageBitmap(img);
-            System.out.println("Executed!");
         }
     }
 }
