@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 
@@ -17,7 +19,7 @@ public class ApiServiceActivity extends AppCompatActivity implements AdapterView
 
     String[] filters = { "No Filter", "Mono", "Blur", "Sepia", "Paint" };
 
-    private String filter, width, height;
+    private String filter, width, height, caption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,9 @@ public class ApiServiceActivity extends AppCompatActivity implements AdapterView
         // Get SeekBars for Width and Height
         SeekBar sbHeight = findViewById(R.id.seekBar);
         SeekBar sbWidth = findViewById(R.id.seekBar2);
+
+        // Get EditText Field
+        EditText captionText = findViewById(R.id.captionInput);
 
         // Set SeekBar Maximums
         WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
@@ -73,6 +78,22 @@ public class ApiServiceActivity extends AppCompatActivity implements AdapterView
         ArrayAdapter ad = new ArrayAdapter(this, android.R.layout.simple_spinner_item, filters);
         ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         filterOptions.setAdapter(ad);
+
+        // Set Generate Button Listener
+        Button generateBtn = findViewById(R.id.GenerateBtn);
+        generateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                caption = captionText.getText().toString();
+
+                String request = "https://cataas.com/cat/says/";
+                request.concat(captionText + "?");
+                request.concat("filter=" + filter);
+                request.concat("&width=" + width);
+                request.concat("&height=" + height);
+            }
+        });
+
     }
 
     @Override
