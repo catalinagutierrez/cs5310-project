@@ -1,6 +1,7 @@
 package com.example.cs5520_project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -16,12 +17,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Locale;
 
 public class ApiServiceActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -29,11 +33,17 @@ public class ApiServiceActivity extends AppCompatActivity implements AdapterView
 
     private String filter, width, height, caption;
     private ImageView responseIV;
+    private RelativeLayout loadingPanel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_api_service);
+        getSupportActionBar().hide();
+
+        // Get loading panel
+        loadingPanel = findViewById(R.id.loadingPanel);
+        loadingPanel.setVisibility(View.GONE);
 
         // Get SeekBars for Width and Height
         SeekBar sbHeight = findViewById(R.id.seekBar);
@@ -44,15 +54,18 @@ public class ApiServiceActivity extends AppCompatActivity implements AdapterView
 
         // Get Response Image View
         responseIV = findViewById(R.id.responseImageView);
-       // responseIV.setImageResource(android.R.color.transparent);
+        responseIV.setImageResource(android.R.color.transparent);
 
         // Set SeekBar Maximums
         WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         DisplayMetrics metrics = new DisplayMetrics();
         display.getMetrics(metrics);
-        sbHeight.setMax(metrics.heightPixels);
+
+        sbHeight.setMax(metrics.heightPixels/2);
         sbWidth.setMax(metrics.widthPixels);
+        height = String.valueOf((int)metrics.heightPixels/2);
+        width = String.valueOf(metrics.widthPixels);
 
         sbHeight.setProgress(sbHeight.getMax());
         sbWidth.setProgress(sbWidth.getMax());
@@ -99,7 +112,17 @@ public class ApiServiceActivity extends AppCompatActivity implements AdapterView
             public void onClick(View view) {
                 caption = captionText.getText().toString();
 
-                String request = "https://cataas.com/cat/says/"+ caption;// "?filter=" + filter + "&width=" + width + "&height=" + height;
+                // Handle No Filter Case
+                if(filter.equals("No Filter")) {
+                    filter = "none";
+                }
+
+                String request = "";
+                if(captionText.equals("")) {
+                    request = "https://cataas.com/cat/says/"+ caption + "?filter=" + filter.toLowerCase() + "&width=" + width + "&height=" + height;
+                } else {
+                    request = request = "https://cataas.com/cat?filter=" + filter.toLowerCase() + "&width=" + width + "&height=" + height;
+                }
 
                 PingWebServiceTask task = new PingWebServiceTask();
                 task.execute(request);
@@ -123,8 +146,8 @@ public class ApiServiceActivity extends AppCompatActivity implements AdapterView
         private Bitmap img;
 
         @Override
-        protected void onProgressUpdate(Integer... values) {
-            System.out.println("Processing...");
+        protected void onPreExecute(){
+            loadingPanel.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -150,6 +173,7 @@ public class ApiServiceActivity extends AppCompatActivity implements AdapterView
         @Override
         protected void onPostExecute(String... s) {
             super.onPostExecute(s);
+            loadingPanel.setVisibility(View.GONE);
             responseIV.setImageBitmap(img);
             System.out.println("Executed!");
         }
