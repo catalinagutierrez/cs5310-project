@@ -3,6 +3,9 @@ package com.example.cs5520_project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -12,14 +15,20 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class ApiServiceActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     String[] filters = { "No Filter", "Mono", "Blur", "Sepia", "Paint" };
 
     private String filter, width, height, caption;
+    private ImageView responseIV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +41,10 @@ public class ApiServiceActivity extends AppCompatActivity implements AdapterView
 
         // Get EditText Field
         EditText captionText = findViewById(R.id.captionInput);
+
+        // Get Response Image View
+        responseIV = findViewById(R.id.responseImageView);
+       // responseIV.setImageResource(android.R.color.transparent);
 
         // Set SeekBar Maximums
         WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
@@ -86,11 +99,10 @@ public class ApiServiceActivity extends AppCompatActivity implements AdapterView
             public void onClick(View view) {
                 caption = captionText.getText().toString();
 
-                String request = "https://cataas.com/cat/says/";
-                request.concat(captionText + "?");
-                request.concat("filter=" + filter);
-                request.concat("&width=" + width);
-                request.concat("&height=" + height);
+                String request = "https://cataas.com/cat/says/"+ caption;// "?filter=" + filter + "&width=" + width + "&height=" + height;
+
+                PingWebServiceTask task = new PingWebServiceTask();
+                task.execute(request);
             }
         });
 
@@ -105,4 +117,42 @@ public class ApiServiceActivity extends AppCompatActivity implements AdapterView
     public void onNothingSelected(AdapterView<?> adapterView) {
         filter = filters[0];
     }
+
+    private class PingWebServiceTask  extends AsyncTask<String, Integer, String[]> {
+
+        private Bitmap img;
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            System.out.println("Processing...");
+        }
+
+        @Override
+        protected String[] doInBackground(String... params) {
+            String[] results = new String[2];
+            URL url = null;
+            try {
+                url = new URL(params[0]);
+
+                System.out.println(url);
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                InputStream is = conn.getInputStream();
+                img = BitmapFactory.decodeStream(is);
+            }
+            catch(Exception e) {
+                System.out.println(e);
+            }
+            results[0] = "Something went wrong";
+            return(results);
+        }
+
+        @Override
+        protected void onPostExecute(String... s) {
+            super.onPostExecute(s);
+            responseIV.setImageBitmap(img);
+            System.out.println("Executed!");
+        }
+    }
 }
+
