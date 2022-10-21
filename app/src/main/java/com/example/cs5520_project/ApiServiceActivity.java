@@ -3,6 +3,7 @@ package com.example.cs5520_project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -59,10 +60,17 @@ public class ApiServiceActivity extends AppCompatActivity implements AdapterView
         DisplayMetrics metrics = new DisplayMetrics();
         display.getMetrics(metrics);
 
-        sbHeight.setMax(metrics.heightPixels/2);
-        sbWidth.setMax(metrics.widthPixels);
-        height = String.valueOf((int)metrics.heightPixels/2);
-        width = String.valueOf(metrics.widthPixels);
+        // Set Picture Max Height and Width
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            sbHeight.setMax(metrics.heightPixels);
+            sbWidth.setMax(metrics.widthPixels/2);
+        } else {
+            sbHeight.setMax(metrics.heightPixels/2);
+            sbWidth.setMax(metrics.widthPixels);
+        };
+        height = String.valueOf((int)sbHeight.getMax());
+        width = String.valueOf(sbWidth.getMax());
 
         sbHeight.setProgress(sbHeight.getMax());
         sbWidth.setProgress(sbWidth.getMax());

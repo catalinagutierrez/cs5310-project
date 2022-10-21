@@ -21,7 +21,7 @@
             android:name=".ApiServiceActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustNothing"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="screenSize"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
