@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -19,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -28,10 +30,11 @@ public class ApiServiceActivity extends AppCompatActivity implements AdapterView
 
     String[] filters = { "No Filter", "Mono", "Blur", "Sepia", "Paint" };
 
-    private String filter, width, height, caption, request;
+    private String filter, width, height, caption, request,exceptionName = "";
     private ImageView responseImageView;
     private RelativeLayout loadingPanel;
     private Bitmap img;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,9 +148,11 @@ public class ApiServiceActivity extends AppCompatActivity implements AdapterView
                             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                             InputStream is = conn.getInputStream();
                             img = BitmapFactory.decodeStream(is);
+                            exceptionName = "";
                         }
                         catch(Exception e) {
                             System.out.println(e);
+                            exceptionName = "Error";
                         }
 
                         runOnUiThread(new Runnable() {
@@ -155,6 +160,11 @@ public class ApiServiceActivity extends AppCompatActivity implements AdapterView
                                 // onPostExecute equivalent
                                 loadingPanel.setVisibility(View.GONE);
                                 responseImageView.setImageBitmap(img);
+                                if (!exceptionName.equals("")){
+                                    Toast toast = Toast.makeText(ApiServiceActivity.this,"URL Error",Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity. CENTER, 0, 60);
+                                    toast.show();
+                                }
                             }
                         });
                     }
