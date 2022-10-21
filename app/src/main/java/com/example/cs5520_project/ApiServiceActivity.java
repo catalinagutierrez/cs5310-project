@@ -39,6 +39,10 @@ public class ApiServiceActivity extends AppCompatActivity implements AdapterView
         setContentView(R.layout.activity_api_service);
         getSupportActionBar().hide();
 
+//        if (savedInstanceState != null) {
+//            responseImageView.setImageBitmap(img);
+//        }
+
         // Get loading panel
         loadingPanel = findViewById(R.id.loadingPanel);
         loadingPanel.setVisibility(View.GONE);
@@ -169,5 +173,17 @@ public class ApiServiceActivity extends AppCompatActivity implements AdapterView
     public void onNothingSelected(AdapterView<?> adapterView) {
         filter = filters[0];
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        savedInstanceState.putParcelable("BitmapImage", img);
+        super.onSaveInstanceState(savedInstanceState);
+    }
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState){
+        this.img = savedInstanceState.getParcelable("BitmapImage");
+        responseImageView.setImageBitmap(this.img);
+    }
 }
+
 
