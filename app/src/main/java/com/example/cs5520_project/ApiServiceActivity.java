@@ -42,10 +42,6 @@ public class ApiServiceActivity extends AppCompatActivity implements AdapterView
         setContentView(R.layout.activity_api_service);
         getSupportActionBar().hide();
 
-//        if (savedInstanceState != null) {
-//            responseImageView.setImageBitmap(img);
-//        }
-
         // Get loading panel
         loadingPanel = findViewById(R.id.loadingPanel);
         loadingPanel.setVisibility(View.GONE);
@@ -122,6 +118,7 @@ public class ApiServiceActivity extends AppCompatActivity implements AdapterView
         generateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                responseImageView.setImageResource(android.R.color.transparent);
                 loadingPanel.setVisibility(View.VISIBLE);
                 caption = captionEditText.getText().toString();
 
