@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/layout-land/activity_api_service.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_api_service.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_firebase.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.28293852629484956" />
       </map>
     </option>

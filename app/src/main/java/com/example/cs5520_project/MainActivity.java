@@ -23,5 +23,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button firebaseBtn = (Button) findViewById(R.id.firebaseBtn);
+        firebaseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, FirebaseActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+
     }
 }
