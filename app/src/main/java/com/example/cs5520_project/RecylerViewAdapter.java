@@ -1,5 +1,7 @@
 package com.example.cs5520_project;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +16,12 @@ import java.util.ArrayList;
 public class RecylerViewAdapter extends RecyclerView.Adapter<RecylerViewAdapter.MyViewHolder> {
 
     int []arr;
+    Context context;
 
-    public RecylerViewAdapter(int[] arr) {
+    public RecylerViewAdapter(int[] arr, Context context) {
+
         this.arr = arr;
+        this.context = context;
     }
 
     @NonNull
@@ -40,7 +45,7 @@ public class RecylerViewAdapter extends RecyclerView.Adapter<RecylerViewAdapter.
         return arr.length;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView imageView;
         TextView textView;
@@ -50,6 +55,15 @@ public class RecylerViewAdapter extends RecyclerView.Adapter<RecylerViewAdapter.
             imageView = itemView.findViewById(R.id.imageView);
             textView = itemView.findViewById(R.id.textView);
             clickedView = itemView.findViewById(R.id.clickedView);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(context,StickerInfoActivity.class);
+            intent.putExtra("image",arr[getAbsoluteAdapterPosition()]);
+            intent.putExtra("title","Emoji " + (getAbsoluteAdapterPosition() + 1));
+            context.startActivity(intent);
         }
     }
 

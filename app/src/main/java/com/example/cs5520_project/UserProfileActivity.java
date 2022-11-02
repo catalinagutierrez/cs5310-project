@@ -36,7 +36,7 @@ public class UserProfileActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         layoutManager = new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(layoutManager);
-        recylerViewAdapter = new RecylerViewAdapter(arr);
+        recylerViewAdapter = new RecylerViewAdapter(arr,this);
         recyclerView.setAdapter(recylerViewAdapter);
         recyclerView.setHasFixedSize(true);
 
