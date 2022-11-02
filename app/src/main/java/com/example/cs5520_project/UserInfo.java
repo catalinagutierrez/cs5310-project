@@ -43,4 +43,13 @@ public class UserInfo {
     public void setNumOfStickers(int numOfStickers) {
         this.numOfStickers = numOfStickers;
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (o == null) return false;
+        if(o == this) return true;
+        String s = (String)o;
+        return this.username.equals(s);
+    }
 }

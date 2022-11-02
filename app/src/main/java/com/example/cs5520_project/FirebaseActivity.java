@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,9 +15,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FirebaseActivity extends AppCompatActivity {
@@ -35,6 +40,24 @@ public class FirebaseActivity extends AppCompatActivity {
         name = findViewById(R.id.fullNameText);
         username = findViewById(R.id.usernameText);
         loginBtn = findViewById(R.id.loginBtn);
+        userList = new ArrayList<>();
+
+        // Populate user list with existing users
+        FirebaseDatabase.getInstance().getReference().child("Users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot datas : snapshot.getChildren()) {
+                    Log.i("I AM", "GETTING");
+                    String uid = datas.getKey();
+                    String name = datas.child("name").getValue().toString();
+                    String username = datas.child("username").getValue().toString();
+                    userList.add(new UserInfo(uid, name, username));
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,17 +68,28 @@ public class FirebaseActivity extends AppCompatActivity {
                 rootNode = FirebaseDatabase.getInstance();
                 reference = rootNode.getReference("Users");
 
-                //TODO load the existing users in userList
-
                 login(fullName, userName);
             }
         });
     }
 
     public void login(String name, String username){
-        if(false){
-            //TODO check if user already exists, load it as current user, and call loadUserProfile
-        }else{
+
+        // Check if user already exists in the list of users
+        boolean userExists = false;
+        for(UserInfo user : userList) {
+            if(user.getUsername().equals(username)) {
+                userExists = true;
+                currentUser = user;
+            }
+        }
+
+        // If they exist, load their profile
+        if(userExists){
+            loadUserProfile();
+        }
+        // Otherwise, genarate a new profile and add them to the database
+        else{
             // Generate a new empty item, and get the automatically generated key
             String userId = reference.push().getKey();
 
