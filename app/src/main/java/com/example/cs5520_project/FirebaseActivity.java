@@ -47,7 +47,6 @@ public class FirebaseActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot datas : snapshot.getChildren()) {
-                    Log.i("I AM", "GETTING");
                     String uid = datas.getKey();
                     String name = datas.child("name").getValue().toString();
                     String username = datas.child("username").getValue().toString();
