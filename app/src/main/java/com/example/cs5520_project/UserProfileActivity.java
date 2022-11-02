@@ -27,8 +27,6 @@ public class UserProfileActivity extends AppCompatActivity {
     DatabaseReference reference;
     RecyclerView.LayoutManager layoutManager;
     RecylerViewAdapter recylerViewAdapter;
-    //TODO fetch other users from Firebase instead of hardcoded names
-   // String names[] = {"name1","name2"};
     int arr[] = {R.drawable.emoji_1,R.drawable.emoji_10,R.drawable.emoji_3,
     R.drawable.emoji_4,R.drawable.emoji_5, R.drawable.emoji_6, R.drawable.emoji_7,
     R.drawable.emoji_8,R.drawable.emoji_9, R.drawable.emoji_2};
@@ -71,7 +69,7 @@ public class UserProfileActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         layoutManager = new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(layoutManager);
-        recylerViewAdapter = new RecylerViewAdapter(arr,this);
+        recylerViewAdapter = new RecylerViewAdapter(arr,this, userName, "swap"); // TODO: Removed hardcoded name for spinner name
         recyclerView.setAdapter(recylerViewAdapter);
         recyclerView.setHasFixedSize(true);
 

@@ -17,11 +17,14 @@ public class RecylerViewAdapter extends RecyclerView.Adapter<RecylerViewAdapter.
 
     int []arr;
     Context context;
+    String userName;
+    String friendName;
 
-    public RecylerViewAdapter(int[] arr, Context context) {
-
+    public RecylerViewAdapter(int[] arr, Context context, String userName, String friendName) {
         this.arr = arr;
         this.context = context;
+        this.userName = userName;
+        this.friendName = friendName;
     }
 
     @NonNull
@@ -63,6 +66,8 @@ public class RecylerViewAdapter extends RecyclerView.Adapter<RecylerViewAdapter.
             Intent intent = new Intent(context,StickerInfoActivity.class);
             intent.putExtra("image",arr[getAbsoluteAdapterPosition()]);
             intent.putExtra("title","Emoji " + (getAbsoluteAdapterPosition() + 1));
+            intent.putExtra("userName", userName);
+            intent.putExtra("friendName", friendName);
             context.startActivity(intent);
         }
     }
