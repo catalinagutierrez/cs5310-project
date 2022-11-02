@@ -88,7 +88,7 @@ public class FirebaseActivity extends AppCompatActivity {
         if(userExists){
             loadUserProfile();
         }
-        // Otherwise, genarate a new profile and add them to the database
+        // Otherwise, generate a new profile and add them to the database
         else{
             // Generate a new empty item, and get the automatically generated key
             String userId = reference.push().getKey();
