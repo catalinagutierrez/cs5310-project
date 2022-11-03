@@ -13,14 +13,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
+import android.content.Context;
+import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import java.util.ArrayList;;
 import java.util.List;
 
 public class UserProfileActivity extends AppCompatActivity {
@@ -37,6 +42,7 @@ public class UserProfileActivity extends AppCompatActivity {
     R.drawable.emoji_8,R.drawable.emoji_9, R.drawable.emoji_2};
     List<String> friendsList;
     String selectedFriend;
+    String currentUser;
 
 
     @Override
@@ -47,7 +53,7 @@ public class UserProfileActivity extends AppCompatActivity {
         selectedFriend = "";
         username = findViewById(R.id.userId);
         Bundle bundle = getIntent().getExtras();
-        String userName = bundle.getString("username");
+        currentUser = bundle.getString("username");
         friendsList = new ArrayList<>();
 
         // Add users to friends dropdown
@@ -75,7 +81,7 @@ public class UserProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot datas : snapshot.getChildren()) {
                     String friendUsername = datas.child("username").getValue().toString();
-                    if(!userName.equals(friendUsername)) {
+                    if(!currentUser.equals(friendUsername)) {
                         friendsList.add(datas.child("name").getValue().toString());
                     }
                     myAdapter.notifyDataSetChanged();
@@ -89,11 +95,69 @@ public class UserProfileActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         layoutManager = new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(layoutManager);
-        recylerViewAdapter = new RecylerViewAdapter(arr,this, userName, selectedFriend);
+        recylerViewAdapter = new RecylerViewAdapter(arr,this);
         recyclerView.setAdapter(recylerViewAdapter);
         recyclerView.setHasFixedSize(true);
 
-        username.setText(userName);
+        username.setText(currentUser);
+    }
+
+
+    public class RecylerViewAdapter extends RecyclerView.Adapter<RecylerViewAdapter.MyViewHolder> {
+
+        int []arr;
+        Context context;
+
+        public RecylerViewAdapter(int[] arr, Context context) {
+            this.arr = arr;
+            this.context = context;
+        }
+
+        @NonNull
+        @Override
+        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_view, parent, false);
+            MyViewHolder myViewHolder = new MyViewHolder(view);
+
+            return myViewHolder;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+            holder.imageView.setImageResource(arr[position]);
+            holder.textView.setText("Emoji " + (position + 1));
+            holder.clickedView.setText("Sent " + 0 + " times");
+        }
+
+        @Override
+        public int getItemCount() {
+            return arr.length;
+        }
+
+        public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+            ImageView imageView;
+            TextView textView;
+            TextView clickedView;
+            public MyViewHolder(@NonNull View itemView) {
+                super(itemView);
+                imageView = itemView.findViewById(R.id.imageView);
+                textView = itemView.findViewById(R.id.textView);
+                clickedView = itemView.findViewById(R.id.clickedView);
+                itemView.setOnClickListener(this);
+            }
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context,StickerInfoActivity.class);
+                intent.putExtra("image",arr[getAbsoluteAdapterPosition()]);
+                intent.putExtra("title","Emoji " + (getAbsoluteAdapterPosition() + 1));
+                intent.putExtra("currentUser", currentUser);
+                intent.putExtra("selectedFriend", selectedFriend);
+                context.startActivity(intent);
+            }
+        }
+
     }
 
 }

@@ -13,6 +13,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 public class StickerInfoActivity extends AppCompatActivity {
 
     private ImageView imageView;
@@ -31,8 +33,8 @@ public class StickerInfoActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String stickerName = intent.getStringExtra("title");
-        String userName = intent.getStringExtra("userName");
-        String friendName = intent.getStringExtra("friendName");
+        String currentUser = intent.getStringExtra("currentUser");
+        String selectedFriend = intent.getStringExtra("selectedFriend");
         imageView.setImageResource(intent.getIntExtra("image",0));
         textView.setText(stickerName);
 
@@ -41,11 +43,11 @@ public class StickerInfoActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot datas : snapshot.getChildren()) {
                     // Get users data from database
-                    if (datas.child("username").getValue().toString().equals(userName)) {
-                        // TODO: Loop through sentStickers and receivedStickers in DB,
-                        // TODO: gather values and set the receivedView and sentView text.
-                        receivedView.setText("Populate me!");
-                        sentView.setText("Populate me");
+                    if (datas.child("username").getValue().toString().equals(currentUser)) {
+                        HashMap<String, Integer> receivedStickers =  (HashMap<String, Integer>)datas.child("receivedStickers").getValue();
+                        HashMap<String, Integer> sentStickers =  (HashMap<String, Integer>)datas.child("sentStickers").getValue();
+                        receivedView.setText("Times sent: "+ receivedStickers.get(stickerName));
+                        sentView.setText("Times received: "+ sentStickers.get(stickerName));
                         break;
                     }
                 }
@@ -54,6 +56,7 @@ public class StickerInfoActivity extends AppCompatActivity {
                 public void onCancelled (@NonNull DatabaseError error){
                 }
             });
+        
         // TODO: Add onClick Listener to "SEND STICKER" button
     }
 }
