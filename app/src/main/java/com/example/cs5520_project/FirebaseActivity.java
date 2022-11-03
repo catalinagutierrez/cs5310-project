@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class FirebaseActivity extends AppCompatActivity {
@@ -30,7 +31,6 @@ public class FirebaseActivity extends AppCompatActivity {
     FirebaseDatabase rootNode;
     DatabaseReference reference;
     List<UserInfo> userList;
-    UserInfo currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,75 +42,77 @@ public class FirebaseActivity extends AppCompatActivity {
         loginBtn = findViewById(R.id.loginBtn);
         userList = new ArrayList<>();
 
-        // Populate user list with existing users
-        FirebaseDatabase.getInstance().getReference().child("Users").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot datas : snapshot.getChildren()) {
-                    String uid = datas.getKey();
-                    String name = datas.child("name").getValue().toString();
-                    String username = datas.child("username").getValue().toString();
-                    userList.add(new UserInfo(uid, name, username));
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userName = username.getText().toString();
-                String fullName = name.getText().toString();
+                String usernameStr = username.getText().toString();
+                String nameStr = name.getText().toString();
 
                 rootNode = FirebaseDatabase.getInstance();
                 reference = rootNode.getReference("Users");
 
-                login(fullName, userName);
+                signIn(nameStr, usernameStr);
             }
         });
     }
 
-    public void login(String name, String username){
-
+    public void signIn(String name, String username){
+        //TODO - Swap - handle when user input is empty
         // Check if user already exists in the list of users
-        boolean userExists = false;
-        for(UserInfo user : userList) {
-            if(user.getUsername().equals(username)) {
-                userExists = true;
-                currentUser = user;
-            }
-        }
 
-        // If they exist, load their profile
-        if(userExists){
-            loadUserProfile();
-        }
-        // Otherwise, generate a new profile and add them to the database
-        else{
-            // Generate a new empty item, and get the automatically generated key
-            String userId = reference.push().getKey();
+        // Check with db records if user exists
+        FirebaseDatabase.getInstance().getReference().child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                boolean userExists = false;
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    // if user exists, load their user profile
+                    if (data.child("username").getValue().toString().equals(username)) {
+                        HashMap<String, Integer> receivedStickers =  (HashMap<String, Integer>)data.child("receivedStickers").getValue();
+                        HashMap<String, Integer> sentStickers =  (HashMap<String, Integer>)data.child("sentStickers").getValue();
+                        UserInfo existingUser = new UserInfo(data.getKey(), data.child("name").getValue().toString(), data.child("username").getValue().toString(), sentStickers, receivedStickers);
 
-            // Insert the data using the key
-            currentUser = new UserInfo(userId, name, username);
-            reference.child(userId).setValue(currentUser).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful() && currentUser != null){
-                        loadUserProfile();
-                    }else{
-                        Toast.makeText(FirebaseActivity.this, "Login failed, please try again.", Toast.LENGTH_SHORT).show();
+                        loadUserProfile(existingUser);
+
+                        userExists = true;
+
+                        break;
                     }
                 }
-            });
-        }
+
+                // if user does not exist, create a new user
+                if(!userExists){
+                    signUp(name, username);
+                }
+            }
+            @Override
+            public void onCancelled (@NonNull DatabaseError error){
+            }
+        });
     }
 
-    public void loadUserProfile(){
+    public void signUp(String name, String username){
+        // Generate a new empty item, and get the automatically generated key
+        String uid = reference.push().getKey();
+
+        // Insert the data using the key
+        UserInfo newUser = new UserInfo(uid, name, username);
+        reference.child(uid).setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    loadUserProfile(newUser);
+                }else{
+                    Toast.makeText(FirebaseActivity.this, "Login failed, please try again.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    public void loadUserProfile(UserInfo currentUser){
         Toast.makeText(FirebaseActivity.this, currentUser.username, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(FirebaseActivity.this, UserProfileActivity.class);
-        intent.putExtra("username", currentUser.username);
+        intent.putExtra("CURRENT_USER", currentUser);
         startActivity(intent);
     }
 }

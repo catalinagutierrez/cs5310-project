@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +22,8 @@ public class StickerInfoActivity extends AppCompatActivity {
     private ImageView imageView;
     private TextView textView;
     private TextView receivedView, sentView;
+    Button sendStickerBtn;
+    UserInfo currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,32 +35,23 @@ public class StickerInfoActivity extends AppCompatActivity {
         receivedView = findViewById(R.id.ReceiveCount);
         sentView = findViewById(R.id.stickerCount);
 
+        currentUser = (UserInfo) getIntent().getSerializableExtra("CURRENT_USER");
+
         Intent intent = getIntent();
-        String stickerName = intent.getStringExtra("title");
-        String currentUser = intent.getStringExtra("currentUser");
-        String selectedFriend = intent.getStringExtra("selectedFriend");
-        imageView.setImageResource(intent.getIntExtra("image",0));
+        String stickerName = intent.getStringExtra("TITLE");
+        String selectedFriend = intent.getStringExtra("SELECTED_FRIEND");
+        imageView.setImageResource(intent.getIntExtra("IMAGE",0));
         textView.setText(stickerName);
 
-        FirebaseDatabase.getInstance().getReference().child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+        receivedView.setText("Times sent: "+ currentUser.receivedStickers.get(stickerName));
+        sentView.setText("Times received: "+ currentUser.sentStickers.get(stickerName));
+
+        sendStickerBtn = findViewById(R.id.sendBtn);
+        sendStickerBtn.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot datas : snapshot.getChildren()) {
-                    // Get users data from database
-                    if (datas.child("username").getValue().toString().equals(currentUser)) {
-                        HashMap<String, Integer> receivedStickers =  (HashMap<String, Integer>)datas.child("receivedStickers").getValue();
-                        HashMap<String, Integer> sentStickers =  (HashMap<String, Integer>)datas.child("sentStickers").getValue();
-                        receivedView.setText("Times sent: "+ receivedStickers.get(stickerName));
-                        sentView.setText("Times received: "+ sentStickers.get(stickerName));
-                        break;
-                    }
-                }
+            public void onClick(View view){
+
             }
-                @Override
-                public void onCancelled (@NonNull DatabaseError error){
-                }
-            });
-        
-        // TODO: Add onClick Listener to "SEND STICKER" button
+        });
     }
 }

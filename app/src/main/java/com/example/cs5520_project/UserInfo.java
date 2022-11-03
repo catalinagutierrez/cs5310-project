@@ -1,16 +1,18 @@
 package com.example.cs5520_project;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class UserInfo {
+public class UserInfo implements Serializable {
 
-    String name, username, userId;
+    String name, username, uid;
     HashMap<String, Integer> sentStickers, receivedStickers;
 
     public UserInfo() {
     }
 
-    public UserInfo(String userId, String name, String username) {
+    public UserInfo(String uid, String name, String username) {
+        this.uid = uid;
         this.name = name;
         this.username = username;
         this.sentStickers =  new HashMap<String, Integer>();
@@ -19,6 +21,14 @@ public class UserInfo {
             sentStickers.put("Emoji " + i, 0);
             receivedStickers.put("Emoji " + i, 0);
         }
+    }
+
+    public UserInfo(String uid, String name, String username, HashMap<String, Integer> sentStickers, HashMap<String, Integer> receivedStickers) {
+        this.uid = uid;
+        this.name = name;
+        this.username = username;
+        this.sentStickers =  sentStickers;
+        this.receivedStickers =  receivedStickers;
     }
 
     public String getName() {

@@ -42,7 +42,7 @@ public class UserProfileActivity extends AppCompatActivity {
     R.drawable.emoji_8,R.drawable.emoji_9, R.drawable.emoji_2};
     List<String> friendsList;
     String selectedFriend;
-    String currentUser;
+    UserInfo currentUser;
 
 
     @Override
@@ -53,10 +53,12 @@ public class UserProfileActivity extends AppCompatActivity {
         selectedFriend = "";
         username = findViewById(R.id.userId);
         Bundle bundle = getIntent().getExtras();
-        currentUser = bundle.getString("username");
+        currentUser = (UserInfo) getIntent().getSerializableExtra("CURRENT_USER");
         friendsList = new ArrayList<>();
 
         // Add users to friends dropdown
+        //TODO - Swap - handle default option. Make sure when none were selected selectedFriend defaults to the first
+        //TODO - Swap - handle what happens when friendList is empty in the db
         spinner = (Spinner)findViewById(R.id.spinner);
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(UserProfileActivity.this, android.R.layout.simple_list_item_1, friendsList);
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -83,6 +85,8 @@ public class UserProfileActivity extends AppCompatActivity {
                     String friendUsername = datas.child("username").getValue().toString();
                     if(!currentUser.equals(friendUsername)) {
                         friendsList.add(datas.child("name").getValue().toString());
+                    }else{
+
                     }
                     myAdapter.notifyDataSetChanged();
                 }
@@ -99,7 +103,7 @@ public class UserProfileActivity extends AppCompatActivity {
         recyclerView.setAdapter(recylerViewAdapter);
         recyclerView.setHasFixedSize(true);
 
-        username.setText(currentUser);
+        username.setText(currentUser.username);
     }
 
 
@@ -126,7 +130,6 @@ public class UserProfileActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             holder.imageView.setImageResource(arr[position]);
             holder.textView.setText("Emoji " + (position + 1));
-            holder.clickedView.setText("Sent " + 0 + " times");
         }
 
         @Override
@@ -143,17 +146,16 @@ public class UserProfileActivity extends AppCompatActivity {
                 super(itemView);
                 imageView = itemView.findViewById(R.id.imageView);
                 textView = itemView.findViewById(R.id.textView);
-                clickedView = itemView.findViewById(R.id.clickedView);
                 itemView.setOnClickListener(this);
             }
 
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context,StickerInfoActivity.class);
-                intent.putExtra("image",arr[getAbsoluteAdapterPosition()]);
-                intent.putExtra("title","Emoji " + (getAbsoluteAdapterPosition() + 1));
-                intent.putExtra("currentUser", currentUser);
-                intent.putExtra("selectedFriend", selectedFriend);
+                intent.putExtra("IMAGE",arr[getAbsoluteAdapterPosition()]);
+                intent.putExtra("TITLE","Emoji " + (getAbsoluteAdapterPosition() + 1));
+                intent.putExtra("CURRENT_USER", currentUser);
+                intent.putExtra("SELECTED_FRIEND", selectedFriend);
                 context.startActivity(intent);
             }
         }
