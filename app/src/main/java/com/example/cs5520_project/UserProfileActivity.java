@@ -6,10 +6,14 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,6 +26,7 @@ import java.util.List;
 public class UserProfileActivity extends AppCompatActivity {
 
     TextView username;
+    Spinner spinner;
     private RecyclerView recyclerView;
     FirebaseDatabase rootNode;
     DatabaseReference reference;
@@ -30,6 +35,8 @@ public class UserProfileActivity extends AppCompatActivity {
     int arr[] = {R.drawable.emoji_1,R.drawable.emoji_10,R.drawable.emoji_3,
     R.drawable.emoji_4,R.drawable.emoji_5, R.drawable.emoji_6, R.drawable.emoji_7,
     R.drawable.emoji_8,R.drawable.emoji_9, R.drawable.emoji_2};
+    List<String> friendsList;
+    String selectedFriend;
 
 
     @Override
@@ -37,10 +44,28 @@ public class UserProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
+        selectedFriend = "";
         username = findViewById(R.id.userId);
-        List<String> names = new ArrayList<>();
         Bundle bundle = getIntent().getExtras();
         String userName = bundle.getString("username");
+        friendsList = new ArrayList<>();
+
+        // Add users to friends dropdown
+        spinner = (Spinner)findViewById(R.id.spinner);
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(UserProfileActivity.this, android.R.layout.simple_list_item_1, friendsList);
+        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(myAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedFriend = friendsList.get(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Toast.makeText(getApplicationContext(), "Nothing sleected" ,Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // Load Users
         rootNode = FirebaseDatabase.getInstance();
@@ -51,8 +76,9 @@ public class UserProfileActivity extends AppCompatActivity {
                 for(DataSnapshot datas : snapshot.getChildren()) {
                     String friendUsername = datas.child("username").getValue().toString();
                     if(!userName.equals(friendUsername)) {
-                        names.add(datas.child("name").getValue().toString());
+                        friendsList.add(datas.child("name").getValue().toString());
                     }
+                    myAdapter.notifyDataSetChanged();
                 }
             }
             @Override
@@ -60,19 +86,14 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
-        // Add users to friends dropdown
-        Spinner mySpinner = (Spinner)findViewById(R.id.spinner);
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(UserProfileActivity.this, android.R.layout.simple_list_item_1,names);
-        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mySpinner.setAdapter(myAdapter);
-
         recyclerView = findViewById(R.id.recyclerView);
         layoutManager = new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(layoutManager);
-        recylerViewAdapter = new RecylerViewAdapter(arr,this, userName, "swap"); // TODO: Removed hardcoded name for spinner name
+        recylerViewAdapter = new RecylerViewAdapter(arr,this, userName, selectedFriend);
         recyclerView.setAdapter(recylerViewAdapter);
         recyclerView.setHasFixedSize(true);
 
         username.setText(userName);
     }
+
 }
