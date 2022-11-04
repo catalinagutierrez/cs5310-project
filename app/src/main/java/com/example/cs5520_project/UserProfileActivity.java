@@ -1,6 +1,7 @@
 package com.example.cs5520_project;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -101,36 +103,42 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
-        reference.child("Transactions").addValueEventListener(new ValueEventListener() {
+        String key = reference.child("Transactions").push().getKey();
+        reference.child("Transactions").orderByKey().startAt(key).addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(isListenerAttached) {
-                    for (DataSnapshot data : snapshot.getChildren()) {
-                        String receiver = data.child("receiver").getValue().toString();
-                        if (currentUser.getUsername().equals(receiver)) {
-                            String sender = data.child("sender").getValue().toString();
-                            String stickerName = data.child("sticker").getValue().toString();
-                            currentUser.incrementStickerCount("received", stickerName);
-                            reference.child("Users").child(currentUser.uid).setValue(currentUser).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(UserProfileActivity.this, stickerName + " sent by " + sender, Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(UserProfileActivity.this, "Failed to send, please try again.", Toast.LENGTH_SHORT).show();
-                                    }
+            public void onChildAdded(DataSnapshot snapshot, String s) {
+                    String receiver = snapshot.child("receiver").getValue().toString();
+                    if (currentUser.getUsername().equals(receiver)) {
+                        String sender = snapshot.child("sender").getValue().toString();
+                        String stickerName = snapshot.child("sticker").getValue().toString();
+                        currentUser.incrementStickerCount("received", stickerName);
+                        reference.child("Users").child(currentUser.uid).setValue(currentUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(UserProfileActivity.this, stickerName + " sent by " + sender, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(UserProfileActivity.this, "Failed to send, please try again.", Toast.LENGTH_SHORT).show();
                                 }
-                            });
-                        }
+                            }
+                        });
                     }
-                } else {
-                    isListenerAttached = true;
-                }
             }
+
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {}
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
+
+
 
         recyclerView = findViewById(R.id.recyclerView);
         layoutManager = new GridLayoutManager(this,2);
