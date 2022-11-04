@@ -26,6 +26,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import java.util.ArrayList;;
+import java.util.Arrays;
 import java.util.List;
 
 public class UserProfileActivity extends AppCompatActivity {
@@ -43,6 +44,7 @@ public class UserProfileActivity extends AppCompatActivity {
     List<String> friendsList;
     String selectedFriend;
     UserInfo currentUser;
+    String str[] = {"name1","name2"};
 
 
     @Override
@@ -51,9 +53,9 @@ public class UserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
 
         username = findViewById(R.id.userId);
-        Bundle bundle = getIntent().getExtras();
-        currentUser = (UserInfo) getIntent().getSerializableExtra("CURRENT_USER");
-        friendsList = new ArrayList<>();
+//        Bundle bundle = getIntent().getExtras();
+//        currentUser = (UserInfo) getIntent().getSerializableExtra("CURRENT_USER");
+        friendsList = Arrays.asList(str);
 
         //TODO - Swap - handle default option. Make sure when none were selected selectedFriend defaults to the first
         //TODO - Swap - handle what happens when friendList is empty in the db
@@ -64,18 +66,18 @@ public class UserProfileActivity extends AppCompatActivity {
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(UserProfileActivity.this, android.R.layout.simple_list_item_1, friendsList);
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(myAdapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedFriend = friendsList.get(i);
-            }
-
-            //Selects the first friend if none were selected
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                selectedFriend = friendsList.get(0);
-            }
-        });
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                selectedFriend = friendsList.get(i);
+//            }
+//
+//            //Selects the first friend if none were selected
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//                selectedFriend = friendsList.get(0);
+//            }
+//        });
 
         // Load Users
         rootNode = FirebaseDatabase.getInstance();
@@ -105,7 +107,7 @@ public class UserProfileActivity extends AppCompatActivity {
         recyclerView.setAdapter(recylerViewAdapter);
         recyclerView.setHasFixedSize(true);
 
-        username.setText(currentUser.username);
+        //username.setText(currentUser.username);
     }
 
 
@@ -156,8 +158,8 @@ public class UserProfileActivity extends AppCompatActivity {
                 Intent intent = new Intent(context,StickerInfoActivity.class);
                 intent.putExtra("IMAGE",arr[getAbsoluteAdapterPosition()]);
                 intent.putExtra("TITLE","Emoji " + (getAbsoluteAdapterPosition() + 1));
-                intent.putExtra("CURRENT_USER", currentUser);
-                intent.putExtra("SELECTED_FRIEND", selectedFriend);
+//                intent.putExtra("CURRENT_USER", currentUser);
+//                intent.putExtra("SELECTED_FRIEND", selectedFriend);
                 context.startActivity(intent);
             }
         }

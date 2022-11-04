@@ -43,33 +43,33 @@ public class StickerInfoActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String stickerName = intent.getStringExtra("TITLE");
-        String selectedFriend = intent.getStringExtra("SELECTED_FRIEND");
+        //String selectedFriend = intent.getStringExtra("SELECTED_FRIEND");
         imageView.setImageResource(intent.getIntExtra("IMAGE",0));
         textView.setText(stickerName);
 
-        receivedView.setText("Times sent: "+ currentUser.receivedStickers.get(stickerName));
-        sentView.setText("Times received: "+ currentUser.sentStickers.get(stickerName));
-
-        sendStickerBtn = findViewById(R.id.sendBtn);
-        sendStickerBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                //TODO update send sticker count -- setValue is deleting the hashmaps >:(
-                currentUser.incrementStickerCount("sent", stickerName);
-                reference.child(currentUser.uid).setValue(currentUser).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(StickerInfoActivity.this, "Sticker sent!", Toast.LENGTH_SHORT).show();
-
-                        }else{
-                            Toast.makeText(StickerInfoActivity.this, "Failed to send, please try again.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-                //TODO send a push notification ???
-            }
-        });
+//        receivedView.setText("Times sent: "+ currentUser.receivedStickers.get(stickerName));
+//        sentView.setText("Times received: "+ currentUser.sentStickers.get(stickerName));
+//
+//        sendStickerBtn = findViewById(R.id.sendBtn);
+//        sendStickerBtn.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view){
+//                //TODO update send sticker count -- setValue is deleting the hashmaps >:(
+//                currentUser.incrementStickerCount("sent", stickerName);
+//                reference.child(currentUser.uid).setValue(currentUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        if(task.isSuccessful()){
+//                            Toast.makeText(StickerInfoActivity.this, "Sticker sent!", Toast.LENGTH_SHORT).show();
+//
+//                        }else{
+//                            Toast.makeText(StickerInfoActivity.this, "Failed to send, please try again.", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+//
+//                //TODO send a push notification ???
+//            }
+//        });
     }
 }

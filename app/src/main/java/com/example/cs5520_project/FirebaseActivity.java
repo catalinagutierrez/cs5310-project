@@ -47,19 +47,22 @@ public class FirebaseActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String usernameStr = username.getText().toString();
-                String nameStr = name.getText().toString();
+                Intent intent = new Intent(FirebaseActivity.this, UserProfileActivity.class);
+                startActivity(intent);
 
-                rootNode = FirebaseDatabase.getInstance();
-                reference = rootNode.getReference("Users");
-
-                if (nameStr.trim().isEmpty()){
-                    Toast.makeText(FirebaseActivity.this, "Please enter a valid name.", Toast.LENGTH_SHORT).show();
-                } else if (usernameStr.trim().isEmpty()){
-                    Toast.makeText(FirebaseActivity.this, "Please enter a valid username.", Toast.LENGTH_SHORT).show();
-                } else {
-                    signIn(nameStr.trim(), usernameStr.trim());
-                }
+//                String usernameStr = username.getText().toString();
+//                String nameStr = name.getText().toString();
+//
+//                rootNode = FirebaseDatabase.getInstance();
+//                reference = rootNode.getReference("Users");
+//
+//                if (nameStr.trim().isEmpty()){
+//                    Toast.makeText(FirebaseActivity.this, "Please enter a valid name.", Toast.LENGTH_SHORT).show();
+//                } else if (usernameStr.trim().isEmpty()){
+//                    Toast.makeText(FirebaseActivity.this, "Please enter a valid username.", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    signIn(nameStr.trim(), usernameStr.trim());
+//                }
             }
         });
 
