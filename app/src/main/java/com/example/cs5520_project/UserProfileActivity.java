@@ -83,12 +83,11 @@ public class UserProfileActivity extends AppCompatActivity {
         reference.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                friendsList.clear();
                 for(DataSnapshot data : snapshot.getChildren()) {
                     String friendUsername = data.child("username").getValue().toString();
-                    if(!currentUser.equals(friendUsername)) {
+                    if(!currentUser.getUsername().equals(friendUsername)) {
                         friendsList.add(data.child("name").getValue().toString());
-                    }else{
-
                     }
                     myAdapter.notifyDataSetChanged();
                 }

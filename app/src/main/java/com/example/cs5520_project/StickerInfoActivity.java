@@ -15,6 +15,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Transaction;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class StickerInfoActivity extends AppCompatActivity {
 
@@ -24,7 +30,7 @@ public class StickerInfoActivity extends AppCompatActivity {
     Button sendStickerBtn;
     UserInfo currentUser;
     FirebaseDatabase rootNode;
-    DatabaseReference reference;
+    DatabaseReference userReference, transactionReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +43,8 @@ public class StickerInfoActivity extends AppCompatActivity {
         sentView = findViewById(R.id.stickerCount);
 
         rootNode = FirebaseDatabase.getInstance();
-        reference = rootNode.getReference("Users");
+        userReference = rootNode.getReference("Users");
+        transactionReference = rootNode.getReference("Transactions");
 
         currentUser = (UserInfo) getIntent().getSerializableExtra("CURRENT_USER");
 
@@ -47,28 +54,45 @@ public class StickerInfoActivity extends AppCompatActivity {
         imageView.setImageResource(intent.getIntExtra("IMAGE",0));
         textView.setText(stickerName);
 
-        receivedView.setText("Times sent: "+ currentUser.receivedStickers.get(stickerName));
-        sentView.setText("Times received: "+ currentUser.sentStickers.get(stickerName));
+        receivedView.setText("Times sent: "+ currentUser.sentStickers.get(stickerName));
+        sentView.setText("Times received: "+ currentUser.receivedStickers.get(stickerName));
 
         sendStickerBtn = findViewById(R.id.sendBtn);
         sendStickerBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                //TODO update send sticker count -- setValue is deleting the hashmaps >:(
                 currentUser.incrementStickerCount("sent", stickerName);
-                reference.child(currentUser.uid).setValue(currentUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                userReference.child(currentUser.uid).setValue(currentUser).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(StickerInfoActivity.this, "Sticker sent!", Toast.LENGTH_SHORT).show();
-
+                            recordTransaction(currentUser.name, selectedFriend, stickerName);
                         }else{
                             Toast.makeText(StickerInfoActivity.this, "Failed to send, please try again.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+            }
+        });
+    }
 
-                //TODO send a push notification ???
+    public void recordTransaction(String senderName, String friendName, String stickerName){
+        Date date = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm");
+        String dateStr = dateFormat.format(date);
+
+        myTransaction t = new myTransaction(senderName, friendName, stickerName, dateStr);
+
+        String tid = transactionReference.push().getKey();
+        transactionReference.child(tid).setValue(t).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(StickerInfoActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(StickerInfoActivity.this, "Fail", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
