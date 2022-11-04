@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import java.util.ArrayList;;
+import java.util.Arrays;
 import java.util.List;
 
 public class UserProfileActivity extends AppCompatActivity {
@@ -72,10 +73,10 @@ public class UserProfileActivity extends AppCompatActivity {
                 selectedFriend = friendsList.get(i);
             }
 
-            //TODO handle this better
+            //Selects the first friend if none were selected
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                Toast.makeText(getApplicationContext(), "Nothing selected", Toast.LENGTH_SHORT).show();
+                selectedFriend = friendsList.get(0);
             }
         });
 
@@ -132,7 +133,6 @@ public class UserProfileActivity extends AppCompatActivity {
         recylerViewAdapter = new RecylerViewAdapter(arr,this);
         recyclerView.setAdapter(recylerViewAdapter);
         recyclerView.setHasFixedSize(true);
-
         username.setText(currentUser.username);
     }
 
