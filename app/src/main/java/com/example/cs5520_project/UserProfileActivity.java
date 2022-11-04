@@ -119,7 +119,6 @@ public class UserProfileActivity extends AppCompatActivity {
                             }
                         });
                     }
-                    myAdapter.notifyDataSetChanged();
                 }
             }
             @Override
