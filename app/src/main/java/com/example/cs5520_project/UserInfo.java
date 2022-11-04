@@ -5,15 +5,14 @@ import java.util.HashMap;
 
 public class UserInfo implements Serializable {
 
-    String name, username, uid;
+    String username, uid;
     HashMap<String, Long> sentStickers, receivedStickers;
 
     public UserInfo() {
     }
 
-    public UserInfo(String uid, String name, String username) {
+    public UserInfo(String uid, String username) {
         this.uid = uid;
-        this.name = name;
         this.username = username;
         this.sentStickers =  new HashMap<String, Long>();
         this.receivedStickers =  new HashMap<String, Long>();
@@ -23,20 +22,11 @@ public class UserInfo implements Serializable {
         }
     }
 
-    public UserInfo(String uid, String name, String username, HashMap<String, Long> sentStickers, HashMap<String, Long> receivedStickers) {
+    public UserInfo(String uid, String username, HashMap<String, Long> sentStickers, HashMap<String, Long> receivedStickers) {
         this.uid = uid;
-        this.name = name;
         this.username = username;
         this.sentStickers =  sentStickers;
         this.receivedStickers =  receivedStickers;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public void incrementStickerCount(String type, String stickerName){

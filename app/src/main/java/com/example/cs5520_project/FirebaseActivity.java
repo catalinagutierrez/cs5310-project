@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class FirebaseActivity extends AppCompatActivity {
-    EditText name, username;
+    EditText username;
     Button loginBtn;
     FirebaseDatabase rootNode;
     DatabaseReference reference;
@@ -37,7 +37,6 @@ public class FirebaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_firebase);
 
-        name = findViewById(R.id.fullNameText);
         username = findViewById(R.id.usernameText);
         loginBtn = findViewById(R.id.loginBtn);
         userList = new ArrayList<>();
@@ -46,17 +45,16 @@ public class FirebaseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String usernameStr = username.getText().toString();
-                String nameStr = name.getText().toString();
 
                 rootNode = FirebaseDatabase.getInstance();
                 reference = rootNode.getReference("Users");
 
-                signIn(nameStr, usernameStr);
+                signIn(usernameStr);
             }
         });
     }
 
-    public void signIn(String name, String username){
+    public void signIn(String username){
         //TODO - Swap - handle when user input is empty
         // Check if user already exists in the list of users
 
@@ -70,7 +68,7 @@ public class FirebaseActivity extends AppCompatActivity {
                     if (data.child("username").getValue().toString().equals(username)) {
                         HashMap<String, Long> receivedStickers =  (HashMap<String, Long>)data.child("receivedStickers").getValue();
                         HashMap<String, Long> sentStickers =  (HashMap<String, Long>)data.child("sentStickers").getValue();
-                        UserInfo existingUser = new UserInfo(data.getKey(), data.child("name").getValue().toString(), data.child("username").getValue().toString(), sentStickers, receivedStickers);
+                        UserInfo existingUser = new UserInfo(data.getKey(), data.child("username").getValue().toString(), sentStickers, receivedStickers);
 
                         loadUserProfile(existingUser);
 
@@ -82,7 +80,7 @@ public class FirebaseActivity extends AppCompatActivity {
 
                 // if user does not exist, create a new user
                 if(!userExists){
-                    signUp(name, username);
+                    signUp(username);
                 }
             }
             @Override
@@ -91,12 +89,12 @@ public class FirebaseActivity extends AppCompatActivity {
         });
     }
 
-    public void signUp(String name, String username){
+    public void signUp(String username){
         // Generate a new empty item, and get the automatically generated key
         String uid = reference.push().getKey();
 
         // Insert the data using the key
-        UserInfo newUser = new UserInfo(uid, name, username);
+        UserInfo newUser = new UserInfo(uid, username);
         reference.child(uid).setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

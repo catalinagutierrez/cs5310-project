@@ -7,18 +7,6 @@
     tools:context=".FirebaseActivity">
 
     <EditText
-        android:id="@+id/fullNameText"
-        android:layout_width="112dp"
-        android:layout_height="wrap_content"
-        android:hint="Name"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.27" />
-
-    <EditText
         android:id="@+id/usernameText"
         android:layout_width="114dp"
         android:layout_height="wrap_content"

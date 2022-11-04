@@ -87,7 +87,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 for(DataSnapshot data : snapshot.getChildren()) {
                     String friendUsername = data.child("username").getValue().toString();
                     if(!currentUser.getUsername().equals(friendUsername)) {
-                        friendsList.add(data.child("name").getValue().toString());
+                        friendsList.add(friendUsername);
                     }
                     myAdapter.notifyDataSetChanged();
                 }

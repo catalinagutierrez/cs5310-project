@@ -19,6 +19,7 @@ public class myTransaction implements Serializable {
         return sender;
     }
 
+
     public String getReceiver() {
         return receiver;
     }

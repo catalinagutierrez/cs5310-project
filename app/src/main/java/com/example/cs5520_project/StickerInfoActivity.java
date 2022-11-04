@@ -67,7 +67,7 @@ public class StickerInfoActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(StickerInfoActivity.this, "Sticker sent!", Toast.LENGTH_SHORT).show();
-                            recordTransaction(currentUser.name, selectedFriend, stickerName);
+                            recordTransaction(currentUser.username, selectedFriend, stickerName);
                         }else{
                             Toast.makeText(StickerInfoActivity.this, "Failed to send, please try again.", Toast.LENGTH_SHORT).show();
                         }
@@ -77,12 +77,12 @@ public class StickerInfoActivity extends AppCompatActivity {
         });
     }
 
-    public void recordTransaction(String senderName, String friendName, String stickerName){
+    public void recordTransaction(String sender, String receiver, String stickerName){
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm");
         String dateStr = dateFormat.format(date);
 
-        myTransaction t = new myTransaction(senderName, friendName, stickerName, dateStr);
+        myTransaction t = new myTransaction(sender, receiver, stickerName, dateStr);
 
         String tid = transactionReference.push().getKey();
         transactionReference.child(tid).setValue(t).addOnCompleteListener(new OnCompleteListener<Void>() {
