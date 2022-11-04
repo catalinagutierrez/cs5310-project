@@ -70,10 +70,10 @@ public class UserProfileActivity extends AppCompatActivity {
                 selectedFriend = friendsList.get(i);
             }
 
-            //TODO handle this better
+            //Selects the first friend if none were selected
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                Toast.makeText(getApplicationContext(), "Nothing selected", Toast.LENGTH_SHORT).show();
+                selectedFriend = friendsList.get(0);
             }
         });
 

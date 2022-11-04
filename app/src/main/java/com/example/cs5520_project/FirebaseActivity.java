@@ -27,7 +27,7 @@ import java.util.List;
 
 public class FirebaseActivity extends AppCompatActivity {
     EditText name, username;
-    Button loginBtn;
+    Button loginBtn, aboutBtn;
     FirebaseDatabase rootNode;
     DatabaseReference reference;
     List<UserInfo> userList;
@@ -40,6 +40,8 @@ public class FirebaseActivity extends AppCompatActivity {
         name = findViewById(R.id.fullNameText);
         username = findViewById(R.id.usernameText);
         loginBtn = findViewById(R.id.loginBtn);
+        aboutBtn = findViewById(R.id.aboutBtn);
+
         userList = new ArrayList<>();
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -51,9 +53,24 @@ public class FirebaseActivity extends AppCompatActivity {
                 rootNode = FirebaseDatabase.getInstance();
                 reference = rootNode.getReference("Users");
 
-                signIn(nameStr, usernameStr);
+                if (nameStr.trim().isEmpty()){
+                    Toast.makeText(FirebaseActivity.this, "Please enter a valid name.", Toast.LENGTH_SHORT).show();
+                } else if (usernameStr.trim().isEmpty()){
+                    Toast.makeText(FirebaseActivity.this, "Please enter a valid username.", Toast.LENGTH_SHORT).show();
+                } else {
+                    signIn(nameStr.trim(), usernameStr.trim());
+                }
             }
         });
+
+        aboutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FirebaseActivity.this, AboutActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void signIn(String name, String username){
