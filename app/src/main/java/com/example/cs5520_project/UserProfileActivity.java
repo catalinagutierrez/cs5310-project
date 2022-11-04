@@ -13,6 +13,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -88,6 +90,35 @@ public class UserProfileActivity extends AppCompatActivity {
                     String friendUsername = data.child("username").getValue().toString();
                     if(!currentUser.getUsername().equals(friendUsername)) {
                         friendsList.add(friendUsername);
+                    }
+                    myAdapter.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+        reference.child("Transactions").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                friendsList.clear();
+                for(DataSnapshot data : snapshot.getChildren()) {
+                    String receiver = data.child("receiver").getValue().toString();
+                    if(currentUser.getUsername().equals(receiver)) {
+                        String sender = data.child("sender").getValue().toString();
+                        String stickerName = data.child("sticker").getValue().toString();
+                        currentUser.incrementStickerCount("received", stickerName);
+                        reference.child("Users").child(currentUser.uid).setValue(currentUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    Toast.makeText(UserProfileActivity.this, stickerName + " sent by " + sender, Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(UserProfileActivity.this, "Failed to send, please try again.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
                     }
                     myAdapter.notifyDataSetChanged();
                 }
