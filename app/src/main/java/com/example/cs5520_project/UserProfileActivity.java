@@ -46,6 +46,7 @@ public class UserProfileActivity extends AppCompatActivity {
     List<String> friendsList;
     String selectedFriend;
     UserInfo currentUser;
+    boolean isListenerAttached;
 
 
     @Override
@@ -103,23 +104,27 @@ public class UserProfileActivity extends AppCompatActivity {
         reference.child("Transactions").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot data : snapshot.getChildren()) {
-                    String receiver = data.child("receiver").getValue().toString();
-                    if(currentUser.getUsername().equals(receiver)) {
-                        String sender = data.child("sender").getValue().toString();
-                        String stickerName = data.child("sticker").getValue().toString();
-                        currentUser.incrementStickerCount("received", stickerName);
-                        reference.child("Users").child(currentUser.uid).setValue(currentUser).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()){
-                                    Toast.makeText(UserProfileActivity.this, stickerName + " sent by " + sender, Toast.LENGTH_SHORT).show();
-                                }else{
-                                    Toast.makeText(UserProfileActivity.this, "Failed to send, please try again.", Toast.LENGTH_SHORT).show();
+                if(isListenerAttached) {
+                    for (DataSnapshot data : snapshot.getChildren()) {
+                        String receiver = data.child("receiver").getValue().toString();
+                        if (currentUser.getUsername().equals(receiver)) {
+                            String sender = data.child("sender").getValue().toString();
+                            String stickerName = data.child("sticker").getValue().toString();
+                            currentUser.incrementStickerCount("received", stickerName);
+                            reference.child("Users").child(currentUser.uid).setValue(currentUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(UserProfileActivity.this, stickerName + " sent by " + sender, Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(UserProfileActivity.this, "Failed to send, please try again.", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }
                     }
+                } else {
+                    isListenerAttached = true;
                 }
             }
             @Override
