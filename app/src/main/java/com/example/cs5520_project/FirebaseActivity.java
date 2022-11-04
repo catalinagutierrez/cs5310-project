@@ -68,8 +68,8 @@ public class FirebaseActivity extends AppCompatActivity {
                 for (DataSnapshot data : snapshot.getChildren()) {
                     // if user exists, load their user profile
                     if (data.child("username").getValue().toString().equals(username)) {
-                        HashMap<String, Integer> receivedStickers =  (HashMap<String, Integer>)data.child("receivedStickers").getValue();
-                        HashMap<String, Integer> sentStickers =  (HashMap<String, Integer>)data.child("sentStickers").getValue();
+                        HashMap<String, Long> receivedStickers =  (HashMap<String, Long>)data.child("receivedStickers").getValue();
+                        HashMap<String, Long> sentStickers =  (HashMap<String, Long>)data.child("sentStickers").getValue();
                         UserInfo existingUser = new UserInfo(data.getKey(), data.child("name").getValue().toString(), data.child("username").getValue().toString(), sentStickers, receivedStickers);
 
                         loadUserProfile(existingUser);

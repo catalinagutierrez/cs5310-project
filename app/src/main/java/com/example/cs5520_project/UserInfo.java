@@ -6,7 +6,7 @@ import java.util.HashMap;
 public class UserInfo implements Serializable {
 
     String name, username, uid;
-    HashMap<String, Integer> sentStickers, receivedStickers;
+    HashMap<String, Long> sentStickers, receivedStickers;
 
     public UserInfo() {
     }
@@ -15,15 +15,15 @@ public class UserInfo implements Serializable {
         this.uid = uid;
         this.name = name;
         this.username = username;
-        this.sentStickers =  new HashMap<String, Integer>();
-        this.receivedStickers =  new HashMap<String, Integer>();
+        this.sentStickers =  new HashMap<String, Long>();
+        this.receivedStickers =  new HashMap<String, Long>();
         for(int i=1; i<11; i++){
-            sentStickers.put("Emoji " + i, 0);
-            receivedStickers.put("Emoji " + i, 0);
+            sentStickers.put("Emoji " + i, 0L);
+            receivedStickers.put("Emoji " + i, 0L);
         }
     }
 
-    public UserInfo(String uid, String name, String username, HashMap<String, Integer> sentStickers, HashMap<String, Integer> receivedStickers) {
+    public UserInfo(String uid, String name, String username, HashMap<String, Long> sentStickers, HashMap<String, Long> receivedStickers) {
         this.uid = uid;
         this.name = name;
         this.username = username;
@@ -39,6 +39,14 @@ public class UserInfo implements Serializable {
         this.name = name;
     }
 
+    public void incrementStickerCount(String type, String stickerName){
+        if(type == "sent"){
+            sentStickers.put(stickerName, sentStickers.get(stickerName) + 1);
+        }else if (type== "received"){
+            receivedStickers.put(stickerName, receivedStickers.get(stickerName) + 1);
+        }
+    }
+
     public String getUsername() {
         return username;
     }
@@ -47,11 +55,11 @@ public class UserInfo implements Serializable {
         this.username = username;
     }
 
-    public HashMap<String, Integer> getSentStickers() {
+    public HashMap<String, Long> getSentStickers() {
         return sentStickers;
     }
 
-    public HashMap<String, Integer> getReceivedStickers() {
+    public HashMap<String, Long> getReceivedStickers() {
         return receivedStickers;
     }
 

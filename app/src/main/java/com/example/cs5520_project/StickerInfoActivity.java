@@ -9,13 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.HashMap;
 
 public class StickerInfoActivity extends AppCompatActivity {
 
@@ -24,6 +23,8 @@ public class StickerInfoActivity extends AppCompatActivity {
     private TextView receivedView, sentView;
     Button sendStickerBtn;
     UserInfo currentUser;
+    FirebaseDatabase rootNode;
+    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,9 @@ public class StickerInfoActivity extends AppCompatActivity {
         textView = findViewById(R.id.imgTitle);
         receivedView = findViewById(R.id.ReceiveCount);
         sentView = findViewById(R.id.stickerCount);
+
+        rootNode = FirebaseDatabase.getInstance();
+        reference = rootNode.getReference("Users");
 
         currentUser = (UserInfo) getIntent().getSerializableExtra("CURRENT_USER");
 
@@ -50,7 +54,21 @@ public class StickerInfoActivity extends AppCompatActivity {
         sendStickerBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+                //TODO update send sticker count -- setValue is deleting the hashmaps >:(
+                currentUser.incrementStickerCount("sent", stickerName);
+                reference.child(currentUser.uid).setValue(currentUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(StickerInfoActivity.this, "Sticker sent!", Toast.LENGTH_SHORT).show();
 
+                        }else{
+                            Toast.makeText(StickerInfoActivity.this, "Failed to send, please try again.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                //TODO send a push notification ???
             }
         });
     }

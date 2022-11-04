@@ -50,15 +50,16 @@ public class UserProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
-        selectedFriend = "";
         username = findViewById(R.id.userId);
         Bundle bundle = getIntent().getExtras();
         currentUser = (UserInfo) getIntent().getSerializableExtra("CURRENT_USER");
         friendsList = new ArrayList<>();
 
-        // Add users to friends dropdown
         //TODO - Swap - handle default option. Make sure when none were selected selectedFriend defaults to the first
         //TODO - Swap - handle what happens when friendList is empty in the db
+        selectedFriend = "";
+
+        // Add users to friends dropdown
         spinner = (Spinner)findViewById(R.id.spinner);
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(UserProfileActivity.this, android.R.layout.simple_list_item_1, friendsList);
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -69,9 +70,10 @@ public class UserProfileActivity extends AppCompatActivity {
                 selectedFriend = friendsList.get(i);
             }
 
+            //TODO handle this better
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                Toast.makeText(getApplicationContext(), "Nothing sleected" ,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Nothing selected", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -81,10 +83,10 @@ public class UserProfileActivity extends AppCompatActivity {
         reference.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot datas : snapshot.getChildren()) {
-                    String friendUsername = datas.child("username").getValue().toString();
+                for(DataSnapshot data : snapshot.getChildren()) {
+                    String friendUsername = data.child("username").getValue().toString();
                     if(!currentUser.equals(friendUsername)) {
-                        friendsList.add(datas.child("name").getValue().toString());
+                        friendsList.add(data.child("name").getValue().toString());
                     }else{
 
                     }
