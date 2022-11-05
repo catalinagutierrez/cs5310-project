@@ -3,9 +3,15 @@ package com.example.cs5520_project;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,6 +36,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.net.ConnectException;
 import java.util.ArrayList;;
 import java.util.Arrays;
 import java.util.List;
@@ -50,6 +57,8 @@ public class UserProfileActivity extends AppCompatActivity {
     List<String> friendsList;
     String selectedFriend;
     UserInfo currentUser;
+
+    private static final String CHANNEL_ID = "CHANNEL_NO_1";
 
 
     @Override
@@ -124,7 +133,7 @@ public class UserProfileActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(UserProfileActivity.this, stickerName + " sent by " + sender, Toast.LENGTH_SHORT).show();
+                                    sendNotifictaion(UserProfileActivity.this, stickerName + " sent by " + sender, stickerName);
                                 } else {
                                     Toast.makeText(UserProfileActivity.this, "Failed to send, please try again.", Toast.LENGTH_SHORT).show();
                                 }
@@ -155,6 +164,33 @@ public class UserProfileActivity extends AppCompatActivity {
         recyclerView.setAdapter(recylerViewAdapter);
         recyclerView.setHasFixedSize(true);
         username.setText(currentUser.username);
+    }
+
+    public void sendNotifictaion(Context context, String message, String stickerName){
+        // Create your notification channel
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "myChannel", importance);
+            channel.setDescription(message);
+
+            // Register the channel with the system
+            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        int stickerId = Integer.valueOf(stickerName.split(" ")[1]) - 1;
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                .setSmallIcon(arr[stickerId])
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), arr[stickerId]))
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                .setContentTitle(message);
+
+        if (Build.VERSION.SDK_INT >= 21) mBuilder.setVibrate(new long[0]);
+
+        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(001, mBuilder.build());
     }
 
 
