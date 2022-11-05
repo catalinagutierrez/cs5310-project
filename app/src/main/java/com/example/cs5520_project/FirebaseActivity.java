@@ -66,8 +66,10 @@ public class FirebaseActivity extends AppCompatActivity {
     }
 
     public void signIn(String username){
-        //TODO - Swap - handle when user input is empty
-        // Check if user already exists in the list of users
+        if(username.isEmpty() || username == null){
+            Toast.makeText(FirebaseActivity.this, "Please enter a valid username", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         // Check with db records if user exists
         FirebaseDatabase.getInstance().getReference().child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -119,7 +121,6 @@ public class FirebaseActivity extends AppCompatActivity {
     }
 
     public void loadUserProfile(UserInfo currentUser){
-        Toast.makeText(FirebaseActivity.this, currentUser.username, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(FirebaseActivity.this, UserProfileActivity.class);
         intent.putExtra("CURRENT_USER", currentUser);
         startActivity(intent);

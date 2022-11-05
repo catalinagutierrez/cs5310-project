@@ -50,7 +50,6 @@ public class UserProfileActivity extends AppCompatActivity {
     List<String> friendsList;
     String selectedFriend;
     UserInfo currentUser;
-    boolean isListenerAttached;
 
 
     @Override
@@ -60,12 +59,9 @@ public class UserProfileActivity extends AppCompatActivity {
 
         username = findViewById(R.id.userId);
         historyBtn = findViewById(R.id.historyBtn);
-        Bundle bundle = getIntent().getExtras();
         currentUser = (UserInfo) getIntent().getSerializableExtra("CURRENT_USER");
         friendsList = new ArrayList<>();
 
-        //TODO - Swap - handle default option. Make sure when none were selected selectedFriend defaults to the first
-        //TODO - Swap - handle what happens when friendList is empty in the db
         selectedFriend = "";
 
         // Add users to friends dropdown
@@ -94,7 +90,6 @@ public class UserProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
         // Load Users
         rootNode = FirebaseDatabase.getInstance();
@@ -197,7 +192,6 @@ public class UserProfileActivity extends AppCompatActivity {
 
             ImageView imageView;
             TextView textView;
-            TextView clickedView;
             public MyViewHolder(@NonNull View itemView) {
                 super(itemView);
                 imageView = itemView.findViewById(R.id.imageView);
