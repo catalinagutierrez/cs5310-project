@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +38,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     TextView username;
     Spinner spinner;
+    Button historyBtn;
     private RecyclerView recyclerView;
     FirebaseDatabase rootNode;
     DatabaseReference reference;
@@ -57,6 +59,7 @@ public class UserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
 
         username = findViewById(R.id.userId);
+        historyBtn = findViewById(R.id.historyBtn);
         Bundle bundle = getIntent().getExtras();
         currentUser = (UserInfo) getIntent().getSerializableExtra("CURRENT_USER");
         friendsList = new ArrayList<>();
@@ -82,6 +85,16 @@ public class UserProfileActivity extends AppCompatActivity {
                 selectedFriend = friendsList.get(0);
             }
         });
+
+        historyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UserProfileActivity.this, HistoryActivity.class);
+                intent.putExtra("CURRENT_USER", currentUser);
+                startActivity(intent);
+            }
+        });
+
 
         // Load Users
         rootNode = FirebaseDatabase.getInstance();
