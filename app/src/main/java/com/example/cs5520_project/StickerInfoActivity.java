@@ -62,6 +62,7 @@ public class StickerInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 currentUser.incrementStickerCount("sent", stickerName);
+                receivedView.setText("Times sent: "+ currentUser.sentStickers.get(stickerName));
                 userReference.child(currentUser.uid).setValue(currentUser).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
