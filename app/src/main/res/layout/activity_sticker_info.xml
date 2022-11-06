@@ -16,10 +16,9 @@
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.45" />
+        app:layout_constraintTop_toBottomOf="@+id/stickerCount"
+        app:layout_constraintVertical_bias="0.03" />
 
     <TextView
         android:id="@+id/stickerCount"
@@ -30,45 +29,20 @@
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.381" />
+        app:layout_constraintTop_toBottomOf="@+id/imgTitle"
+        app:layout_constraintVertical_bias="0.027" />
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        app:cardCornerRadius="60dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+    <ImageView
+        android:id="@+id/imageInfo"
+        android:layout_width="178dp"
+        android:layout_height="126dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.01999998">
-
-        <ImageView
-            android:id="@+id/imageInfo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/emoji_1"
-
-            />
-
-
-    </androidx.cardview.widget.CardView>
-<!--    <ImageView-->
-<!--        android:id="@+id/imageInfo"-->
-<!--        android:layout_width="406dp"-->
-<!--        android:layout_height="282dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.4"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.011"-->
-<!--        app:srcCompat="@drawable/emoji_1" />-->
-
+        app:srcCompat="@drawable/emoji_1" />
 
     <TextView
         android:id="@+id/imgTitle"
@@ -79,10 +53,9 @@
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.315" />
+        app:layout_constraintTop_toBottomOf="@+id/imageInfo"
+        app:layout_constraintVertical_bias="0.02" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/sendBtn"
@@ -95,8 +68,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.627" />
+        app:layout_constraintTop_toBottomOf="@+id/ReceiveCount"
+        app:layout_constraintVertical_bias="0.269" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,10 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:textSize="36dp"
-        android:textColor="#F3F3F3"
-        android:fontFamily="@font/pacifico"
+        android:fontFamily="sans-serif-condensed-light"
         android:text="HISTORY"
+        android:textColor="#F3F3F3"
+        android:textSize="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

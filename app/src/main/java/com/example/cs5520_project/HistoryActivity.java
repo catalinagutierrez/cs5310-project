@@ -42,7 +42,7 @@ public class HistoryActivity extends AppCompatActivity {
                         String stickerName = data.child("sticker").getValue().toString();
                         String time = data.child("date").getValue().toString();
 
-                        String transaction = stickerName + " sent by " + sender + " | " + time + "\n";
+                        String transaction = stickerName + " was sent by " + sender + " on " + time + "\n\n";
                         historyText.append(transaction);
                     }
                 }
