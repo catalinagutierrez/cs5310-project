@@ -66,8 +66,8 @@ public class FirebaseActivity extends AppCompatActivity {
     }
 
     public void signIn(String username){
-        if(username.isEmpty() || username == null || username.trim().isEmpty()){
-            Toast.makeText(FirebaseActivity.this, "Please enter a valid username", Toast.LENGTH_SHORT).show();
+        if(username.isEmpty() || username == null || username.trim().isEmpty() || username.contains(" ")){
+            Toast.makeText(FirebaseActivity.this, "Please enter a valid username, no spaces!", Toast.LENGTH_SHORT).show();
             return;
         }
 
