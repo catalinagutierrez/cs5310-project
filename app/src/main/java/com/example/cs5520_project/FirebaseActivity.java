@@ -50,7 +50,6 @@ public class FirebaseActivity extends AppCompatActivity {
 
                 rootNode = FirebaseDatabase.getInstance();
                 reference = rootNode.getReference("Users");
-
                 signIn(usernameStr);
             }
         });
