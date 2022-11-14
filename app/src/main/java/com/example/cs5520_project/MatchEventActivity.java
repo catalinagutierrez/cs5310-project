@@ -25,7 +25,7 @@ public class MatchEventActivity extends AppCompatActivity {
     RecyclerView eventRecyler;
     RecyclerView.Adapter adapter;
     ArrayList<EventHelperClass> eventList = new ArrayList<>();
-    String URL = "https://serpapi.com/search.json?engine=google_events&q=Events+in+Austin&hl=en&gl=us\n" +
+    String URL1 = "https://serpapi.com/search.json?engine=google_events&q=Events+in+Austin&hl=en&gl=us\n" +
             "&api_key=d139e1b5e2e1539f21fac65a05f3599f6b7cfe436a39a39392a5fc730c5b3bab";
 
     @Override
@@ -35,22 +35,18 @@ public class MatchEventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_match_event);
 
         eventRecyler = findViewById(R.id.event_recycler);
-        parseApiData();
-        //eventRecyler();
+        String URL = getIntent().getStringExtra("URL");
+        parseApiData(URL);
     }
 
     private void eventRecyler(ArrayList eventList) {
         eventRecyler.setHasFixedSize(true);
         eventRecyler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-////        eventListTemp.add(new EventHelperClass(R.drawable.green_logo,"Testing"));
-////        eventListTemp.add(new EventHelperClass(R.drawable.red_logo,"Testing2"));
-        Log.e("slay2", String.valueOf(eventList.size()));
         adapter = new EventAdapterFind(eventList,MatchEventActivity.this);
         eventRecyler.setAdapter(adapter);
     }
 
-    public void parseApiData(){
+    public void parseApiData(String URL){
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -70,20 +66,11 @@ public class MatchEventActivity extends AppCompatActivity {
                                 image = jsonObject1.getString("thumbnail");
                             }
                             eventList.add(new EventHelperClass(image,description));
-
-                            Log.e("slay", image + " " + description + " " + eventList.toString());
                         }
-                        Log.e("slay1","anything!");
-//                        eventRecyler.setHasFixedSize(true);
-//                        eventRecyler.setLayoutManager(new LinearLayoutManager(MatchEventActivity.this, LinearLayoutManager.HORIZONTAL, false));
-//                        Log.e("slay2", String.valueOf(eventList.size()));
-//                        adapter = new EventAdapterFind(eventList, MatchEventActivity.this);
-//                        eventRecyler.setAdapter(adapter);
+
                     }
-                    Log.e("slay2","anything!");
                     eventRecyler(eventList);
                 } catch (Exception e) {
-                    Log.e("slay3",e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -96,6 +83,5 @@ public class MatchEventActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-        Log.e("slay4","anything!");
     }
 }
