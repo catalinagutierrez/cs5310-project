@@ -2,19 +2,19 @@ package com.example.cs5520_project;
 
 public class EventHelperClass {
 
-    int image;
+    String image;
     String description;
 
-    public EventHelperClass(int image, String description) {
+    public EventHelperClass(String image, String description) {
         this.image = image;
         this.description = description;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

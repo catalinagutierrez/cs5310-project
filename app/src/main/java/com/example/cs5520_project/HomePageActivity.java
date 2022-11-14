@@ -7,6 +7,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -19,10 +20,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+
 public class HomePageActivity extends AppCompatActivity implements LocationListener {
     Button findNewEventBtn;
     RecyclerView eventRecyler, friendEventRecyler;
     RecyclerView.Adapter adapter;
+
+    ArrayList<EventHelperClass> eventList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +56,6 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
         friendEventRecyler = findViewById(R.id.yourFriendsEventsRecycler);
         friendEventRecyler();
 
-
     }
 
     private void eventRecyler() {
@@ -61,8 +64,8 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
 
         ArrayList<EventHelperClass> eventList = new ArrayList<>();
 
-        eventList.add(new EventHelperClass(R.drawable.green_logo,"Testing"));
-        eventList.add(new EventHelperClass(R.drawable.red_logo,"Testing2"));
+        //eventList.add(new EventHelperClass(R.drawable.green_logo,"Testing"));
+        //eventList.add(new EventHelperClass(R.drawable.red_logo,"Testing2"));
 
         adapter = new EventAdapterYourEvents(eventList, this);
         eventRecyler.setAdapter(adapter);
@@ -71,11 +74,8 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
     private void friendEventRecyler() {
         friendEventRecyler.setHasFixedSize(true);
         friendEventRecyler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-        ArrayList<EventHelperClass> eventList = new ArrayList<>();
-
-        eventList.add(new EventHelperClass(R.drawable.green_logo,"Testing"));
-        eventList.add(new EventHelperClass(R.drawable.red_logo,"Testing2"));
+        //eventList.add(new EventHelperClass(R.drawable.green_logo,"Testing"));
+        //eventList.add(new EventHelperClass(R.drawable.red_logo,"Testing2"));
 
         adapter = new EventAdapterYourEvents(eventList, this);
         friendEventRecyler.setAdapter(adapter);
@@ -85,5 +85,7 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
     public void onLocationChanged(@NonNull Location location) {
 
     }
+
+
 
 }
