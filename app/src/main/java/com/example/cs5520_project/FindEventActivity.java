@@ -6,22 +6,27 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FindEventActivity extends AppCompatActivity implements View.OnClickListener {
     Button findEventbtn;
     Button todayBtn,tomorrowBtn,weekendBtn,thisWeekBtn,thisMonthBtn,nextWeekBtn;
     Button freeBtn, underFifteen,underThirty,underFifty,underHundred,noLimit;
     Button musicBtn,artsBtn,travelBtn,healthBtn,foodBtn,onlineBtn,hobbiesBtn,sportsBtn,businessBtn;
-    String URL = "https://serpapi.com/search.json?engine=google_events&q=Events+in+Austin&hl=en&gl=us\n" +
-            "&api_key=d139e1b5e2e1539f21fac65a05f3599f6b7cfe436a39a39392a5fc730c5b3bab";
     String mURL="https://serpapi.com/search.json?engine=google_events&hl=en&gl=us\n" +
             "&api_key=d139e1b5e2e1539f21fac65a05f3599f6b7cfe436a39a39392a5fc730c5b3bab&q=Events+Boston";
-    String htichips = "";
+    String htichips = "&htichips=event_type:,date:";
     int black = Color.BLACK;
     int white = Color.WHITE;
+    Boolean clickedDate = false;
+    Map<Button,String> map = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +35,6 @@ public class FindEventActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_find_event);
 
         todayBtn = findViewById(R.id.todayBtn);
-        tomorrowBtn = findViewById(R.id.tomorrowBtn);
         tomorrowBtn = findViewById(R.id.tomorrowBtn);
         weekendBtn = findViewById(R.id.weekendBtn);
         thisWeekBtn = findViewById(R.id.thisWeekBtn);
@@ -52,11 +56,11 @@ public class FindEventActivity extends AppCompatActivity implements View.OnClick
         sportsBtn = findViewById(R.id.sportsBtn);
         businessBtn = findViewById(R.id.businessBtn);
 
-
         findEventbtn = findViewById(R.id.searchBtn);
         findEventbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mURL = mURL + htichips;
                 Intent intent = new Intent(FindEventActivity.this, MatchEventActivity.class);
                 intent.putExtra("URL", mURL);
                 startActivity(intent);
@@ -106,6 +110,28 @@ public class FindEventActivity extends AppCompatActivity implements View.OnClick
             case R.id.underHundred:
                 clickedButton(underHundred);
                 break;
+            case R.id.onlineBtn:
+                clickedDateButton(onlineBtn,"Virtual-Event");
+                break;
+            case R.id.todayBtn:
+                clickedDateButton(todayBtn,"today");
+                break;
+            case R.id.tomorrowBtn:
+                clickedDateButton(tomorrowBtn,"tomorrow");
+                break;
+            case R.id.thisWeekBtn:
+                clickedDateButton(thisWeekBtn,"week");
+                break;
+            case R.id.weekendBtn:
+                clickedDateButton(weekendBtn,"weekend");
+                break;
+            case R.id.nextWeekBtn:
+                clickedDateButton(nextWeekBtn,"next_week");
+                break;
+            case R.id.thisMonthBtn:
+                clickedDateButton(thisMonthBtn,"month");
+                break;
+
         }
     }
 
@@ -114,26 +140,45 @@ public class FindEventActivity extends AppCompatActivity implements View.OnClick
             b.setBackgroundResource(R.drawable.btn_bg);
             b.setTextColor(black);
             mURL = mURL + "+"+b.getText();
-            Toast.makeText(this, mURL, Toast.LENGTH_SHORT).show();
         } else {
             b.setBackgroundResource(R.drawable.btn_bg_black);
             b.setTextColor(white);
             mURL = mURL.replace("+"+b.getText(),"");
-            Toast.makeText(this, mURL, Toast.LENGTH_SHORT).show();
         }
     }
 
     private void clickedDateButton(Button b, String s) {
-        if (b.getCurrentTextColor() == white){
+        if(b != onlineBtn) {
+            if (!clickedDate && b.getCurrentTextColor() == white) {
+                b.setBackgroundResource(R.drawable.btn_bg);
+                b.setTextColor(black);
+                htichips = htichips.replace(",date:",",date:" + s);
+                clickedDate = true;
+                map.put(b,s);
+            } else if (clickedDate && b.getCurrentTextColor() == black){
+                b.setBackgroundResource(R.drawable.btn_bg_black);
+                b.setTextColor(white);
+                htichips = htichips.replace(",date:" + s, ",date:");
+                clickedDate = false;
+                map.clear();
+            } else if (clickedDate && b.getCurrentTextColor() == white ){
+                for (Button btn : map.keySet()){
+                    clickedDateButton(btn,map.get(btn));
+                    clickedDate = true;
+                }
+                clickedDate = false;
+                clickedDateButton(b,s);
+                map.put(b,s);
+                clickedDate = true;
+            }
+        } else if(b.getCurrentTextColor() == white) {
             b.setBackgroundResource(R.drawable.btn_bg);
             b.setTextColor(black);
-            htichips = htichips + "=date:" + s;
-            Toast.makeText(this, mURL, Toast.LENGTH_SHORT).show();
+            htichips = htichips.replace("=event_type:","=event_type:"+ s);
         } else {
             b.setBackgroundResource(R.drawable.btn_bg_black);
             b.setTextColor(white);
-            htichips = mURL.replace("+"+b.getText(),"");
-            Toast.makeText(this, mURL, Toast.LENGTH_SHORT).show();
+            htichips = htichips.replace("=event_type:"+ s,"=event_type:");
         }
     }
 }
