@@ -18,7 +18,7 @@ public class FindEventActivity extends AppCompatActivity implements View.OnClick
     String URL = "https://serpapi.com/search.json?engine=google_events&q=Events+in+Austin&hl=en&gl=us\n" +
             "&api_key=d139e1b5e2e1539f21fac65a05f3599f6b7cfe436a39a39392a5fc730c5b3bab";
     String mURL="https://serpapi.com/search.json?engine=google_events&hl=en&gl=us\n" +
-            "&api_key=d139e1b5e2e1539f21fac65a05f3599f6b7cfe436a39a39392a5fc730c5b3bab&q=Events+in+Austin";
+            "&api_key=d139e1b5e2e1539f21fac65a05f3599f6b7cfe436a39a39392a5fc730c5b3bab&q=Events+Boston";
     String htichips = "";
     int black = Color.BLACK;
     int white = Color.WHITE;

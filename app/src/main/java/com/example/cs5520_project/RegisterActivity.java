@@ -7,18 +7,23 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.cs5520_project.messages.MessagesList;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
 
     TextView existingAccount;
+    List<MessagesList> messagesLists = new ArrayList<>() ;
     EditText regUsername, regEmail, regPassword, regConfirmPassword;
     Button regButton;
+    String uid;
     FirebaseDatabase rootNode;
     DatabaseReference reference;
     @Override
@@ -31,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
         regEmail = findViewById(R.id.inputEmail);
         regPassword = findViewById(R.id.inputPassword1);
         regConfirmPassword = findViewById(R.id.inputConfirmPassword);
-        regButton = findViewById(R.id.registerBtn);
+        regButton = findViewById(R.id.eventureLoginBtn);
 
         existingAccount = findViewById(R.id.existingAccountText);
         existingAccount.setOnClickListener(new View.OnClickListener() {
@@ -47,10 +52,8 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 rootNode = FirebaseDatabase.getInstance();
-                reference = rootNode.getReference("users");
-
-                reference.setValue("hello");
-                Toast.makeText(RegisterActivity.this, reference.toString(), Toast.LENGTH_SHORT).show();
+                reference = rootNode.getReference("Eventure Users");
+                registerUser(view);
             }
         });
     }
@@ -61,13 +64,18 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
+        uid = reference.push().getKey();
+
         String username = regUsername.getText().toString();
         String email = regEmail.getText().toString();
         String password = regPassword.getText().toString();
         String confirmPass = regConfirmPassword.getText().toString();
+        MessagesList messagesList = new MessagesList(username,"","",0);
+        messagesLists.add(messagesList);
+        UserHelperClass helperclass = new UserHelperClass(uid,username,email,password,confirmPass, messagesLists);
 
-        //UserHelperClass helperclass = new UserHelperClass(username,email,password,confirmPass);
-        //reference.child(username).setValue(helperclass);
+        reference.child(uid).setValue(helperclass);
+        loadUserProfile();
     }
 
     private Boolean validateUsername() {
@@ -87,7 +95,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private Boolean validateEmail() {
         String email = regEmail.getText().toString();
-        String emailPattern = "[a-zA-Z0-9._-]+@[a=z]+\\.+[a-z]+";
+        String emailPattern = "^(.+)@(.+)$";
         if(email.isEmpty() || email == null || email.trim().isEmpty()){
             regEmail.setError("Field cannot be empty");
 //            Toast.makeText(RegisterActivity.this, "Please enter a valid username, no spaces!", Toast.LENGTH_SHORT).show();
@@ -120,5 +128,12 @@ public class RegisterActivity extends AppCompatActivity {
             regConfirmPassword.setError(null);
             return true;
         }
+    }
+
+    public void loadUserProfile(){
+        Intent intent = new Intent(RegisterActivity.this, HomePageActivity.class);
+        intent.putExtra("uid",uid);
+        startActivity(intent);
+        finish();
     }
 }

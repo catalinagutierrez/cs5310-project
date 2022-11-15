@@ -81,5 +81,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/yourFriendsEvents" />
 
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="40dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/headline" />
+
+    <ImageView
+        android:id="@+id/messageIcon"
+        android:layout_width="40dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/messageicon"
+        tools:layout_editor_absoluteY="641dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
