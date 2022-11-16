@@ -71,15 +71,12 @@ public class LoginActivity extends AppCompatActivity {
                     // if user exists, load their user profile
                     if (data.child("username").getValue().toString().equals(username)
                             && data.child("password").getValue().toString().equals(password)) {
-                        uid = data.child("uid").getValue().toString();
+                        uid = data.getKey();
                         loadUserProfile(uid);
-
                         userExists = true;
-
                         break;
                     }
                 }
-
                 // if user does not exist, create a new user
                 if(!userExists){
                     Toast.makeText(LoginActivity.this, "Account not found. Please signup", Toast.LENGTH_SHORT).show();
@@ -96,7 +93,6 @@ public class LoginActivity extends AppCompatActivity {
         intent.putExtra("username",username.getText().toString());
         intent.putExtra("uid",uid);
         startActivity(intent);
-
         finish();
     }
 }

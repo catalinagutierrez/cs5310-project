@@ -3,6 +3,7 @@ package com.example.cs5520_project;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,6 +26,7 @@ public class MatchEventActivity extends AppCompatActivity {
     RecyclerView eventRecyler;
     RecyclerView.Adapter adapter;
     ArrayList<EventHelperClass> eventList = new ArrayList<>();
+    String uid;
     String URL1 = "https://serpapi.com/search.json?engine=google_events&q=Events+in+Austin&hl=en&gl=us\n" +
             "&api_key=d139e1b5e2e1539f21fac65a05f3599f6b7cfe436a39a39392a5fc730c5b3bab";
 
@@ -33,16 +35,18 @@ public class MatchEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_match_event);
+        uid = getIntent().getStringExtra("uid");
 
         eventRecyler = findViewById(R.id.event_recycler);
         String URL = getIntent().getStringExtra("URL");
         parseApiData(URL);
+
     }
 
     private void eventRecyler(ArrayList eventList) {
         eventRecyler.setHasFixedSize(true);
         eventRecyler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        adapter = new EventAdapterFind(eventList,MatchEventActivity.this);
+        adapter = new EventAdapterFind(eventList,MatchEventActivity.this, uid);
         eventRecyler.setAdapter(adapter);
     }
 

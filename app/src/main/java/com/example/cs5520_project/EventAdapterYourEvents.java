@@ -16,6 +16,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -31,6 +33,11 @@ public class EventAdapterYourEvents extends RecyclerView.Adapter<EventAdapterYou
         this.context = context;
     }
 
+    public void setEvents(ArrayList<EventHelperClass> events) {
+        eventList = events;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,13 +49,11 @@ public class EventAdapterYourEvents extends RecyclerView.Adapter<EventAdapterYou
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder holder,int position) {
         EventHelperClass eventHelperClass = eventList.get(position);
-
-        //holder.image.setImageResource(eventHelperClass.getImage());
-        //holder.image.setImageBitmap(getBitmapFromURL(eventHelperClass.getImage()));
+        Picasso.get().load(eventHelperClass.getImage()).into(holder.image);
         holder.description.setText(eventHelperClass.getDescription());
 
-
     }
+
 
     @Override
     public int getItemCount() {
@@ -62,7 +67,6 @@ public class EventAdapterYourEvents extends RecyclerView.Adapter<EventAdapterYou
 
         public EventViewHolder(@NonNull View itemView) {
             super(itemView);
-
             image = itemView.findViewById(R.id.horizontal_image);
             description = itemView.findViewById(R.id.horizontal_text);
         }

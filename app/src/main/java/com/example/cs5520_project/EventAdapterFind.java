@@ -1,40 +1,37 @@
 package com.example.cs5520_project;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
-import com.bumptech.glide.Glide;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 
 public class EventAdapterFind extends RecyclerView.Adapter<EventAdapterFind.EventViewHolder> {
 
     ArrayList<EventHelperClass> eventList;
-    private static Bitmap img;
+    ArrayList<EventHelperClass> addedEventList;
     EventHelperClass eventHelperClass;
     Context context;
+    String uid;
 
-
-
-    public EventAdapterFind(ArrayList<EventHelperClass> eventList, Context context) {
+    public EventAdapterFind(ArrayList<EventHelperClass> eventList, Context context, String uid) {
         this.eventList = eventList;
         this.context = context;
+        this.uid = uid;
     }
 
     @NonNull
@@ -49,17 +46,29 @@ public class EventAdapterFind extends RecyclerView.Adapter<EventAdapterFind.Even
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
         eventHelperClass = eventList.get(position);
         holder.description.setText(eventHelperClass.getDescription());
-        Log.e("slay1", eventList.toString());
-        Glide.with(context).load(eventHelperClass.getImage())
-                .placeholder(R.drawable.blue_bg)
-                .error(R.drawable.ic_launcher_foreground).into(holder.image);
-        //URL newurl = new URL(eventHelperClass.getImage());
-        //Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
-        //holder.image.setImageBitmap(mIcon_val);
-        //holder.image.setImageBitmap(getBitmapFromURL(eventHelperClass.getImage()));
-        //setBitmapFromNetwork(eventHelperClass, holder);
+        Picasso.get().load(eventHelperClass.getImage()).into(holder.image);
+        holder.addEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EventHelperClass event = new EventHelperClass(eventHelperClass.getImage(),eventHelperClass.getDescription());
+                addEvent(event);
+            }
+        });
     }
 
+    public void addEvent(EventHelperClass event) {
+        String eid = FirebaseDatabase.getInstance().getReference("Eventure Users").child(uid).child("addedEventList").push().getKey();
+        FirebaseDatabase.getInstance().getReference("Eventure Users").child(uid).child("addedEventList").child(eid).setValue(event).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(context, "Fail", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
     @Override
     public int getItemCount() {
         return eventList.size();
@@ -68,51 +77,15 @@ public class EventAdapterFind extends RecyclerView.Adapter<EventAdapterFind.Even
     public static class EventViewHolder extends RecyclerView.ViewHolder{
         ImageView image;
         TextView description;
+        Button addEvent;
 
         public EventViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.eventImage);
             description = itemView.findViewById(R.id.eventDescription);
+            addEvent = itemView.findViewById(R.id.eventRegisterBtn);
         }
     }
-
-
-//    public void setBitmapFromNetwork(EventHelperClass e, EventViewHolder h) {
-//
-//        Runnable runnable = new Runnable() {
-//            Bitmap bitmap = null;
-//
-//            @Override
-//            public void run() {
-//                try {
-//                    bitmap = getBitmapFromLink(e.getImage());
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                h.image.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        h.image.setImageBitmap(bitmap);
-//                        h.description.setText(e.getDescription());
-//                    }
-//                });
-//            }};
-//        new Thread(runnable).start();
-//    }
-//
-//
-//    public Bitmap getBitmapFromLink(String URL) throws IOException{
-//        HttpURLConnection conn =(HttpURLConnection) new URL(URL).openConnection();
-//        conn.setDoInput(true);
-//        InputStream ism = conn.getInputStream();
-//        Bitmap bitmap = BitmapFactory.decodeStream(ism);
-//        if (ism != null) {
-//            ism .close();
-//        }
-//        return bitmap;
-//    }
-
-
 
 
 }

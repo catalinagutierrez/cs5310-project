@@ -7,12 +7,17 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cs5520_project.messages.MessagesList;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,12 +75,40 @@ public class RegisterActivity extends AppCompatActivity {
         String email = regEmail.getText().toString();
         String password = regPassword.getText().toString();
         String confirmPass = regConfirmPassword.getText().toString();
+        ArrayList<EventHelperClass> addedEventList = new ArrayList<>();
         MessagesList messagesList = new MessagesList(username,"","",0);
+        EventHelperClass emptyData = new EventHelperClass("","");
+        addedEventList.add(emptyData);
         messagesLists.add(messagesList);
-        UserHelperClass helperclass = new UserHelperClass(uid,username,email,password,confirmPass, messagesLists);
+        UserHelperClass helperclass = new UserHelperClass(username,email,password,confirmPass, messagesLists,addedEventList);
 
-        reference.child(uid).setValue(helperclass);
-        loadUserProfile();
+        FirebaseDatabase.getInstance().getReference().child("Eventure Users").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                boolean userExists = false;
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    // if user exists, load their user profile
+                    if (data.child("username").getValue().toString().equals(username)){
+                        Toast.makeText(RegisterActivity.this, "username already exists", Toast.LENGTH_SHORT).show();
+                        userExists = true;
+                        break;
+                    } else if (data.child("email").getValue().toString().equals(email)) {
+                        Toast.makeText(RegisterActivity.this, "Email already exists", Toast.LENGTH_SHORT).show();
+                        userExists = true;
+                        break;
+                    }
+                }
+                // if user does not exist, create a new user
+                if(!userExists){
+                    reference.child(uid).setValue(helperclass);
+                    loadUserProfile();
+                }
+            }
+            @Override
+            public void onCancelled (@NonNull DatabaseError error){
+            }
+        });
+
     }
 
     private Boolean validateUsername() {
@@ -132,6 +165,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void loadUserProfile(){
         Intent intent = new Intent(RegisterActivity.this, HomePageActivity.class);
+        intent.putExtra("username",regUsername.getText().toString());
         intent.putExtra("uid",uid);
         startActivity(intent);
         finish();

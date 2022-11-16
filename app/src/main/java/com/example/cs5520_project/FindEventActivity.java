@@ -34,6 +34,8 @@ public class FindEventActivity extends AppCompatActivity implements View.OnClick
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_find_event);
 
+        String uid = getIntent().getStringExtra("uid");
+
         todayBtn = findViewById(R.id.todayBtn);
         tomorrowBtn = findViewById(R.id.tomorrowBtn);
         weekendBtn = findViewById(R.id.weekendBtn);
@@ -63,6 +65,7 @@ public class FindEventActivity extends AppCompatActivity implements View.OnClick
                 mURL = mURL + htichips;
                 Intent intent = new Intent(FindEventActivity.this, MatchEventActivity.class);
                 intent.putExtra("URL", mURL);
+                intent.putExtra("uid",uid);
                 startActivity(intent);
             }
         });
