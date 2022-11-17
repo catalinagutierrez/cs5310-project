@@ -8,15 +8,22 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,12 +33,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 
-public class HomePageActivity extends AppCompatActivity implements LocationListener {
+public class HomePageActivity extends AppCompatActivity implements LocationListener, NavigationView.OnNavigationItemSelectedListener {
     Button findNewEventBtn;
     RecyclerView eventRecyler, friendEventRecyler;
     EventAdapterYourEvents adapter;
     RecyclerView.Adapter friendsAdapter;
-    String uid;
+    String uid, username;
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+
 
     ArrayList<EventHelperClass> eventList = new ArrayList<>();
     ArrayList<EventHelperClass> addedEventList = new ArrayList<>();
@@ -43,6 +53,7 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
         setContentView(R.layout.activity_home_page);
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         uid = getIntent().getStringExtra("uid");
+        username = getIntent().getStringExtra("username");
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Eventure Users").child(uid);
         ref.child("addedEventList").addValueEventListener(new ValueEventListener() {
@@ -82,6 +93,21 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
         friendEventRecyler = findViewById(R.id.yourFriendsEventsRecycler);
         friendEventRecyler();
 
+
+        drawerLayout = findViewById(R.id.drawer_view);
+        navigationView = findViewById(R.id.nav_view);
+        ImageView navPanel = findViewById(R.id.sidePanel);
+        navigationView.bringToFront();
+        navigationView.setNavigationItemSelectedListener(HomePageActivity.this);
+        navigationView.setCheckedItem(R.id.nav_home);
+        navPanel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.openDrawer(GravityCompat.END);
+            }
+        });
+
+
     }
 
     private void eventRecyler() {
@@ -103,6 +129,40 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
 
     }
 
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.END)){
+            drawerLayout.closeDrawer(GravityCompat.END);
+        } else {
+            super.onBackPressed();
+        }
 
+    }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.nav_home:
+                Intent intent = new Intent(this, HomePageActivity.class);
+                intent.putExtra("username",username);
+                intent.putExtra("uid",uid);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.nav_find_events:
+                Intent event_intent = new Intent(this,FindEventActivity.class);
+                event_intent.putExtra("uid",uid);
+                startActivity(event_intent);
+                break;
+            case R.id.nav_add_friends:
+                break;
+            case R.id.nav_logout:
+                Intent logout_intent = new Intent(this, LoginActivity.class);
+                startActivity(logout_intent);
+                finish();
+                break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.END);
+        return true;
+    }
 }

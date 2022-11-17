@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home_icon"
+            android:title="Home" />
+    </group>
+
+
+    <item android:title="Profile">
+        <menu>
+            <group android:checkableBehavior="single">
+                <!--                <item android:id="@+id/nav_login"-->
+                <!--                    android:title="Login"-->
+                <!--                    android:icon="@drawable/login_icon"/>-->
+                <item
+                    android:id="@+id/nav_find_events"
+                    android:icon="@drawable/search_events_icon"
+                    android:title="Find New Events" />
+                <item
+                    android:id="@+id/nav_add_friends"
+                    android:icon="@drawable/add_friend_icon"
+                    android:title="Add a friend" />
+                <item
+                    android:id="@+id/nav_logout"
+                    android:icon="@drawable/logout_icon"
+                    android:title="Logout" />
+            </group>
+
+        </menu>
+    </item>
+
+</menu>
