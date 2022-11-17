@@ -43,7 +43,7 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
     NavigationView navigationView;
 
 
-    ArrayList<EventHelperClass> eventList = new ArrayList<>();
+    ArrayList<EventHelperClass> friendEventList = new ArrayList<>();
     ArrayList<EventHelperClass> addedEventList = new ArrayList<>();
 
     @Override
@@ -120,7 +120,7 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
     private void friendEventRecyler() {
         friendEventRecyler.setHasFixedSize(true);
         friendEventRecyler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        friendsAdapter = new EventAdapterYourEvents(eventList, this);
+        friendsAdapter = new EventAdapterYourEvents(friendEventList, this);
         friendEventRecyler.setAdapter(friendsAdapter);
     }
 
@@ -143,11 +143,11 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.nav_home:
-                Intent intent = new Intent(this, HomePageActivity.class);
-                intent.putExtra("username",username);
-                intent.putExtra("uid",uid);
-                startActivity(intent);
-                finish();
+//                Intent intent = new Intent(this, HomePageActivity.class);
+//                intent.putExtra("username",username);
+//                intent.putExtra("uid",uid);
+//                startActivity(intent);
+//                finish();
                 break;
             case R.id.nav_find_events:
                 Intent event_intent = new Intent(this,FindEventActivity.class);
