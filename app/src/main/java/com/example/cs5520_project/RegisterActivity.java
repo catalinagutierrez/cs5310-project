@@ -8,11 +8,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.cs5520_project.messages.MessagesList;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,12 +19,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
 
     TextView existingAccount;
-    List<MessagesList> messagesLists = new ArrayList<>() ;
     EditText regUsername, regEmail, regPassword, regConfirmPassword;
     Button regButton;
     String uid;
@@ -76,11 +73,9 @@ public class RegisterActivity extends AppCompatActivity {
         String password = regPassword.getText().toString();
         String confirmPass = regConfirmPassword.getText().toString();
         ArrayList<EventHelperClass> addedEventList = new ArrayList<>();
-        MessagesList messagesList = new MessagesList(username,"","",0);
         EventHelperClass emptyData = new EventHelperClass("","");
         addedEventList.add(emptyData);
-        messagesLists.add(messagesList);
-        UserHelperClass helperclass = new UserHelperClass(username,email,password,confirmPass, messagesLists,addedEventList);
+        UserHelperClass helperclass = new UserHelperClass(username,email,password,confirmPass,addedEventList);
 
         FirebaseDatabase.getInstance().getReference().child("Eventure Users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -115,7 +110,6 @@ public class RegisterActivity extends AppCompatActivity {
         String username = regUsername.getText().toString();
         if(username.isEmpty() || username == null || username.trim().isEmpty() || username.contains(" ")){
             regUsername.setError("Field cannot be empty or contain spaces");
-//            Toast.makeText(RegisterActivity.this, "Please enter a valid username, no spaces!", Toast.LENGTH_SHORT).show();
             return false;
         } else if (username.length() > 10){
             regUsername.setError("Username too long");
@@ -131,7 +125,6 @@ public class RegisterActivity extends AppCompatActivity {
         String emailPattern = "^(.+)@(.+)$";
         if(email.isEmpty() || email == null || email.trim().isEmpty()){
             regEmail.setError("Field cannot be empty");
-//            Toast.makeText(RegisterActivity.this, "Please enter a valid username, no spaces!", Toast.LENGTH_SHORT).show();
             return false;
         } else if (!email.matches(emailPattern)) {
             regEmail.setError("Invalid email address");
@@ -148,7 +141,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         if(password.isEmpty() || password == null){
             regPassword.setError("Field cannot be empty");
-//            Toast.makeText(RegisterActivity.this, "Please enter a valid username, no spaces!", Toast.LENGTH_SHORT).show();
             return false;
         } else if (!password.equals(confirmPassword)) {
             regConfirmPassword.setError("Password does not match");

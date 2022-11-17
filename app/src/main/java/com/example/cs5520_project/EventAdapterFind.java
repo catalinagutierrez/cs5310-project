@@ -23,7 +23,6 @@ import java.util.ArrayList;
 public class EventAdapterFind extends RecyclerView.Adapter<EventAdapterFind.EventViewHolder> {
 
     ArrayList<EventHelperClass> eventList;
-    ArrayList<EventHelperClass> addedEventList;
     EventHelperClass eventHelperClass;
     Context context;
     String uid;

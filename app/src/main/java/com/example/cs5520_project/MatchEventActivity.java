@@ -1,10 +1,7 @@
 package com.example.cs5520_project;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.WindowManager;
-import android.widget.Button;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;

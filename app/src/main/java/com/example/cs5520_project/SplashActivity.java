@@ -38,11 +38,6 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);
-                //To make transition from splash screen to login screen animation
-//                Pair[] pairs = new Pair[1];
-//                pairs[0] = new Pair<View,String>(image, "logo_image");
-//                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, pairs);
-//                startActivity(intent, options.toBundle());
                 finish();
             }
         }, SPLASH_SCREEN);

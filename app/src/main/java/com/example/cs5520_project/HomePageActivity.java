@@ -11,19 +11,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cs5520_project.messages.MessagesList;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,7 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class HomePageActivity extends AppCompatActivity implements LocationListener {
@@ -53,7 +45,6 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
         uid = getIntent().getStringExtra("uid");
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Eventure Users").child(uid);
-       // String key = ref.child("addedEventList").push().getKey();
         ref.child("addedEventList").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -62,7 +53,6 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
                     EventHelperClass event = new EventHelperClass(data.child("image").getValue().toString(), data.child("description").getValue().toString());
                     addedEventList.add(event);
                     adapter.setEvents(addedEventList);
-                    Log.e("slay", String.valueOf(addedEventList.size()));
                 }
             }
             @Override
