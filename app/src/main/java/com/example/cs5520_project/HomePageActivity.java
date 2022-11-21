@@ -13,7 +13,12 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,12 +43,28 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
     RecyclerView eventRecyler, friendEventRecyler;
     EventAdapterYourEvents adapter;
     RecyclerView.Adapter friendsAdapter;
-    String uid, username;
+    String uid, location = "Boston";
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+    ActivityResultLauncher<Intent> activityResultLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    new ActivityResultCallback<ActivityResult>() {
+                        @Override
+                        public void onActivityResult(ActivityResult activityResult) {
+                            int result = activityResult.getResultCode();
+                            Intent data = activityResult.getData();
+
+                            if(result == RESULT_OK){
+                                location = data.getStringExtra("location");
+                                Toast.makeText(HomePageActivity.this, "success " + location , Toast.LENGTH_SHORT).show();
+                            } else {
+                                location = "Austin";
+                            }
+                        }
+                    });
 
 
-    ArrayList<EventHelperClass> friendEventList = new ArrayList<>();
+    ArrayList<EventHelperClass> eventList = new ArrayList<>();
     ArrayList<EventHelperClass> addedEventList = new ArrayList<>();
 
     @Override
@@ -51,9 +72,7 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_home_page);
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         uid = getIntent().getStringExtra("uid");
-        username = getIntent().getStringExtra("username");
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Eventure Users").child(uid);
         ref.child("addedEventList").addValueEventListener(new ValueEventListener() {
@@ -77,10 +96,13 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
             public void onClick(View view) {
                 if (ContextCompat.checkSelfPermission(HomePageActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
                     Intent intent = new Intent(HomePageActivity.this,LocationActivity.class);
-                    startActivity(intent);
+                    activityResultLauncher.launch(intent);
+                    //startActivity(intent);
                 }else{
                     Intent intent = new Intent(HomePageActivity.this,FindEventActivity.class);
                     intent.putExtra("uid",uid);
+                    intent.putExtra("location",location);
+                    Log.e("slay1", location);
                     startActivity(intent);
                 }
             }
@@ -93,13 +115,10 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
         friendEventRecyler = findViewById(R.id.yourFriendsEventsRecycler);
         friendEventRecyler();
 
-
         drawerLayout = findViewById(R.id.drawer_view);
         navigationView = findViewById(R.id.nav_view);
         ImageView navPanel = findViewById(R.id.sidePanel);
-        navigationView.bringToFront();
-        navigationView.setNavigationItemSelectedListener(HomePageActivity.this);
-        navigationView.setCheckedItem(R.id.nav_home);
+
         navPanel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,6 +126,7 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
             }
         });
 
+        navigationView.setNavigationItemSelectedListener(HomePageActivity.this);
 
     }
 
@@ -120,7 +140,7 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
     private void friendEventRecyler() {
         friendEventRecyler.setHasFixedSize(true);
         friendEventRecyler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        friendsAdapter = new EventAdapterYourEvents(friendEventList, this);
+        friendsAdapter = new EventAdapterYourEvents(eventList, this);
         friendEventRecyler.setAdapter(friendsAdapter);
     }
 
@@ -141,28 +161,6 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.nav_home:
-//                Intent intent = new Intent(this, HomePageActivity.class);
-//                intent.putExtra("username",username);
-//                intent.putExtra("uid",uid);
-//                startActivity(intent);
-//                finish();
-                break;
-            case R.id.nav_find_events:
-                Intent event_intent = new Intent(this,FindEventActivity.class);
-                event_intent.putExtra("uid",uid);
-                startActivity(event_intent);
-                break;
-            case R.id.nav_add_friends:
-                break;
-            case R.id.nav_logout:
-                Intent logout_intent = new Intent(this, LoginActivity.class);
-                startActivity(logout_intent);
-                finish();
-                break;
-        }
-        drawerLayout.closeDrawer(GravityCompat.END);
         return true;
     }
 }

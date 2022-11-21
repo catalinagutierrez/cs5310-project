@@ -3,12 +3,14 @@ package com.example.cs5520_project;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +20,7 @@ public class FindEventActivity extends AppCompatActivity implements View.OnClick
     Button freeBtn, underFifteen,underThirty,underFifty,underHundred,noLimit;
     Button musicBtn,artsBtn,travelBtn,healthBtn,foodBtn,onlineBtn,hobbiesBtn,sportsBtn,businessBtn;
     String mURL="https://serpapi.com/search.json?engine=google_events&hl=en&gl=us\n" +
-            "&api_key=d139e1b5e2e1539f21fac65a05f3599f6b7cfe436a39a39392a5fc730c5b3bab&q=Events+Boston";
+            "&api_key=d139e1b5e2e1539f21fac65a05f3599f6b7cfe436a39a39392a5fc730c5b3bab&q=Events+";
     String htichips = "&htichips=event_type:,date:";
     int black = Color.BLACK;
     int white = Color.WHITE;
@@ -32,6 +34,7 @@ public class FindEventActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_find_event);
 
         String uid = getIntent().getStringExtra("uid");
+        String cityName = getIntent().getStringExtra("location");
 
         todayBtn = findViewById(R.id.todayBtn);
         tomorrowBtn = findViewById(R.id.tomorrowBtn);
@@ -56,14 +59,17 @@ public class FindEventActivity extends AppCompatActivity implements View.OnClick
         businessBtn = findViewById(R.id.businessBtn);
 
         findEventbtn = findViewById(R.id.searchBtn);
+        mURL = mURL + cityName;
         findEventbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mURL = mURL + htichips;
                 Intent intent = new Intent(FindEventActivity.this, MatchEventActivity.class);
                 intent.putExtra("URL", mURL);
+                Log.e("slay2",mURL);
                 intent.putExtra("uid",uid);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -160,7 +166,7 @@ public class FindEventActivity extends AppCompatActivity implements View.OnClick
                 b.setTextColor(white);
                 htichips = htichips.replace(",date:" + s, ",date:");
                 clickedDate = false;
-                map.clear();
+                map.remove(b);
             } else if (clickedDate && b.getCurrentTextColor() == white ){
                 for (Button btn : map.keySet()){
                     clickedDateButton(btn,map.get(btn));
