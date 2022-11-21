@@ -126,7 +126,9 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
             }
         });
 
+        navigationView.bringToFront();
         navigationView.setNavigationItemSelectedListener(HomePageActivity.this);
+        navigationView.setCheckedItem(R.id.nav_home);
 
     }
 
@@ -161,6 +163,19 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.nav_home:
+                break;
+            case R.id.nav_find_events:
+                break;
+            case R.id.nav_logout:
+                Log.e("slay2","lol");
+                Intent logoutIntent = new Intent(HomePageActivity.this, LoginActivity.class);
+                startActivity(logoutIntent);
+                finish();
+                break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.END);
         return true;
     }
 }
