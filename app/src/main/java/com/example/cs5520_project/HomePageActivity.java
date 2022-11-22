@@ -49,7 +49,7 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
     Button findNewEventBtn;
     RecyclerView eventRecyler, friendEventRecyler;
     EventAdapterYourEvents adapter;
-    RecyclerView.Adapter friendsAdapter;
+    EventAdapterYourEvents friendsAdapter;
     String uid, locationString = "Boston";
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -58,6 +58,7 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
     private static final int LOCATION_REFRESH_TIME = 5000; // 5 minutes to update
     private static final int LOCATION_REFRESH_DISTANCE = 5000; // 5000 meters to update
 
+    ArrayList<String> friendsList = new ArrayList<>();
     ArrayList<EventHelperClass> eventList = new ArrayList<>();
     ArrayList<EventHelperClass> addedEventList = new ArrayList<>();
 
@@ -83,6 +84,21 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+        ref.child("friendsList").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                friendsList.clear();
+                for(DataSnapshot data : snapshot.getChildren()) {
+                    String friend = data.getValue().toString();
+                    friendsList.add(friend);
+                }
+                loadFriendEvents();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
 
         findNewEventBtn = findViewById(R.id.findNewEventBtn);
         findNewEventBtn.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +110,6 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
                 startActivity(intent);
             }
         });
-
 
         eventRecyler = findViewById(R.id.yourEventsRecycler);
         eventRecyler();
@@ -125,8 +140,6 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
             //subscribe to updates
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, this);
         }
-
-
     }
 
     private void eventRecyler() {
@@ -153,7 +166,6 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -179,7 +191,6 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
             case R.id.nav_find_events:
                 break;
             case R.id.nav_logout:
-                Log.e("slay2","lol");
                 Intent logoutIntent = new Intent(HomePageActivity.this, LoginActivity.class);
                 startActivity(logoutIntent);
                 finish();
@@ -187,5 +198,25 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
         }
         drawerLayout.closeDrawer(GravityCompat.END);
         return true;
+    }
+
+    public void loadFriendEvents(){
+        eventList.clear();
+        for (String friend:friendsList) {
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Eventure Users").child(friend);
+            ref.child("addedEventList").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot data : snapshot.getChildren()) {
+                        EventHelperClass event = new EventHelperClass(data.child("image").getValue().toString(), data.child("description").getValue().toString());
+                        eventList.add(event);
+                        friendsAdapter.setEvents(eventList);
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+        }
     }
 }
