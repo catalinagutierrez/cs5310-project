@@ -49,7 +49,7 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
     Button findNewEventBtn;
     RecyclerView eventRecyler, friendEventRecyler;
     EventAdapterYourEvents adapter;
-    RecyclerView.Adapter friendsAdapter;
+    EventAdapterYourEvents friendsAdapter;
     String uid, locationString = "Boston";
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -92,7 +92,9 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
                     String friend = data.getValue().toString();
                     friendsList.add(friend);
                 }
+                loadFriendEvents();
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
@@ -196,5 +198,25 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
         }
         drawerLayout.closeDrawer(GravityCompat.END);
         return true;
+    }
+
+    public void loadFriendEvents(){
+        eventList.clear();
+        for (String friend:friendsList) {
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Eventure Users").child(friend);
+            ref.child("addedEventList").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot data : snapshot.getChildren()) {
+                        EventHelperClass event = new EventHelperClass(data.child("image").getValue().toString(), data.child("description").getValue().toString());
+                        eventList.add(event);
+                        friendsAdapter.setEvents(eventList);
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+        }
     }
 }
