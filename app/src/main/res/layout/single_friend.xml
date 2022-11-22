@@ -7,7 +7,7 @@
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/friendNameText"
         android:layout_width="317dp"
         android:layout_height="88dp"
         android:layout_marginLeft="20dp"
@@ -20,7 +20,7 @@
         android:textSize="15dp" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button"
+        android:id="@+id/deleteFriend"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/close_icon" />

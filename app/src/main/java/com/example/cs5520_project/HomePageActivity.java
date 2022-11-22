@@ -183,8 +183,9 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
             case R.id.nav_home:
                 break;
             case R.id.nav_add_friends:
-                Intent friendIntent = new Intent(HomePageActivity.this, AddFriendActivity.class);
+                Intent friendIntent = new Intent(HomePageActivity.this, FriendListActivity.class);
                 friendIntent.putExtra("uid",uid);
+                friendIntent.putExtra("friendsList", friendsList);
                 startActivity(friendIntent);
                 finish();
                 break;

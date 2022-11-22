@@ -2,14 +2,12 @@ package com.example.cs5520_project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,8 +17,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
 
 public class AddFriendActivity extends AppCompatActivity {
 
@@ -37,7 +33,7 @@ public class AddFriendActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_friend);
 
         friendNameInput = findViewById(R.id.addFriendText);
-        addFriendButton = findViewById(R.id.addFriendButton);
+        addFriendButton = findViewById(R.id.addNewFriendButton);
         uid = getIntent().getStringExtra("uid");
 
         addFriendButton.setOnClickListener(new View.OnClickListener() {
