@@ -158,7 +158,6 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
         } else {
             super.onBackPressed();
         }
-
     }
 
     @Override
