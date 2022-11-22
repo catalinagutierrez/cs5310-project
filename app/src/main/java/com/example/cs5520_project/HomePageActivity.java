@@ -170,6 +170,12 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
         switch (item.getItemId()) {
             case R.id.nav_home:
                 break;
+            case R.id.nav_add_friends:
+                Intent friendIntent = new Intent(HomePageActivity.this, AddFriendActivity.class);
+                friendIntent.putExtra("uid",uid);
+                startActivity(friendIntent);
+                finish();
+                break;
             case R.id.nav_find_events:
                 break;
             case R.id.nav_logout:
