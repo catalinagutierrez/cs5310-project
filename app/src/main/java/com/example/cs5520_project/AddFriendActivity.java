@@ -2,6 +2,8 @@ package com.example.cs5520_project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
@@ -18,12 +20,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class AddFriendActivity extends AppCompatActivity {
 
     Button addFriendButton;
     EditText friendNameInput;
     String uid;
     boolean isFriend = false;
+    RecyclerView eventRecyler;
+    RecyclerView.Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,8 @@ public class AddFriendActivity extends AppCompatActivity {
                 addFriend(username);
             }
         });
+
+        eventRecyler = findViewById(R.id.friendsListRecycler);
 
     }
 
