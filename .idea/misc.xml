@@ -5,7 +5,9 @@
       <map>
         <entry key="app/src/main/res/layout-land/activity_api_service.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_add_friend.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_about.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/activity_api_service.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_find_event.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/activity_firebase.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_history.xml" value="0.40240376790364585" />
         <entry key="app/src/main/res/layout/activity_home_page.xml" value="0.1" />

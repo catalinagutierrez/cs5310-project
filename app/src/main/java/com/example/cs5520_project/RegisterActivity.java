@@ -73,8 +73,6 @@ public class RegisterActivity extends AppCompatActivity {
         String password = regPassword.getText().toString();
         String confirmPass = regConfirmPassword.getText().toString();
         ArrayList<EventHelperClass> addedEventList = new ArrayList<>();
-        EventHelperClass emptyData = new EventHelperClass("","");
-        addedEventList.add(emptyData);
         UserHelperClass helperclass = new UserHelperClass(username,email,password,confirmPass,addedEventList);
 
         FirebaseDatabase.getInstance().getReference().child("Eventure Users").addListenerForSingleValueEvent(new ValueEventListener() {
