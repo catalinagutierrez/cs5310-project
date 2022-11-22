@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -17,8 +18,7 @@ public class FriendListActivity extends AppCompatActivity {
 
         friendsList = new ArrayList<String>();
         friendsList = getIntent().getStringArrayListExtra("friendsList");
-
-
+        Log.e("slay friends", String.valueOf(friendsList.size()));
     }
 
     private void friendRecyler(ArrayList friendsList) {
