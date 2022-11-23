@@ -50,8 +50,8 @@ public class FriendListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent friendIntent = new Intent(FriendListActivity.this, AddFriendActivity.class);
                 friendIntent.putExtra("uid",uid);
+                friendIntent.putExtra("friendsList", friendsList);
                 startActivity(friendIntent);
-                finish();
             }
         });
 

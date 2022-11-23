@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class AddFriendActivity extends AppCompatActivity {
 
     Button addFriendButton;
@@ -26,6 +29,7 @@ public class AddFriendActivity extends AppCompatActivity {
     boolean isFriend = false;
     RecyclerView eventRecyler;
     RecyclerView.Adapter adapter;
+    ArrayList<String> friendsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,9 @@ public class AddFriendActivity extends AppCompatActivity {
 
         friendNameInput = findViewById(R.id.addFriendText);
         addFriendButton = findViewById(R.id.addNewFriendButton);
+
+        friendsList = new ArrayList<String>();
+        friendsList = getIntent().getStringArrayListExtra("friendsList");
         uid = getIntent().getStringExtra("uid");
 
         addFriendButton.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +124,11 @@ public class AddFriendActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(AddFriendActivity.this, "Friend added!", Toast.LENGTH_SHORT).show();
+                    Intent friendIntent = new Intent(AddFriendActivity.this, FriendListActivity.class);
+                    friendIntent.putExtra("uid",uid);
+                    friendIntent.putExtra("friendsList", friendsList);
+                    startActivity(friendIntent);
+                    finish();
                 }else{
                     Toast.makeText(AddFriendActivity.this, "Friend was not added!", Toast.LENGTH_SHORT).show();
 
