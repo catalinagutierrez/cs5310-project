@@ -44,9 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
         existingAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
+                loadLoginPage();
             }
         });
 
@@ -82,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
                 for (DataSnapshot data : snapshot.getChildren()) {
                     // if user exists, load their user profile
                     if (data.child("username").getValue().toString().equals(username)){
-                        Toast.makeText(RegisterActivity.this, "username already exists", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Username already exists", Toast.LENGTH_SHORT).show();
                         userExists = true;
                         break;
                     } else if (data.child("email").getValue().toString().equals(email)) {
@@ -159,5 +157,17 @@ public class RegisterActivity extends AppCompatActivity {
         intent.putExtra("uid",uid);
         startActivity(intent);
         finish();
+    }
+
+    public void loadLoginPage(){
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        loadLoginPage();
+        super.onBackPressed();
     }
 }

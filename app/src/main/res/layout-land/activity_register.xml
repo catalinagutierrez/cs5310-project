@@ -12,7 +12,7 @@
         android:id="@+id/inputUsername1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/input_bg"
         android:drawableLeft="@drawable/person_icon"
         android:drawablePadding="5dp"
@@ -32,7 +32,7 @@
         android:id="@+id/inputEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/input_bg"
         android:drawableLeft="@drawable/ic_email"
         android:drawablePadding="5dp"
@@ -52,7 +52,7 @@
         android:id="@+id/inputPassword1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/input_bg"
         android:drawableLeft="@drawable/ic_security"
         android:drawablePadding="5dp"
@@ -72,7 +72,7 @@
         android:id="@+id/inputConfirmPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/input_bg"
         android:drawableLeft="@drawable/ic_security"
         android:drawablePadding="5dp"
@@ -92,7 +92,7 @@
         android:id="@+id/eventureLoginBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/btn_bg"
         android:text="Register"
         app:layout_constraintEnd_toEndOf="@+id/inputConfirmPassword"
@@ -113,9 +113,9 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="166dp"
-        android:layout_height="152dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="162dp"
+        android:layout_height="121dp"
+        android:layout_marginTop="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -126,13 +126,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.10" />
+        app:layout_constraintGuide_percent="0.20" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.90" />
+        app:layout_constraintGuide_percent="0.80" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
