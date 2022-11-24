@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 
 public class AddFriendActivity extends AppCompatActivity {
 
@@ -52,12 +54,9 @@ public class AddFriendActivity extends AppCompatActivity {
         });
 
         eventRecyler = findViewById(R.id.friendsListRecycler);
-
     }
 
     public void addFriend(String username) {
-
-       // String uid;
         FirebaseDatabase.getInstance().getReference().child("Eventure Users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -85,7 +84,7 @@ public class AddFriendActivity extends AppCompatActivity {
                 }
                 // If the user exists, add them if they are not an existing friend
                 else if(userExists) {
-                    if(isFriend(username)) {
+                    if(isFriend(uidFriend)) {
                         Toast.makeText(AddFriendActivity.this, "You are already friends with this user!", Toast.LENGTH_SHORT).show();
                     } else {
                         addFriendToList(uidFriend);
@@ -98,23 +97,8 @@ public class AddFriendActivity extends AppCompatActivity {
         });
     }
 
-    public boolean isFriend(String username) {
-        isFriend = false;
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Eventure Users").child(uid);
-        ref.child("friendsList").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot data : snapshot.getChildren()) {
-                    if(data.getValue().toString().equals(username)) {
-                        isFriend = true;
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-        return isFriend;
+    public boolean isFriend(String uidFriend) {
+        return friendsList.contains(uidFriend);
     }
 
     public void addFriendToList(String uidFriend) {
