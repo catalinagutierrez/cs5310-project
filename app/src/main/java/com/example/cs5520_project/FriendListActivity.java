@@ -42,8 +42,6 @@ public class FriendListActivity extends AppCompatActivity {
         uid = getIntent().getStringExtra("uid");
         friendRecyler();
 
-        Log.e("slay friends", String.valueOf(friendsList.size()));
-
         addNewFriendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

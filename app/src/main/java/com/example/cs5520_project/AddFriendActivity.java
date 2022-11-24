@@ -126,6 +126,7 @@ public class AddFriendActivity extends AppCompatActivity {
                     Toast.makeText(AddFriendActivity.this, "Friend added!", Toast.LENGTH_SHORT).show();
                     Intent friendIntent = new Intent(AddFriendActivity.this, FriendListActivity.class);
                     friendIntent.putExtra("uid",uid);
+                    friendsList.add(uidFriend);
                     friendIntent.putExtra("friendsList", friendsList);
                     startActivity(friendIntent);
                     finish();
