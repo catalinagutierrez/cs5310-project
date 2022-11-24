@@ -2,6 +2,8 @@ package com.example.cs5520_project;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.media.metrics.Event;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +44,17 @@ public class EventAdapterYourEvents extends RecyclerView.Adapter<EventAdapterYou
         EventHelperClass eventHelperClass = eventList.get(position);
         Picasso.get().load(eventHelperClass.getImage()).into(holder.image);
         holder.description.setText(eventHelperClass.getDescription());
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                Intent intent = new Intent(context , EventDetailsActivity.class);
+                intent.putExtra("description", eventHelperClass.getDescription());
+                intent.putExtra("title", eventHelperClass.getTitle());
+                intent.putExtra("image", eventHelperClass.getImage());
+                context.startActivity(intent);
+            }
+        });
     }
 
 

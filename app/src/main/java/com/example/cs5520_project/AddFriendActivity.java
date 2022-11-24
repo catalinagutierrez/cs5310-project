@@ -2,12 +2,13 @@ package com.example.cs5520_project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,12 +19,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class AddFriendActivity extends AppCompatActivity {
 
     Button addFriendButton;
     EditText friendNameInput;
     String uid;
     boolean isFriend = false;
+    RecyclerView eventRecyler;
+    RecyclerView.Adapter adapter;
+    ArrayList<String> friendsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +37,10 @@ public class AddFriendActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_friend);
 
         friendNameInput = findViewById(R.id.addFriendText);
-        addFriendButton = findViewById(R.id.addFriendButton);
+        addFriendButton = findViewById(R.id.addNewFriendButton);
+
+        friendsList = new ArrayList<String>();
+        friendsList = getIntent().getStringArrayListExtra("friendsList");
         uid = getIntent().getStringExtra("uid");
 
         addFriendButton.setOnClickListener(new View.OnClickListener() {
@@ -41,6 +50,8 @@ public class AddFriendActivity extends AppCompatActivity {
                 addFriend(username);
             }
         });
+
+        eventRecyler = findViewById(R.id.friendsListRecycler);
 
     }
 
@@ -113,6 +124,11 @@ public class AddFriendActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(AddFriendActivity.this, "Friend added!", Toast.LENGTH_SHORT).show();
+                    Intent friendIntent = new Intent(AddFriendActivity.this, FriendListActivity.class);
+                    friendIntent.putExtra("uid",uid);
+                    friendIntent.putExtra("friendsList", friendsList);
+                    startActivity(friendIntent);
+                    finish();
                 }else{
                     Toast.makeText(AddFriendActivity.this, "Friend was not added!", Toast.LENGTH_SHORT).show();
 

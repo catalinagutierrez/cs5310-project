@@ -4,16 +4,20 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout-land/activity_api_service.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_add_friend.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_about.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/activity_api_service.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_event_details.xml" value="0.3572916666666667" />
         <entry key="app/src/main/res/layout/activity_find_event.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/activity_firebase.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/activity_friend_list.xml" value="0.3296875" />
         <entry key="app/src/main/res/layout/activity_history.xml" value="0.40240376790364585" />
-        <entry key="app/src/main/res/layout/activity_home_page.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.28293852629484956" />
+        <entry key="app/src/main/res/layout/activity_splashscreen.xml" value="0.3296875" />
         <entry key="app/src/main/res/layout/activity_sticker_info.xml" value="0.36803436279296875" />
         <entry key="app/src/main/res/layout/activity_user_profile.xml" value="0.3471502590673575" />
+        <entry key="app/src/main/res/layout/horizontal_card_view.xml" value="0.3296875" />
+        <entry key="app/src/main/res/layout/item_event.xml" value="0.3296875" />
+        <entry key="app/src/main/res/layout/single_friend.xml" value="0.3296875" />
         <entry key="app/src/main/res/layout/single_view.xml" value="0.4864864864864865" />
       </map>
     </option>

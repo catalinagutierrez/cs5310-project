@@ -4,6 +4,7 @@ public class EventHelperClass {
 
     String image;
     String description;
+    String title;
 
     public EventHelperClass(String image, String description) {
         this.image = image;
@@ -25,4 +26,8 @@ public class EventHelperClass {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getTitle() { return title; }
+
+    public void setTitle(String title) { this.title = title; }
 }

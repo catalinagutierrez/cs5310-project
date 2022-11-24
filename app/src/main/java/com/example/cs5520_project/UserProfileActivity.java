@@ -7,7 +7,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.graphics.BitmapFactory;
@@ -36,9 +35,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import java.net.ConnectException;
 import java.util.ArrayList;;
-import java.util.Arrays;
 import java.util.List;
 
 public class UserProfileActivity extends AppCompatActivity {
@@ -231,7 +228,7 @@ public class UserProfileActivity extends AppCompatActivity {
             public MyViewHolder(@NonNull View itemView) {
                 super(itemView);
                 imageView = itemView.findViewById(R.id.imageView);
-                textView = itemView.findViewById(R.id.textView);
+                textView = itemView.findViewById(R.id.friendNameText);
                 itemView.setOnClickListener(this);
             }
 
