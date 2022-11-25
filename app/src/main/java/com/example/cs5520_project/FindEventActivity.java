@@ -142,32 +142,32 @@ public class FindEventActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void clickedButton(Button b) {
-        if (b.getCurrentTextColor() == white){
-            b.setBackgroundResource(R.drawable.btn_bg);
-            b.setTextColor(black);
-            mURL = mURL + "+"+b.getText();
-        } else {
+        if (b.getCurrentTextColor() == black){
             b.setBackgroundResource(R.drawable.btn_bg_black);
             b.setTextColor(white);
+            mURL = mURL + "+"+b.getText();
+        } else {
+            b.setBackgroundResource(R.drawable.btn_bg);
+            b.setTextColor(black);
             mURL = mURL.replace("+"+b.getText(),"");
         }
     }
 
     private void clickedDateButton(Button b, String s) {
         if(b != onlineBtn) {
-            if (!clickedDate && b.getCurrentTextColor() == white) {
-                b.setBackgroundResource(R.drawable.btn_bg);
-                b.setTextColor(black);
+            if (!clickedDate && b.getCurrentTextColor() == black) {
+                b.setBackgroundResource(R.drawable.btn_bg_black);
+                b.setTextColor(white);
                 htichips = htichips.replace(",date:",",date:" + s);
                 clickedDate = true;
                 map.put(b,s);
-            } else if (clickedDate && b.getCurrentTextColor() == black){
-                b.setBackgroundResource(R.drawable.btn_bg_black);
-                b.setTextColor(white);
+            } else if (clickedDate && b.getCurrentTextColor() == white){
+                b.setBackgroundResource(R.drawable.btn_bg);
+                b.setTextColor(black);
                 htichips = htichips.replace(",date:" + s, ",date:");
                 clickedDate = false;
                 map.remove(b);
-            } else if (clickedDate && b.getCurrentTextColor() == white ){
+            } else if (clickedDate && b.getCurrentTextColor() == black ){
                 for (Button btn : map.keySet()){
                     clickedDateButton(btn,map.get(btn));
                     clickedDate = true;
@@ -177,13 +177,13 @@ public class FindEventActivity extends AppCompatActivity implements View.OnClick
                 map.put(b,s);
                 clickedDate = true;
             }
-        } else if(b.getCurrentTextColor() == white) {
-            b.setBackgroundResource(R.drawable.btn_bg);
-            b.setTextColor(black);
-            htichips = htichips.replace("=event_type:","=event_type:"+ s);
-        } else {
+        } else if(b.getCurrentTextColor() == black) {
             b.setBackgroundResource(R.drawable.btn_bg_black);
             b.setTextColor(white);
+            htichips = htichips.replace("=event_type:","=event_type:"+ s);
+        } else {
+            b.setBackgroundResource(R.drawable.btn_bg);
+            b.setTextColor(black);
             htichips = htichips.replace("=event_type:"+ s,"=event_type:");
         }
     }
