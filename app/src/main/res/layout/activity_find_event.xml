@@ -7,19 +7,50 @@
     android:background="#F5F5F5"
     tools:context=".FindEventActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="256dp"
+        android:layout_height="86dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logotext_no_bg" />
+
+    <TextView
+        android:id="@+id/eventHeadingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/antic_didone"
+        android:gravity="center"
+        android:text="What are you looking for?"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/todayBtn"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="428dp"
         android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Today"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/underFifty"
         app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -40,14 +71,13 @@
         android:id="@+id/weekendBtn"
         android:layout_width="127dp"
         android:layout_height="30dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="368dp"
         android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Weekend"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/todayBtn"
         app:layout_constraintTop_toBottomOf="@+id/musicBtn" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -61,6 +91,8 @@
         android:text="This Week"
         android:textAllCaps="false"
         android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/noLimit"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/underFifteen"
         app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
 
@@ -75,6 +107,7 @@
         android:text="This Month"
         android:textAllCaps="false"
         android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/thisWeekBtn"
         app:layout_constraintStart_toEndOf="@+id/underHundred"
         app:layout_constraintTop_toBottomOf="@+id/travelBtn" />
 
@@ -96,14 +129,13 @@
         android:id="@+id/freeBtn"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="276dp"
         android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Free"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/businessBtn"
         app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -124,13 +156,15 @@
         android:id="@+id/underThirty"
         android:layout_width="119dp"
         android:layout_height="30dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="276dp"
         android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Under $30"
         android:textAllCaps="false"
         android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/onlineBtn"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toEndOf="@+id/underFifteen"
         app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
 
@@ -159,6 +193,8 @@
         android:text="No Limit"
         android:textAllCaps="false"
         android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/underThirty"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/underHundred"
         app:layout_constraintTop_toBottomOf="@+id/travelBtn" />
 
@@ -166,28 +202,27 @@
         android:id="@+id/underFifty"
         android:layout_width="127dp"
         android:layout_height="30dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="224dp"
         android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Under $50"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/freeBtn"
         app:layout_constraintTop_toBottomOf="@+id/musicBtn" />
 
-    <View
-        android:id="@+id/view3"
-        android:layout_width="100dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="388dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.912"
-        app:layout_constraintStart_toEndOf="@+id/typeOfEventText"
-        app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
+        <View
+            android:id="@+id/view3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="388dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/timeOfEvent"
+            app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
 
-    <TextView
+        <TextView
         android:id="@+id/timeOfEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -203,18 +238,18 @@
 
     <View
         android:id="@+id/view4"
-        android:layout_width="100dp"
+        android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginTop="388dp"
         android:background="@android:color/darker_gray"
-        app:layout_constraintEnd_toStartOf="@+id/typeOfEventText"
+        app:layout_constraintEnd_toStartOf="@+id/timeOfEvent"
         app:layout_constraintHorizontal_bias="0.127"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
 
     <View
         android:id="@+id/view2"
-        android:layout_width="145dp"
+        android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginTop="240dp"
         android:background="@android:color/darker_gray"
@@ -225,7 +260,7 @@
 
     <View
         android:id="@+id/view"
-        android:layout_width="145dp"
+        android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginTop="240dp"
         android:background="@android:color/darker_gray"
@@ -248,7 +283,7 @@
         app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
 
     <View
-        android:layout_width="145dp"
+        android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginTop="40dp"
         android:background="@android:color/darker_gray"
@@ -257,7 +292,7 @@
         app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
 
     <View
-        android:layout_width="145dp"
+        android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginTop="40dp"
         android:background="@android:color/darker_gray"
@@ -265,29 +300,7 @@
         app:layout_constraintStart_toEndOf="@+id/typeOfEventText"
         app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="256dp"
-        android:layout_height="86dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logotext_no_bg" />
 
-    <TextView
-        android:id="@+id/eventHeadingText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:fontFamily="@font/antic_didone"
-        android:gravity="center"
-        android:text="What are you looking for?"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/typeOfEventText"
@@ -307,14 +320,14 @@
         android:id="@+id/musicBtn"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="70dp"
+        android:layout_marginEnd="90dp"
         android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Music"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -377,13 +390,14 @@
         android:id="@+id/onlineBtn"
         android:layout_width="114dp"
         android:layout_height="30dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Online Activites"
         android:textAllCaps="false"
         android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/hobbiesBtn"
         app:layout_constraintStart_toEndOf="@+id/foodBtn"
         app:layout_constraintTop_toBottomOf="@+id/hobbiesBtn" />
 
@@ -398,6 +412,7 @@
         android:text="Hobbies"
         android:textAllCaps="false"
         android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/travelBtn"
         app:layout_constraintStart_toEndOf="@+id/healthBtn"
         app:layout_constraintTop_toBottomOf="@+id/travelBtn" />
 
@@ -405,28 +420,26 @@
         android:id="@+id/sportsBtn"
         android:layout_width="137dp"
         android:layout_height="30dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Sports &amp; Fitness"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/musicBtn"
         app:layout_constraintTop_toBottomOf="@+id/musicBtn" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/businessBtn"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Business"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/sportsBtn"
         app:layout_constraintTop_toBottomOf="@+id/sportsBtn" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -441,11 +454,14 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline7"
+        android:id="@+id/guideline8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent=".5" />
+        app:layout_constraintGuide_percent="0.5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
