@@ -43,7 +43,7 @@ public class EventAdapterYourEvents extends RecyclerView.Adapter<EventAdapterYou
     public void onBindViewHolder(@NonNull EventViewHolder holder,int position) {
         EventHelperClass eventHelperClass = eventList.get(position);
         Picasso.get().load(eventHelperClass.getImage()).into(holder.image);
-        holder.description.setText(eventHelperClass.getTitle());
+        holder.description.setText(eventHelperClass.getDescription());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

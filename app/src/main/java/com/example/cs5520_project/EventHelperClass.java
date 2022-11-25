@@ -6,10 +6,9 @@ public class EventHelperClass {
     String description;
     String title;
 
-    public EventHelperClass(String image, String description, String title) {
+    public EventHelperClass(String image, String description) {
         this.image = image;
         this.description = description;
-        this.title = title;
     }
 
     public String getImage() {

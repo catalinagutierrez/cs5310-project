@@ -20,7 +20,7 @@ public class FindEventActivity extends AppCompatActivity implements View.OnClick
     Button freeBtn, underFifteen,underThirty,underFifty,underHundred,noLimit;
     Button musicBtn,artsBtn,travelBtn,healthBtn,foodBtn,onlineBtn,hobbiesBtn,sportsBtn,businessBtn;
     String mURL="https://serpapi.com/search.json?engine=google_events&hl=en&gl=us\n" +
-            "&api_key=5c030de392f00a9601c21416005ea917dabe08e5e8742d41cf8be0a4a566e7f1&q=Events+";
+            "&api_key=d139e1b5e2e1539f21fac65a05f3599f6b7cfe436a39a39392a5fc730c5b3bab&q=Events+";
     String htichips = "&htichips=event_type:,date:";
     int black = Color.BLACK;
     int white = Color.WHITE;

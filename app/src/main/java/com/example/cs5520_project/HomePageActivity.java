@@ -75,7 +75,7 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 addedEventList.clear();
                 for(DataSnapshot data : snapshot.getChildren()) {
-                    EventHelperClass event = new EventHelperClass(data.child("image").getValue().toString(), data.child("description").getValue().toString(), data.child("title").getValue().toString());
+                    EventHelperClass event = new EventHelperClass(data.child("image").getValue().toString(), data.child("description").getValue().toString());
                     addedEventList.add(event);
                     adapter.setEvents(addedEventList);
                 }
@@ -209,7 +209,7 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for(DataSnapshot data : snapshot.getChildren()) {
-                        EventHelperClass event = new EventHelperClass(data.child("image").getValue().toString(), data.child("description").getValue().toString(), data.child("title").getValue().toString());
+                        EventHelperClass event = new EventHelperClass(data.child("image").getValue().toString(), data.child("description").getValue().toString());
                         eventList.add(event);
                         friendsAdapter.setEvents(eventList);
                     }

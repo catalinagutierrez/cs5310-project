@@ -49,7 +49,7 @@ public class EventAdapterFind extends RecyclerView.Adapter<EventAdapterFind.Even
         holder.addEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventHelperClass event = new EventHelperClass(eventHelperClass.getImage(),eventHelperClass.getDescription(), eventHelperClass.getTitle());
+                EventHelperClass event = new EventHelperClass(eventHelperClass.getImage(),eventHelperClass.getDescription());
                 addEvent(event);
             }
         });
