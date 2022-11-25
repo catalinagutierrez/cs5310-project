@@ -25,7 +25,7 @@ public class MatchEventActivity extends AppCompatActivity {
     ArrayList<EventHelperClass> eventList = new ArrayList<>();
     String uid;
     String URL1 = "https://serpapi.com/search.json?engine=google_events&q=Events+in+Austin&hl=en&gl=us\n" +
-            "&api_key=d139e1b5e2e1539f21fac65a05f3599f6b7cfe436a39a39392a5fc730c5b3bab";
+            "&api_key=5c030de392f00a9601c21416005ea917dabe08e5e8742d41cf8be0a4a566e7f1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,11 @@ public class MatchEventActivity extends AppCompatActivity {
                             if(jsonObject1.has("thumbnail")){
                                 image = jsonObject1.getString("thumbnail");
                             }
-                            eventList.add(new EventHelperClass(image,description));
+                            String title = "";
+                            if(jsonObject1.has("title")){
+                                title = jsonObject1.getString("title");
+                            }
+                            eventList.add(new EventHelperClass(image,description,title));
                         }
 
                     }

@@ -38,12 +38,9 @@ public class FriendListActivity extends AppCompatActivity {
 
         friendsList = new ArrayList<String>();
         friendsUsernameList = new ArrayList<String>();
-        friendRecyler();
-
         friendsList = getIntent().getStringArrayListExtra("friendsList");
         uid = getIntent().getStringExtra("uid");
-
-        Log.e("slay friends", String.valueOf(friendsList.size()));
+        friendRecyler();
 
         addNewFriendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +49,7 @@ public class FriendListActivity extends AppCompatActivity {
                 friendIntent.putExtra("uid",uid);
                 friendIntent.putExtra("friendsList", friendsList);
                 startActivity(friendIntent);
+                finish();
             }
         });
 
@@ -61,7 +59,7 @@ public class FriendListActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     friendsUsernameList.add(snapshot.child("username").getValue().toString());
-                    adapter.updateFriends(friendsUsernameList);
+                    adapter.updateFriends(friendsUsernameList, friendsList);
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
@@ -73,7 +71,7 @@ public class FriendListActivity extends AppCompatActivity {
     private void friendRecyler() {
         friendRecyler.setHasFixedSize(true);
         friendRecyler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        adapter = new FriendsListAdapter(friendsUsernameList, this);
+        adapter = new FriendsListAdapter(friendsUsernameList, friendsList, uid, this);
         friendRecyler.setAdapter(adapter);
     }
 }
