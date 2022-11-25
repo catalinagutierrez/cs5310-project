@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="#F5F5F5"
     tools:context=".FindEventActivity">
 
 
@@ -14,11 +14,11 @@
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="428dp"
-        android:background="@drawable/btn_bg_black"
+        android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Today"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
 
@@ -28,11 +28,11 @@
         android:layout_height="30dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="428dp"
-        android:background="@drawable/btn_bg_black"
+        android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Tomorrow"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/musicBtn"
         app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
 
@@ -42,11 +42,11 @@
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="368dp"
-        android:background="@drawable/btn_bg_black"
+        android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Weekend"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/musicBtn" />
 
@@ -56,11 +56,11 @@
         android:layout_height="30dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="428dp"
-        android:background="@drawable/btn_bg_black"
+        android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="This Week"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/underFifteen"
         app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
 
@@ -70,11 +70,11 @@
         android:layout_height="30dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="368dp"
-        android:background="@drawable/btn_bg_black"
+        android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="This Month"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/underHundred"
         app:layout_constraintTop_toBottomOf="@+id/travelBtn" />
 
@@ -84,11 +84,11 @@
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="368dp"
-        android:background="@drawable/btn_bg_black"
+        android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Next Week"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/underFifty"
         app:layout_constraintTop_toBottomOf="@+id/artsBtn" />
 
@@ -98,11 +98,11 @@
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="276dp"
-        android:background="@drawable/btn_bg_black"
+        android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Free"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
 
@@ -112,11 +112,11 @@
         android:layout_height="30dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="276dp"
-        android:background="@drawable/btn_bg_black"
+        android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Under $15"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/musicBtn"
         app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
 
@@ -126,11 +126,11 @@
         android:layout_height="30dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="276dp"
-        android:background="@drawable/btn_bg_black"
+        android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Under $30"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/underFifteen"
         app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
 
@@ -140,11 +140,11 @@
         android:layout_height="30dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="224dp"
-        android:background="@drawable/btn_bg_black"
+        android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Under $100"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/underFifty"
         app:layout_constraintTop_toBottomOf="@+id/artsBtn" />
 
@@ -154,11 +154,11 @@
         android:layout_height="30dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="224dp"
-        android:background="@drawable/btn_bg_black"
+        android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="No Limit"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/underHundred"
         app:layout_constraintTop_toBottomOf="@+id/travelBtn" />
 
@@ -168,11 +168,11 @@
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="224dp"
-        android:background="@drawable/btn_bg_black"
+        android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Under $50"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/musicBtn" />
 
@@ -195,7 +195,7 @@
         android:fontFamily="@font/antic_didone"
         android:gravity="center"
         android:text="When do you want to go"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -241,7 +241,7 @@
         android:fontFamily="@font/antic_didone"
         android:gravity="center"
         android:text="Price Range"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -273,7 +273,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_text" />
+        app:srcCompat="@drawable/logotext_no_bg" />
 
     <TextView
         android:id="@+id/eventHeadingText"
@@ -283,7 +283,7 @@
         android:fontFamily="@font/antic_didone"
         android:gravity="center"
         android:text="What are you looking for?"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -297,7 +297,7 @@
         android:fontFamily="@font/antic_didone"
         android:gravity="center"
         android:text="Type of Event"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -309,11 +309,11 @@
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="70dp"
-        android:background="@drawable/btn_bg_black"
+        android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Music"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
 
@@ -323,11 +323,11 @@
         android:layout_height="30dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="70dp"
-        android:background="@drawable/btn_bg_black"
+        android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Arts"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/musicBtn"
         app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
 
@@ -337,11 +337,11 @@
         android:layout_height="30dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="70dp"
-        android:background="@drawable/btn_bg_black"
+        android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Travel &amp; outdoor"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/artsBtn"
         app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
 
@@ -351,11 +351,11 @@
         android:layout_height="30dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/btn_bg_black"
+        android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Health"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/sportsBtn"
         app:layout_constraintTop_toBottomOf="@+id/artsBtn" />
 
@@ -365,11 +365,11 @@
         android:layout_height="30dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/btn_bg_black"
+        android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Food &amp; Drink"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/businessBtn"
         app:layout_constraintTop_toBottomOf="@+id/healthBtn" />
 
@@ -379,11 +379,11 @@
         android:layout_height="30dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/btn_bg_black"
+        android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Online Activites"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/foodBtn"
         app:layout_constraintTop_toBottomOf="@+id/hobbiesBtn" />
 
@@ -393,11 +393,11 @@
         android:layout_height="30dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/btn_bg_black"
+        android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Hobbies"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/healthBtn"
         app:layout_constraintTop_toBottomOf="@+id/travelBtn" />
 
@@ -407,11 +407,11 @@
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/btn_bg_black"
+        android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Sports &amp; Fitness"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/musicBtn" />
 
@@ -421,11 +421,11 @@
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/btn_bg_black"
+        android:background="@drawable/btn_bg"
         android:onClick="onClick"
         android:text="Business"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sportsBtn" />
 
