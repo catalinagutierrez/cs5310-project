@@ -20,10 +20,14 @@ public class EventAdapterYourEvents extends RecyclerView.Adapter<EventAdapterYou
 
     private Context context;
     private ArrayList<EventHelperClass> eventList;
+    private String uid;
+    private boolean isOwnEvent;
 
-    public EventAdapterYourEvents(ArrayList<EventHelperClass> eventList, Context context) {
+    public EventAdapterYourEvents(ArrayList<EventHelperClass> eventList, Context context, String uid, boolean isOwnEvent) {
         this.eventList = eventList;
         this.context = context;
+        this.uid = uid;
+        this.isOwnEvent = isOwnEvent;
     }
 
     public void setEvents(ArrayList<EventHelperClass> events) {
@@ -52,6 +56,8 @@ public class EventAdapterYourEvents extends RecyclerView.Adapter<EventAdapterYou
                 intent.putExtra("description", eventHelperClass.getDescription());
                 intent.putExtra("title", eventHelperClass.getTitle());
                 intent.putExtra("image", eventHelperClass.getImage());
+                intent.putExtra("uid", uid);
+                intent.putExtra("isOwnEvent", isOwnEvent);
                 context.startActivity(intent);
             }
         });

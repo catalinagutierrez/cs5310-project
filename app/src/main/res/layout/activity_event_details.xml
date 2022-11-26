@@ -50,9 +50,9 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
+                android:gravity="center"
                 android:textColor="@color/black"
                 android:textSize="24dp"
-                android:gravity="center"
                 app:layout_constraintBottom_toTopOf="@+id/eventDetailsDescription"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -64,11 +64,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="80dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="30dp"
                 android:text="Share"
                 app:backgroundTint="#BDBDBD"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/deleteEventBtn"
+                app:layout_constraintEnd_toStartOf="@+id/saveEventBtn"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/eventDetailsDescription" />
@@ -78,14 +78,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="80dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="30dp"
                 android:text="Delete"
                 app:backgroundTint="#EF5050"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/saveEventBtn"
+                app:layout_constraintTop_toBottomOf="@+id/eventDetailsDescription" />
+
+            <Button
+                android:id="@+id/saveEventBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
+                android:layout_marginBottom="30dp"
+                android:text="Save"
+                app:backgroundTint="#8BC34A"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/deleteEventBtn"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/shareBtn"
                 app:layout_constraintTop_toBottomOf="@+id/eventDetailsDescription" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

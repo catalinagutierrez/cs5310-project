@@ -66,7 +66,11 @@ public class MatchEventActivity extends AppCompatActivity {
                             if(jsonObject1.has("thumbnail")){
                                 image = jsonObject1.getString("thumbnail");
                             }
-                            eventList.add(new EventHelperClass(image,description));
+                            String title = "";
+                            if(jsonObject1.has("title")){
+                                title = jsonObject1.getString("title");
+                            }
+                            eventList.add(new EventHelperClass(image,description,title));
                         }
 
                     }
