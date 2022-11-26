@@ -69,6 +69,15 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
         setContentView(R.layout.activity_home_page);
         uid = getIntent().getStringExtra("uid");
 
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        //check if app has permission to use location and request it if not
+        if (ContextCompat.checkSelfPermission(HomePageActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(HomePageActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }else{
+            //subscribe to updates
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, this);
+        }
+
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Eventure Users").child(uid);
         ref.child("addedEventList").addValueEventListener(new ValueEventListener() {
             @Override
@@ -132,14 +141,6 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
         navigationView.setNavigationItemSelectedListener(HomePageActivity.this);
         navigationView.setCheckedItem(R.id.nav_home);
 
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        //check if app has permission to use location and request it if not
-        if (ContextCompat.checkSelfPermission(HomePageActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(HomePageActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        }else{
-            //subscribe to updates
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, this);
-        }
     }
 
     private void eventRecyler() {
@@ -190,7 +191,10 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
                 finish();
                 break;
             case R.id.nav_find_events:
-                break;
+                Intent eventIntent = new Intent(HomePageActivity.this,FindEventActivity.class);
+                eventIntent.putExtra("uid",uid);
+                eventIntent.putExtra("location",locationString);
+                startActivity(eventIntent);
             case R.id.nav_logout:
                 Intent logoutIntent = new Intent(HomePageActivity.this, LoginActivity.class);
                 startActivity(logoutIntent);
@@ -220,4 +224,5 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
             });
         }
     }
+
 }
