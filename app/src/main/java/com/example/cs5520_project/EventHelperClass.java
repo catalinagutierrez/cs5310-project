@@ -9,6 +9,7 @@ public class EventHelperClass {
     public EventHelperClass(String image, String description) {
         this.image = image;
         this.description = description;
+        this.title = "Sample Title";
     }
 
     public String getImage() {
