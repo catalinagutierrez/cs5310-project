@@ -68,7 +68,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/yourEventsRecycler"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:background="#F5F5F5"
                 app:layout_constraintBottom_toTopOf="@+id/guideline5"
@@ -92,7 +92,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/yourFriendsEventsRecycler"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:background="#F5F5F5"
                 app:layout_constraintBottom_toTopOf="@+id/guideline4"
