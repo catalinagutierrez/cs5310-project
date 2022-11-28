@@ -195,6 +195,7 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
                 eventIntent.putExtra("uid",uid);
                 eventIntent.putExtra("location",locationString);
                 startActivity(eventIntent);
+                break;
             case R.id.nav_logout:
                 Intent logoutIntent = new Intent(HomePageActivity.this, LoginActivity.class);
                 startActivity(logoutIntent);

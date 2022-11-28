@@ -1,5 +1,6 @@
 package com.example.cs5520_project;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
@@ -88,5 +89,14 @@ public class MatchEventActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(MatchEventActivity.this, HomePageActivity.class);
+        intent.putExtra("uid",uid);
+        startActivity(intent);
+        finish();
+        super.onBackPressed();
     }
 }

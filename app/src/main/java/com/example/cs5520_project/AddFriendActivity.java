@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -29,14 +30,13 @@ public class AddFriendActivity extends AppCompatActivity {
     EditText friendNameInput;
     String uid;
     boolean isFriend = false;
-    RecyclerView eventRecyler;
-    RecyclerView.Adapter adapter;
     ArrayList<String> friendsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_friend);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         friendNameInput = findViewById(R.id.addFriendText);
         addFriendButton = findViewById(R.id.addNewFriendButton);
@@ -52,8 +52,6 @@ public class AddFriendActivity extends AppCompatActivity {
                 addFriend(username);
             }
         });
-
-        eventRecyler = findViewById(R.id.friendsListRecycler);
     }
 
     public void addFriend(String username) {
