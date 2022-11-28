@@ -226,4 +226,14 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
         }
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        savedInstanceState.putString("uid", uid);
+        super.onSaveInstanceState(savedInstanceState);
+    }
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState){
+        this.uid = savedInstanceState.getString("uid");
+    }
+
 }
