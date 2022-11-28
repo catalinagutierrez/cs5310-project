@@ -1,7 +1,6 @@
 package com.example.cs5520_project;
 
 public class EventHelperClass {
-
     String image;
     String description;
     String title;
