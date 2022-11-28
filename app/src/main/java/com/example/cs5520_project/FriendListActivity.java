@@ -76,4 +76,12 @@ public class FriendListActivity extends AppCompatActivity {
         adapter = new FriendsListAdapter(friendsUsernameList, friendsList, uid, this);
         friendRecyler.setAdapter(adapter);
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(FriendListActivity.this, HomePageActivity.class);
+        intent.putExtra("uid", uid);
+        startActivity(intent);
+        finish();
+    }
 }
