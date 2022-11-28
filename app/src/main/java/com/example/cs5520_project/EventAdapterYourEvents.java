@@ -22,12 +22,14 @@ public class EventAdapterYourEvents extends RecyclerView.Adapter<EventAdapterYou
     private ArrayList<EventHelperClass> eventList;
     private String uid;
     private boolean isOwnEvent;
+    private ArrayList<String> friendsList;
 
-    public EventAdapterYourEvents(ArrayList<EventHelperClass> eventList, Context context, String uid, boolean isOwnEvent) {
+    public EventAdapterYourEvents(ArrayList<EventHelperClass> eventList, Context context, String uid, boolean isOwnEvent, ArrayList<String> friendsList) {
         this.eventList = eventList;
         this.context = context;
         this.uid = uid;
         this.isOwnEvent = isOwnEvent;
+        this.friendsList = friendsList;
     }
 
     public void setEvents(ArrayList<EventHelperClass> events) {
@@ -58,6 +60,7 @@ public class EventAdapterYourEvents extends RecyclerView.Adapter<EventAdapterYou
                 intent.putExtra("image", eventHelperClass.getImage());
                 intent.putExtra("uid", uid);
                 intent.putExtra("isOwnEvent", isOwnEvent);
+                intent.putExtra("friendsList", friendsList);
                 context.startActivity(intent);
             }
         });

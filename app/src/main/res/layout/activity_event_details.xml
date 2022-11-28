@@ -63,7 +63,7 @@
                 android:id="@+id/shareBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="30dp"
                 android:text="Share"
                 app:backgroundTint="#BDBDBD"
@@ -71,7 +71,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/saveEventBtn"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/eventDetailsDescription" />
+                app:layout_constraintTop_toBottomOf="@+id/friendsAttendingText" />
 
             <Button
                 android:id="@+id/deleteEventBtn"
@@ -101,6 +101,15 @@
                 app:layout_constraintEnd_toStartOf="@+id/deleteEventBtn"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/shareBtn"
+                app:layout_constraintTop_toBottomOf="@+id/eventDetailsDescription" />
+
+            <TextView
+                android:id="@+id/friendsAttendingText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/eventDetailsDescription" />
 
 

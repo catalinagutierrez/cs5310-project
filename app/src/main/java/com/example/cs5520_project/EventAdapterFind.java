@@ -45,6 +45,7 @@ public class EventAdapterFind extends RecyclerView.Adapter<EventAdapterFind.Even
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
         eventHelperClass = eventList.get(position);
         holder.description.setText(eventHelperClass.getDescription());
+        holder.eventTitle.setText(eventHelperClass.getTitle());
         Picasso.get().load(eventHelperClass.getImage()).into(holder.image);
         holder.addEvent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,12 +77,14 @@ public class EventAdapterFind extends RecyclerView.Adapter<EventAdapterFind.Even
     public static class EventViewHolder extends RecyclerView.ViewHolder{
         ImageView image;
         TextView description;
+        TextView eventTitle;
         Button addEvent;
 
         public EventViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.eventImage);
             description = itemView.findViewById(R.id.eventDescription);
+            eventTitle = itemView.findViewById(R.id.eventCardTitle);
             addEvent = itemView.findViewById(R.id.eventRegisterBtn);
         }
     }
