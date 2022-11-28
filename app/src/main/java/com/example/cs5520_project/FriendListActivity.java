@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +33,7 @@ public class FriendListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_list);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         addNewFriendButton = findViewById(R.id.addNewFriendButton);
         friendRecyler = findViewById(R.id.friendsListRecycler);
@@ -73,5 +75,13 @@ public class FriendListActivity extends AppCompatActivity {
         friendRecyler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         adapter = new FriendsListAdapter(friendsUsernameList, friendsList, uid, this);
         friendRecyler.setAdapter(adapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(FriendListActivity.this, HomePageActivity.class);
+        intent.putExtra("uid", uid);
+        startActivity(intent);
+        finish();
     }
 }

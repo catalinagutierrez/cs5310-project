@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#F5F5F5"
+    tools:context=".FindEventActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F5F5F5">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="256dp"
+            android:layout_height="86dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logotext_no_bg" />
+
+        <TextView
+            android:id="@+id/eventHeadingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:fontFamily="@font/antic_didone"
+            android:gravity="center"
+            android:text="What are you looking for?"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/todayBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="Today"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/underThirty"
+            app:layout_constraintTop_toBottomOf="@+id/timeOfEvent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tomorrowBtn"
+            android:layout_width="114dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="Tomorrow"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timeOfEvent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/weekendBtn"
+            android:layout_width="127dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="Weekend"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tomorrowBtn" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/thisWeekBtn"
+            android:layout_width="119dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="This Week"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/tomorrowBtn"
+            app:layout_constraintStart_toEndOf="@+id/todayBtn"
+            app:layout_constraintTop_toBottomOf="@+id/timeOfEvent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/thisMonthBtn"
+            android:layout_width="92dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="This Month"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/weekendBtn"
+            app:layout_constraintHorizontal_bias="0.613"
+            app:layout_constraintStart_toEndOf="@+id/nextWeekBtn"
+            app:layout_constraintTop_toBottomOf="@+id/thisWeekBtn" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/nextWeekBtn"
+            android:layout_width="112dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="Next Week"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/todayBtn"
+            app:layout_constraintTop_toBottomOf="@+id/todayBtn" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/freeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="Free"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/priceOfEvent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/underFifteen"
+            android:layout_width="114dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="Under $15"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/underThirty"
+            app:layout_constraintHorizontal_bias="0.504"
+            app:layout_constraintStart_toEndOf="@+id/freeBtn"
+            app:layout_constraintTop_toBottomOf="@+id/priceOfEvent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/underThirty"
+            android:layout_width="119dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="Under $30"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/guideline8"
+            app:layout_constraintTop_toBottomOf="@+id/priceOfEvent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/underHundred"
+            android:layout_width="112dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="Under $100"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/noLimit"
+            app:layout_constraintHorizontal_bias="0.448"
+            app:layout_constraintStart_toEndOf="@+id/underFifty"
+            app:layout_constraintTop_toBottomOf="@+id/underFifteen" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/noLimit"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="No Limit"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/underThirty"
+            app:layout_constraintTop_toBottomOf="@+id/underThirty" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/underFifty"
+            android:layout_width="127dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="Under $50"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/freeBtn"
+            app:layout_constraintTop_toBottomOf="@+id/freeBtn" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="240dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/timeOfEvent"
+            app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
+
+        <TextView
+            android:id="@+id/timeOfEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="232dp"
+            android:fontFamily="@font/antic_didone"
+            android:gravity="center"
+            android:text="When do you want to go"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/view2"
+            app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="240dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toStartOf="@+id/timeOfEvent"
+            app:layout_constraintHorizontal_bias="0.127"
+            app:layout_constraintStart_toEndOf="@+id/view2"
+            app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="240dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toStartOf="@+id/guideline8"
+            app:layout_constraintHorizontal_bias="0.583"
+            app:layout_constraintStart_toEndOf="@+id/priceOfEvent"
+            app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="240dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toStartOf="@+id/priceOfEvent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
+
+        <TextView
+            android:id="@+id/priceOfEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="232dp"
+            android:fontFamily="@font/antic_didone"
+            android:gravity="center"
+            android:text="Price Range"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
+
+        <View
+            android:id="@+id/view5"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="40dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toStartOf="@+id/typeOfEventText"
+            app:layout_constraintStart_toStartOf="@+id/musicBtn"
+            app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="40dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="@+id/travelBtn"
+            app:layout_constraintStart_toEndOf="@+id/typeOfEventText"
+            app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
+
+
+        <TextView
+            android:id="@+id/typeOfEventText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/antic_didone"
+            android:gravity="center"
+            android:text="Type of Event"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/musicBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="90dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="Music"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/guideline8"
+            app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/artsBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="Arts"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/musicBtn"
+            app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/travelBtn"
+            android:layout_width="148dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="Travel &amp; outdoor"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/artsBtn"
+            app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/healthBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="Health"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/sportsBtn"
+            app:layout_constraintTop_toBottomOf="@+id/artsBtn" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/foodBtn"
+            android:layout_width="121dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="Food &amp; Drink"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/businessBtn"
+            app:layout_constraintTop_toBottomOf="@+id/healthBtn" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/onlineBtn"
+            android:layout_width="114dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="Online Activites"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/hobbiesBtn"
+            app:layout_constraintStart_toEndOf="@+id/foodBtn"
+            app:layout_constraintTop_toBottomOf="@+id/hobbiesBtn" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/hobbiesBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="Hobbies"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/travelBtn"
+            app:layout_constraintStart_toEndOf="@+id/healthBtn"
+            app:layout_constraintTop_toBottomOf="@+id/travelBtn" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/sportsBtn"
+            android:layout_width="137dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="Sports &amp; Fitness"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/musicBtn"
+            app:layout_constraintTop_toBottomOf="@+id/musicBtn" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/businessBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="Business"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/sportsBtn"
+            app:layout_constraintTop_toBottomOf="@+id/sportsBtn" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/searchBtn"
+            android:layout_width="146dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/btn_bg"
+            android:text="Search"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/noLimit" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".25" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".75" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
