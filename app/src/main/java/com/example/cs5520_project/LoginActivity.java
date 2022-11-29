@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,11 +26,16 @@ public class LoginActivity extends AppCompatActivity {
     TextView signUp;
     EditText username, password;
     String uid;
+    RelativeLayout loadingPanel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
+
+        loadingPanel = findViewById(R.id.loadingPanel);
+        loadingPanel.setVisibility(View.GONE);
 
         username = findViewById(R.id.inputUsername1);
         password = findViewById(R.id.inputPassword1);
@@ -38,9 +44,11 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                loadingPanel.setVisibility(View.VISIBLE);
                 String userName = username.getText().toString();
                 String userPass = password.getText().toString();
                 signIn(userName,userPass);
+
             }
         });
 
@@ -60,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
     public void signIn(String username, String password){
         if(username.isEmpty() || username == null || username.trim().isEmpty() || username.contains(" ")){
             Toast.makeText(LoginActivity.this, "Please enter a valid username, no spaces!", Toast.LENGTH_SHORT).show();
+            loadingPanel.setVisibility(View.GONE);
             return;
         }
 
@@ -81,6 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                 // if user does not exist, create a new user
                 if(!userExists){
                     Toast.makeText(LoginActivity.this, "Account not found. Please signup", Toast.LENGTH_SHORT).show();
+                    loadingPanel.setVisibility(View.GONE);
                 }
             }
             @Override
