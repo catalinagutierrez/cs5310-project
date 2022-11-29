@@ -91,6 +91,28 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/yourEventsRecycler" />
 
+            <TextView
+                android:id="@+id/noFriendsText"
+                android:layout_width="wrap_content"
+                android:layout_height="23dp"
+                android:text="You are not following anyone!"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/yourFriendsEventsRecycler"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/yourFriendsEventsRecycler" />
+
+            <TextView
+                android:id="@+id/noEventsText"
+                android:layout_width="wrap_content"
+                android:layout_height="23dp"
+                android:text="You have no events, try adding some!"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/yourEventsRecycler"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/yourEventsRecycler" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/yourFriendsEventsRecycler"
                 android:layout_width="wrap_content"

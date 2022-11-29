@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -93,6 +94,7 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
                         adapter.setEvents(addedEventList);
                     }
                 }
+                showNoEventsMessage(addedEventList.isEmpty());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -232,6 +234,7 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
     public void loadFriendEvents(){
         ArrayList<String> checkDuplicates = new ArrayList<String>();
         eventList.clear();
+        showNoFriendsMessage(friendsList.isEmpty());
         for (String friend:friendsList) {
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Eventure Users").child(friend);
             ref.child("addedEventList").addValueEventListener(new ValueEventListener() {
@@ -262,6 +265,24 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState){
         this.uid = savedInstanceState.getString("uid");
+    }
+
+    public void showNoEventsMessage(boolean shouldShow) {
+        TextView noEventsText = findViewById(R.id.noEventsText);
+        if(shouldShow) {
+            noEventsText.setVisibility(View.VISIBLE);
+        } else {
+            noEventsText.setVisibility(View.GONE);
+        }
+    }
+
+    public void showNoFriendsMessage(boolean shouldShow) {
+        TextView noFriendsText = findViewById(R.id.noFriendsText);
+        if(shouldShow) {
+            noFriendsText.setVisibility(View.VISIBLE);
+        } else {
+            noFriendsText.setVisibility(View.GONE);
+        }
     }
 
 }
