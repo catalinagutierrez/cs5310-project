@@ -73,9 +73,10 @@
                 android:background="#F5F5F5"
                 app:layout_constraintBottom_toTopOf="@+id/guideline5"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline3" />
+                app:layout_constraintTop_toTopOf="@+id/guideline3"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/yourFriendsEvents"
@@ -138,6 +139,28 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.55" />
+
+            <TextView
+                android:id="@+id/noFriendsText"
+                android:layout_width="wrap_content"
+                android:layout_height="23dp"
+                android:text="You are not following anyone!"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/yourFriendsEventsRecycler"
+                app:layout_constraintEnd_toEndOf="@+id/yourFriendsEventsRecycler"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/yourFriendsEventsRecycler" />
+
+            <TextView
+                android:id="@+id/noEventsText"
+                android:layout_width="wrap_content"
+                android:layout_height="23dp"
+                android:text="You have no events, try adding some!"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/yourEventsRecycler"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/yourEventsRecycler" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
