@@ -48,7 +48,7 @@ public class EventAdapterFind extends RecyclerView.Adapter<EventAdapterFind.Even
         eventHelperClass = eventList.get(position);
         holder.description.setText(eventHelperClass.getDescription());
         holder.eventTitle.setText(eventHelperClass.getTitle());
-        Picasso.get().load(eventHelperClass.getImage()).into(holder.image);
+        Picasso.get().load(eventHelperClass.getImage()).placeholder(R.drawable.loading_screen).error(R.drawable.imagenotfound).into(holder.image);
         holder.eventMoreInfoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
