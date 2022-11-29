@@ -71,7 +71,10 @@ public class EventAdapterFind extends RecyclerView.Adapter<EventAdapterFind.Even
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Event Added!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context,HomePageActivity.class);
+                    intent.putExtra("uid",uid);
+                    context.startActivity(intent);
                 }else{
                     Toast.makeText(context, "Fail", Toast.LENGTH_SHORT).show();
                 }
