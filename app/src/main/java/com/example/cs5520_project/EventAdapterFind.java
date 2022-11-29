@@ -1,6 +1,8 @@
 package com.example.cs5520_project;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,10 +49,17 @@ public class EventAdapterFind extends RecyclerView.Adapter<EventAdapterFind.Even
         holder.description.setText(eventHelperClass.getDescription());
         holder.eventTitle.setText(eventHelperClass.getTitle());
         Picasso.get().load(eventHelperClass.getImage()).into(holder.image);
+        holder.eventMoreInfoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(eventHelperClass.getLink()));
+                context.startActivity(browserIntent);
+            }
+        });
         holder.addEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventHelperClass event = new EventHelperClass(eventHelperClass.getImage(),eventHelperClass.getDescription(), eventHelperClass.getTitle());
+                EventHelperClass event = new EventHelperClass(eventHelperClass.getImage(),eventHelperClass.getDescription(), eventHelperClass.getTitle(), eventHelperClass.getLink());
                 addEvent(event);
             }
         });
@@ -79,6 +88,7 @@ public class EventAdapterFind extends RecyclerView.Adapter<EventAdapterFind.Even
         TextView description;
         TextView eventTitle;
         Button addEvent;
+        Button eventMoreInfoBtn;
 
         public EventViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -86,6 +96,7 @@ public class EventAdapterFind extends RecyclerView.Adapter<EventAdapterFind.Even
             description = itemView.findViewById(R.id.eventDescription);
             eventTitle = itemView.findViewById(R.id.eventCardTitle);
             addEvent = itemView.findViewById(R.id.eventRegisterBtn);
+            eventMoreInfoBtn = itemView.findViewById(R.id.eventMoreInfoBtn);
         }
     }
 

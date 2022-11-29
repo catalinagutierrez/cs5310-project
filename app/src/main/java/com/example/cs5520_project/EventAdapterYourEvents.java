@@ -58,6 +58,7 @@ public class EventAdapterYourEvents extends RecyclerView.Adapter<EventAdapterYou
                 intent.putExtra("description", eventHelperClass.getDescription());
                 intent.putExtra("title", eventHelperClass.getTitle());
                 intent.putExtra("image", eventHelperClass.getImage());
+                intent.putExtra("link", eventHelperClass.getLink());
                 intent.putExtra("uid", uid);
                 intent.putExtra("isOwnEvent", isOwnEvent);
                 intent.putExtra("friendsList", friendsList);

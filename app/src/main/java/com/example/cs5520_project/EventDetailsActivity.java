@@ -49,6 +49,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         String description = getIntent().getStringExtra("description");
         String title = getIntent().getStringExtra("title");
         String image = getIntent().getStringExtra("image");
+        String link = getIntent().getStringExtra("link");
         String currentUserId = getIntent().getStringExtra("uid");
         isOwnEvent = getIntent().getBooleanExtra("isOwnEvent", false);
 
@@ -84,8 +85,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 String body = "Checkout this event I found on Eventure!";
-                //TODO find the event link
-                String sub = "http://google.com";
+                String sub = link;
                 intent.putExtra(Intent.EXTRA_TEXT, body);
                 intent.putExtra(Intent.EXTRA_TEXT, sub);
                 startActivity(Intent.createChooser(intent, "Share this event"));
@@ -124,7 +124,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         saveEventBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventHelperClass event = new EventHelperClass(image,description,title);
+                EventHelperClass event = new EventHelperClass(image,description,title,link);
                 String eid = FirebaseDatabase.getInstance().getReference("Eventure Users").child(currentUserId).child("addedEventList").push().getKey();
                 FirebaseDatabase.getInstance().getReference("Eventure Users").child(currentUserId).child("addedEventList").child(eid).setValue(event).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

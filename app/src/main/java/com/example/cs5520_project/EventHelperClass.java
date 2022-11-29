@@ -4,11 +4,21 @@ public class EventHelperClass {
     String image;
     String description;
     String title;
+    String link;
 
-    public EventHelperClass(String image, String description, String title) {
+    public EventHelperClass(String image, String description, String title, String link) {
         this.image = image;
         this.description = description;
         this.title = title;
+        this.link = link;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public String getImage() {
