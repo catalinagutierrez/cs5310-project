@@ -2,7 +2,10 @@ package com.example.cs5520_project;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,13 +30,18 @@ public class MatchEventActivity extends AppCompatActivity {
     String uid;
     String URL1 = "https://serpapi.com/search.json?engine=google_events&q=Events+in+Austin&hl=en&gl=us\n" +
             "&api_key=5c030de392f00a9601c21416005ea917dabe08e5e8742d41cf8be0a4a566e7f1";
+    RelativeLayout loadingPanel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_match_event);
         uid = getIntent().getStringExtra("uid");
+
+        loadingPanel = findViewById(R.id.loadingPanel);
+        loadingPanel.setVisibility(View.VISIBLE);
 
         eventRecyler = findViewById(R.id.event_recycler);
         String URL = getIntent().getStringExtra("URL");
@@ -80,6 +88,7 @@ public class MatchEventActivity extends AppCompatActivity {
 
                     }
                     eventRecyler(eventList);
+                    loadingPanel.setVisibility(View.GONE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
