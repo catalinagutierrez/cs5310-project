@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,31 +28,48 @@ import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 public class EventDetailsActivity extends AppCompatActivity {
     Button deleteEventBtn, shareBtn, saveEventBtn;
-    TextView eventDetailsTitle, eventDetailsDescription;
+    TextView eventDetailsTitle, eventDetailsDescription, friendsAttendingText;
     ImageView eventDetailsImage;
     String currentUserId;
     boolean isOwnEvent;
+    ArrayList<String> friendsAttending;
+    ArrayList<String> friendsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        friendsAttending = new ArrayList<String>();
+        friendsList = new ArrayList<String>();
 
         String description = getIntent().getStringExtra("description");
         String title = getIntent().getStringExtra("title");
         String image = getIntent().getStringExtra("image");
+        String link = getIntent().getStringExtra("link");
         String currentUserId = getIntent().getStringExtra("uid");
         isOwnEvent = getIntent().getBooleanExtra("isOwnEvent", false);
+
+        // Query which friends are attending
+        if(isOwnEvent) {
+            friendsList = getIntent().getStringArrayListExtra("friendsList");
+            queryFriendsAttending(title);
+        }
 
         eventDetailsDescription = (TextView) findViewById(R.id.eventDetailsDescription);
         eventDetailsTitle = (TextView) findViewById(R.id.eventDetailsTitle);
         eventDetailsImage = (ImageView) findViewById(R.id.eventDetailsImage);
+        friendsAttendingText = (TextView) findViewById(R.id.friendsAttendingText);
 
         eventDetailsTitle.setText(title);
         eventDetailsDescription.setText(description);
         Picasso.get().load(image).into(eventDetailsImage);
+
 
         shareBtn = (Button) findViewById(R.id.shareBtn);
         deleteEventBtn = (Button) findViewById(R.id.deleteEventBtn);
@@ -69,8 +87,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 String body = "Checkout this event I found on Eventure!";
-                //TODO find the event link
-                String sub = "http://google.com";
+                String sub = link;
                 intent.putExtra(Intent.EXTRA_TEXT, body);
                 intent.putExtra(Intent.EXTRA_TEXT, sub);
                 startActivity(Intent.createChooser(intent, "Share this event"));
@@ -109,7 +126,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         saveEventBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventHelperClass event = new EventHelperClass(image,description,title);
+                EventHelperClass event = new EventHelperClass(image,description,title,link);
                 String eid = FirebaseDatabase.getInstance().getReference("Eventure Users").child(currentUserId).child("addedEventList").push().getKey();
                 FirebaseDatabase.getInstance().getReference("Eventure Users").child(currentUserId).child("addedEventList").child(eid).setValue(event).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -124,5 +141,27 @@ public class EventDetailsActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void queryFriendsAttending(String event) {
+        friendsAttending.clear();
+        for (String friend : friendsList) {
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Eventure Users").child(friend);
+            ref.child("addedEventList").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot data : snapshot.getChildren()) {
+                        if(data.child("title").getValue().toString().equals(event)) {
+                            friendsAttending.add(friend);
+                        }
+                    }
+                    String tempText = friendsAttending.size() == 1 ? " friend is attending!" : " friends are attending!";
+                    friendsAttendingText.setText(friendsAttending.size() + tempText);
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+        }
     }
 }

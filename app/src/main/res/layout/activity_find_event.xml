@@ -67,20 +67,20 @@
         app:layout_constraintStart_toEndOf="@+id/musicBtn"
         app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/weekendBtn"
-        android:layout_width="127dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="368dp"
-        android:background="@drawable/btn_bg"
-        android:onClick="onClick"
-        android:text="Weekend"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/todayBtn"
-        app:layout_constraintTop_toBottomOf="@+id/musicBtn" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/weekendBtn"
+            android:layout_width="127dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="376dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="Weekend"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/todayBtn"
+            app:layout_constraintTop_toBottomOf="@+id/musicBtn" />
 
-    <androidx.appcompat.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/thisWeekBtn"
         android:layout_width="119dp"
         android:layout_height="30dp"
@@ -96,36 +96,36 @@
         app:layout_constraintStart_toEndOf="@+id/underFifteen"
         app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/thisMonthBtn"
-        android:layout_width="92dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="368dp"
-        android:background="@drawable/btn_bg"
-        android:onClick="onClick"
-        android:text="This Month"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/thisWeekBtn"
-        app:layout_constraintStart_toEndOf="@+id/underHundred"
-        app:layout_constraintTop_toBottomOf="@+id/travelBtn" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/thisMonthBtn"
+            android:layout_width="92dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="376dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="This Month"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/thisWeekBtn"
+            app:layout_constraintStart_toEndOf="@+id/underHundred"
+            app:layout_constraintTop_toBottomOf="@+id/travelBtn" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/nextWeekBtn"
-        android:layout_width="112dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="368dp"
-        android:background="@drawable/btn_bg"
-        android:onClick="onClick"
-        android:text="Next Week"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/underFifty"
-        app:layout_constraintTop_toBottomOf="@+id/artsBtn" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/nextWeekBtn"
+            android:layout_width="112dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="376dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="Next Week"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/underFifty"
+            app:layout_constraintTop_toBottomOf="@+id/artsBtn" />
 
-    <androidx.appcompat.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/freeBtn"
         android:layout_width="wrap_content"
         android:layout_height="30dp"

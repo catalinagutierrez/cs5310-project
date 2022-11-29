@@ -84,7 +84,7 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 addedEventList.clear();
                 for(DataSnapshot data : snapshot.getChildren()) {
-                    EventHelperClass event = new EventHelperClass(data.child("image").getValue().toString(), data.child("description").getValue().toString(), data.child("title").getValue().toString());
+                    EventHelperClass event = new EventHelperClass(data.child("image").getValue().toString(), data.child("description").getValue().toString(), data.child("title").getValue().toString(), data.child("link").getValue().toString());
                     addedEventList.add(event);
                     adapter.setEvents(addedEventList);
                 }
@@ -146,14 +146,14 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
     private void eventRecyler() {
         eventRecyler.setHasFixedSize(true);
         eventRecyler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        adapter = new EventAdapterYourEvents(addedEventList, this, uid, true);
+        adapter = new EventAdapterYourEvents(addedEventList, this, uid, true, friendsList);
         eventRecyler.setAdapter(adapter);
     }
 
     private void friendEventRecyler() {
         friendEventRecyler.setHasFixedSize(true);
         friendEventRecyler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        friendsAdapter = new EventAdapterYourEvents(eventList, this, uid, false);
+        friendsAdapter = new EventAdapterYourEvents(eventList, this, uid, false, friendsList);
         friendEventRecyler.setAdapter(friendsAdapter);
     }
 
@@ -214,7 +214,7 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for(DataSnapshot data : snapshot.getChildren()) {
-                        EventHelperClass event = new EventHelperClass(data.child("image").getValue().toString(), data.child("description").getValue().toString(), data.child("title").getValue().toString());
+                        EventHelperClass event = new EventHelperClass(data.child("image").getValue().toString(), data.child("description").getValue().toString(), data.child("title").getValue().toString(),data.child("link").getValue().toString());
                         eventList.add(event);
                         friendsAdapter.setEvents(eventList);
                     }
