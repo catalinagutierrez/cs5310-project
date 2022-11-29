@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -28,11 +29,16 @@ public class RegisterActivity extends AppCompatActivity {
     String uid;
     FirebaseDatabase rootNode;
     DatabaseReference reference;
+    RelativeLayout loadingPanel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_register);
+
+        loadingPanel = findViewById(R.id.loadingPanel);
+        loadingPanel.setVisibility(View.GONE);
 
         regUsername = findViewById(R.id.inputUsername1);
         regEmail = findViewById(R.id.inputEmail);
@@ -51,6 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                loadingPanel.setVisibility(View.VISIBLE);
                 rootNode = FirebaseDatabase.getInstance();
                 reference = rootNode.getReference("Eventure Users");
                 registerUser(view);
@@ -99,6 +106,8 @@ public class RegisterActivity extends AppCompatActivity {
             public void onCancelled (@NonNull DatabaseError error){
             }
         });
+
+        loadingPanel.setVisibility(View.GONE);
 
     }
 
