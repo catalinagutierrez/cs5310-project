@@ -48,18 +48,25 @@ public class EventAdapterFind extends RecyclerView.Adapter<EventAdapterFind.Even
         eventHelperClass = eventList.get(position);
         holder.description.setText(eventHelperClass.getDescription());
         holder.eventTitle.setText(eventHelperClass.getTitle());
+
+        // Fetch details
+        String description = eventHelperClass.getDescription();
+        String title = eventHelperClass.getTitle();
+        String image = eventHelperClass.getImage();
+        String link = eventHelperClass.getLink();
+
         Picasso.get().load(eventHelperClass.getImage()).placeholder(R.drawable.loading_screen).error(R.drawable.imagenotfound).into(holder.image);
         holder.eventMoreInfoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(eventHelperClass.getLink()));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
                 context.startActivity(browserIntent);
             }
         });
         holder.addEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventHelperClass event = new EventHelperClass(eventHelperClass.getImage(),eventHelperClass.getDescription(), eventHelperClass.getTitle(), eventHelperClass.getLink());
+                EventHelperClass event = new EventHelperClass(image, description, title, link);
                 addEvent(event);
             }
         });
