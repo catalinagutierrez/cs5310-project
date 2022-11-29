@@ -45,7 +45,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class HomePageActivity extends AppCompatActivity implements LocationListener, NavigationView.OnNavigationItemSelectedListener {
+public class HomePageActivity extends AppCompatActivity implements LocationListener, NavigationView.OnNavigationItemSelectedListener, ActivityCompat.OnRequestPermissionsResultCallback {
     Button findNewEventBtn;
     RecyclerView eventRecyler, friendEventRecyler;
     EventAdapterYourEvents adapter;
@@ -180,6 +180,24 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
             drawerLayout.closeDrawer(GravityCompat.END);
         } else {
             super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult (int requestCode,
+                                           String[] permissions,
+                                           int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 1: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                } else {
+                    Intent intent = new Intent(HomePageActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
         }
     }
 
