@@ -76,41 +76,36 @@
                 android:id="@+id/shareBtn"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_marginEnd="50dp"
                 android:layout_marginBottom="40dp"
                 android:background="@drawable/ios_share_icon"
                 app:backgroundTint="#BDBDBD"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/eventDetailsDescription"
-                app:layout_constraintHorizontal_bias="0.194"
-                app:layout_constraintStart_toStartOf="@+id/eventDetailsDescription" />
+                app:layout_constraintEnd_toStartOf="@+id/guideline14" />
 
             <Button
                 android:id="@+id/deleteEventBtn"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="50dp"
-                android:layout_marginEnd="108dp"
-                android:visibility="gone"
                 android:layout_marginBottom="40dp"
+                android:visibility="gone"
                 android:background="@drawable/delete_icon"
                 app:backgroundTint="#BDBDBD"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/shareBtn" />
+                app:layout_constraintStart_toStartOf="@+id/guideline14" />
 
             <Button
                 android:id="@+id/saveEventBtn"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="50dp"
-                android:layout_marginEnd="108dp"
                 android:layout_marginBottom="40dp"
                 android:visibility="gone"
                 android:background="@drawable/add_icon"
                 app:backgroundTint="#BDBDBD"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/shareBtn" />
+                app:layout_constraintStart_toStartOf="@+id/guideline14" />
 
             <TextView
                 android:id="@+id/friendsAttendingText"
@@ -120,6 +115,13 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/eventDetailsDescription" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".5" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
