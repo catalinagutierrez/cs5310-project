@@ -24,6 +24,13 @@
     </RelativeLayout>
 
 
+    <TextView
+        android:id="@+id/errorText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="No events found" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="256dp"
