@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         Button apiServiceBtn = (Button) findViewById(R.id.apiServiceBtn);
         apiServiceBtn.setOnClickListener(new View.OnClickListener() {
@@ -33,6 +33,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button finalProjectBtn = (Button) findViewById(R.id.projectBtn);
+        finalProjectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent (MainActivity.this, SplashActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 

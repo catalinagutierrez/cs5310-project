@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -47,10 +46,8 @@ public class FirebaseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String usernameStr = username.getText().toString();
-
                 rootNode = FirebaseDatabase.getInstance();
                 reference = rootNode.getReference("Users");
-
                 signIn(usernameStr);
             }
         });
