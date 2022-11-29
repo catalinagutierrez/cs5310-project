@@ -83,10 +83,15 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 addedEventList.clear();
+                ArrayList<String> checkDuplicates = new ArrayList<String>();
                 for(DataSnapshot data : snapshot.getChildren()) {
-                    EventHelperClass event = new EventHelperClass(data.child("image").getValue().toString(), data.child("description").getValue().toString(), data.child("title").getValue().toString(), data.child("link").getValue().toString());
-                    addedEventList.add(event);
-                    adapter.setEvents(addedEventList);
+                    String eventTitle = data.child("title").getValue().toString();
+                    if(!checkDuplicates.contains(eventTitle)) {
+                        EventHelperClass event = new EventHelperClass(data.child("image").getValue().toString(), data.child("description").getValue().toString(), data.child("title").getValue().toString(), data.child("link").getValue().toString());
+                        addedEventList.add(event);
+                        checkDuplicates.add(eventTitle);
+                        adapter.setEvents(addedEventList);
+                    }
                 }
             }
             @Override
@@ -207,6 +212,7 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
     }
 
     public void loadFriendEvents(){
+        ArrayList<String> checkDuplicates = new ArrayList<String>();
         eventList.clear();
         for (String friend:friendsList) {
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Eventure Users").child(friend);
@@ -214,9 +220,13 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for(DataSnapshot data : snapshot.getChildren()) {
-                        EventHelperClass event = new EventHelperClass(data.child("image").getValue().toString(), data.child("description").getValue().toString(), data.child("title").getValue().toString(),data.child("link").getValue().toString());
-                        eventList.add(event);
-                        friendsAdapter.setEvents(eventList);
+                        String eventTitle = data.child("title").getValue().toString();
+                        if(!checkDuplicates.contains(eventTitle)) {
+                            EventHelperClass event = new EventHelperClass(data.child("image").getValue().toString(), data.child("description").getValue().toString(), data.child("title").getValue().toString(), data.child("link").getValue().toString());
+                            eventList.add(event);
+                            checkDuplicates.add(eventTitle);
+                            friendsAdapter.setEvents(eventList);
+                        }
                     }
                 }
                 @Override
