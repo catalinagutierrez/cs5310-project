@@ -38,88 +38,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/todayBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/btn_bg"
-            android:onClick="onClick"
-            android:text="Today"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toEndOf="@+id/underThirty"
-            app:layout_constraintTop_toBottomOf="@+id/timeOfEvent" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/tomorrowBtn"
-            android:layout_width="114dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/btn_bg"
-            android:onClick="onClick"
-            android:text="Tomorrow"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/timeOfEvent" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/weekendBtn"
-            android:layout_width="127dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/btn_bg"
-            android:onClick="onClick"
-            android:text="Weekend"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tomorrowBtn" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/thisWeekBtn"
-            android:layout_width="119dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/btn_bg"
-            android:onClick="onClick"
-            android:text="This Week"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toStartOf="@+id/tomorrowBtn"
-            app:layout_constraintStart_toEndOf="@+id/todayBtn"
-            app:layout_constraintTop_toBottomOf="@+id/timeOfEvent" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/thisMonthBtn"
-            android:layout_width="92dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/btn_bg"
-            android:onClick="onClick"
-            android:text="This Month"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toStartOf="@+id/weekendBtn"
-            app:layout_constraintHorizontal_bias="0.613"
-            app:layout_constraintStart_toEndOf="@+id/nextWeekBtn"
-            app:layout_constraintTop_toBottomOf="@+id/thisWeekBtn" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/nextWeekBtn"
-            android:layout_width="112dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/btn_bg"
-            android:onClick="onClick"
-            android:text="Next Week"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="@+id/todayBtn"
-            app:layout_constraintTop_toBottomOf="@+id/todayBtn" />
-
-        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/freeBtn"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
@@ -129,7 +47,7 @@
             android:text="Free"
             android:textAllCaps="false"
             android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/businessBtn"
             app:layout_constraintTop_toBottomOf="@+id/priceOfEvent" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -157,7 +75,7 @@
             android:text="Under $30"
             android:textAllCaps="false"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toStartOf="@+id/guideline8"
+            app:layout_constraintEnd_toEndOf="@+id/onlineBtn"
             app:layout_constraintTop_toBottomOf="@+id/priceOfEvent" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -201,49 +119,131 @@
             app:layout_constraintStart_toStartOf="@+id/freeBtn"
             app:layout_constraintTop_toBottomOf="@+id/freeBtn" />
 
-        <View
-            android:id="@+id/view3"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="240dp"
-            android:background="@android:color/darker_gray"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/timeOfEvent"
-            app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
-
         <TextView
             android:id="@+id/timeOfEvent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="232dp"
+            android:layout_marginTop="392dp"
             android:fontFamily="@font/antic_didone"
             android:gravity="center"
             android:text="When do you want to go"
             android:textColor="@color/black"
             android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/eventHeadingText"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/view2"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/weekendBtn"
+            android:layout_width="127dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="484dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="Weekend"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/todayBtn"
+            app:layout_constraintTop_toBottomOf="@+id/tomorrowBtn" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="400dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="@+id/noLimit"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/timeOfEvent"
             app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/thisMonthBtn"
+            android:layout_width="92dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="This Month"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/thisWeekBtn"
+            app:layout_constraintTop_toBottomOf="@+id/thisWeekBtn" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tomorrowBtn"
+            android:layout_width="114dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="Tomorrow"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/thisWeekBtn"
+            app:layout_constraintStart_toEndOf="@+id/todayBtn"
+            app:layout_constraintTop_toBottomOf="@+id/timeOfEvent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/thisWeekBtn"
+            android:layout_width="119dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="This Week"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/noLimit"
+            app:layout_constraintTop_toBottomOf="@+id/timeOfEvent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/todayBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="Today"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/underFifty"
+            app:layout_constraintTop_toBottomOf="@+id/timeOfEvent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/nextWeekBtn"
+            android:layout_width="112dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:onClick="onClick"
+            android:text="Next Week"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/thisMonthBtn"
+            app:layout_constraintStart_toEndOf="@+id/weekendBtn"
+            app:layout_constraintTop_toBottomOf="@+id/todayBtn" />
 
         <View
             android:id="@+id/view4"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="240dp"
+            android:layout_marginTop="400dp"
             android:background="@android:color/darker_gray"
             app:layout_constraintEnd_toStartOf="@+id/timeOfEvent"
-            app:layout_constraintHorizontal_bias="0.127"
-            app:layout_constraintStart_toEndOf="@+id/view2"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/underFifty"
             app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
 
         <View
             android:id="@+id/view2"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="240dp"
+            android:layout_marginTop="250dp"
             android:background="@android:color/darker_gray"
-            app:layout_constraintEnd_toStartOf="@+id/guideline8"
+            app:layout_constraintEnd_toEndOf="@+id/onlineBtn"
             app:layout_constraintHorizontal_bias="0.583"
             app:layout_constraintStart_toEndOf="@+id/priceOfEvent"
             app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
@@ -252,23 +252,24 @@
             android:id="@+id/view"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="240dp"
+            android:layout_marginTop="250dp"
             android:background="@android:color/darker_gray"
             app:layout_constraintEnd_toStartOf="@+id/priceOfEvent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/businessBtn"
             app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
 
         <TextView
             android:id="@+id/priceOfEvent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="232dp"
+            android:layout_marginTop="240dp"
             android:fontFamily="@font/antic_didone"
             android:gravity="center"
             android:text="Price Range"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline8"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/eventHeadingText" />
 
@@ -436,14 +437,14 @@
             android:id="@+id/searchBtn"
             android:layout_width="146dp"
             android:layout_height="37dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="25dp"
+            android:layout_marginTop="75dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/btn_bg"
             android:text="Search"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/noLimit" />
+            app:layout_constraintEnd_toEndOf="@+id/thisMonthBtn"
+            app:layout_constraintStart_toStartOf="@+id/weekendBtn"
+            app:layout_constraintTop_toBottomOf="@+id/tomorrowBtn" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline8"
