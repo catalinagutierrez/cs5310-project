@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,6 +32,7 @@ public class MatchEventActivity extends AppCompatActivity {
     String URL1 = "https://serpapi.com/search.json?engine=google_events&q=Events+in+Austin&hl=en&gl=us\n" +
             "&api_key=5c030de392f00a9601c21416005ea917dabe08e5e8742d41cf8be0a4a566e7f1";
     RelativeLayout loadingPanel;
+    TextView errorText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,9 @@ public class MatchEventActivity extends AppCompatActivity {
 
         loadingPanel = findViewById(R.id.loadingPanel);
         loadingPanel.setVisibility(View.VISIBLE);
+
+        errorText = findViewById(R.id.errorText);
+        errorText.setVisibility(View.GONE);
 
         eventRecyler = findViewById(R.id.event_recycler);
         String URL = getIntent().getStringExtra("URL");
@@ -85,13 +90,13 @@ public class MatchEventActivity extends AppCompatActivity {
                             }
                             eventList.add(new EventHelperClass(image,description,title, link));
                         }
-
                     }
                     eventRecyler(eventList);
-                    loadingPanel.setVisibility(View.GONE);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    errorText.setVisibility(View.VISIBLE);
                 }
+                loadingPanel.setVisibility(View.GONE);
             }
         }, new Response.ErrorListener() {
             @Override
