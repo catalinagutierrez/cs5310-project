@@ -9,6 +9,8 @@
         <entry key="app/src/main/res/drawable/btn_bg.xml" value="0.179" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1335" />
         <entry key="app/src/main/res/layout-land/activity_api_service.xml" value="0.25" />
+        <entry key="app/src/main/res/layout-land/activity_friend_list.xml" value="0.11375661375661375" />
+        <entry key="app/src/main/res/layout-land/activity_home_page.xml" value="0.11375661375661375" />
         <entry key="app/src/main/res/layout/activity_about.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/activity_api_service.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_event_details.xml" value="0.336734693877551" />

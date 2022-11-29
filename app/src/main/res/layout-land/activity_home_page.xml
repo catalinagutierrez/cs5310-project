@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Your Friends Events"
+                android:text="Events From People You Follow"
                 android:fontFamily="@font/antic_didone"
                 android:textColor="@color/black"
                 android:textSize="20dp"

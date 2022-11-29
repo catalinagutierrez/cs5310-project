@@ -74,7 +74,7 @@ public class AddFriendActivity extends AppCompatActivity {
 
                 // If the user tries to add themself
                 if(sameUser) {
-                    Toast.makeText(AddFriendActivity.this, "Cannot add yourself!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddFriendActivity.this, "Cannot follow yourself!", Toast.LENGTH_SHORT).show();
                 }
                 // If a user does not exist in the database
                 else if (!userExists){
@@ -83,7 +83,7 @@ public class AddFriendActivity extends AppCompatActivity {
                 // If the user exists, add them if they are not an existing friend
                 else if(userExists) {
                     if(isFriend(uidFriend)) {
-                        Toast.makeText(AddFriendActivity.this, "You are already friends with this user!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddFriendActivity.this, "You are already following this user!", Toast.LENGTH_SHORT).show();
                     } else {
                         addFriendToList(uidFriend);
                     }
@@ -105,7 +105,7 @@ public class AddFriendActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(AddFriendActivity.this, "Friend added!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddFriendActivity.this, "User was followed!", Toast.LENGTH_SHORT).show();
                     Intent friendIntent = new Intent(AddFriendActivity.this, FriendListActivity.class);
                     friendIntent.putExtra("uid",uid);
                     friendsList.add(uidFriend);
@@ -113,7 +113,7 @@ public class AddFriendActivity extends AppCompatActivity {
                     startActivity(friendIntent);
                     finish();
                 }else{
-                    Toast.makeText(AddFriendActivity.this, "Friend was not added!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddFriendActivity.this, "User was not followed!", Toast.LENGTH_SHORT).show();
 
                 }
             }

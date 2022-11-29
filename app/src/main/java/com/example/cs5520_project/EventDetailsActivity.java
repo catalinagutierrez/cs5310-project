@@ -155,7 +155,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                             friendsAttending.add(friend);
                         }
                     }
-                    String tempText = friendsAttending.size() == 1 ? " friend is attending!" : " friends are attending!";
+                    String tempText = friendsAttending.size() == 1 ? " person you are following is attending!" : " people you are following are attending!";
                     friendsAttendingText.setText(friendsAttending.size() + tempText);
                 }
                 @Override
