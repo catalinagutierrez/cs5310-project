@@ -1,6 +1,9 @@
 package com.example.cs5520_project;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.View;
@@ -19,6 +22,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
@@ -44,10 +49,14 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadingPanel.setVisibility(View.VISIBLE);
-                String userName = username.getText().toString();
-                String userPass = password.getText().toString();
-                signIn(userName,userPass);
+                if(isInternetAvailable()) {
+                    loadingPanel.setVisibility(View.VISIBLE);
+                    String userName = username.getText().toString();
+                    String userPass = password.getText().toString();
+                    signIn(userName, userPass);
+                } else {
+                    Toast.makeText(LoginActivity.this, "Internet is required, please check your connection!", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -56,9 +65,13 @@ public class LoginActivity extends AppCompatActivity {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-                finish();
+                if(isInternetAvailable()) {
+                    Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Internet is required, please check your connection!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -105,5 +118,20 @@ public class LoginActivity extends AppCompatActivity {
         intent.putExtra("uid",uid);
         startActivity(intent);
         finish();
+    }
+
+    public boolean isInternetAvailable() {
+        WifiManager wifiMgr = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+
+        if (wifiMgr.isWifiEnabled()) {
+            WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
+            if( wifiInfo.getNetworkId() == -1 ){
+                return false;
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
