@@ -108,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             @Override
             public void onCancelled (@NonNull DatabaseError error){
+                loadingPanel.setVisibility(View.GONE);
             }
         });
     }

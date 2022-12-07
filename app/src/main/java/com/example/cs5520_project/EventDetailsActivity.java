@@ -31,7 +31,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class EventDetailsActivity extends AppCompatActivity {
-    Button deleteEventBtn, shareBtn, saveEventBtn;
+    Button deleteEventBtn, shareBtn, saveEventBtn, eventMoreInfoBtn;
     TextView eventDetailsTitle, eventDetailsDescription, friendsAttendingText;
     ImageView eventDetailsImage;
     String currentUserId;
@@ -65,6 +65,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         eventDetailsTitle = (TextView) findViewById(R.id.eventDetailsTitle);
         eventDetailsImage = (ImageView) findViewById(R.id.eventDetailsImage);
         friendsAttendingText = (TextView) findViewById(R.id.friendsAttendingText);
+        eventMoreInfoBtn = (Button) findViewById(R.id.eventMoreInfoBtn);
 
         eventDetailsTitle.setText(title);
         eventDetailsDescription.setText(description);
@@ -80,6 +81,14 @@ public class EventDetailsActivity extends AppCompatActivity {
         }else{
             saveEventBtn.setVisibility(View.VISIBLE);
         }
+
+        eventMoreInfoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                startActivity(browserIntent);
+            }
+        });
 
         shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
