@@ -119,4 +119,13 @@ public class AddFriendActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(AddFriendActivity.this, FriendListActivity.class);
+        intent.putExtra("uid",uid);
+        intent.putExtra("friendsList", friendsList);
+        startActivity(intent);
+        finish();
+    }
 }
