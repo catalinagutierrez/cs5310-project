@@ -137,7 +137,9 @@ public class FindEventActivity extends AppCompatActivity implements View.OnClick
             case R.id.thisMonthBtn:
                 clickedDateButton(thisMonthBtn,"month");
                 break;
-
+            case R.id.noLimit:
+                clickedDateButton(noLimit,"");
+                break;
         }
     }
 
