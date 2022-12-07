@@ -55,7 +55,7 @@ public class MatchEventActivity extends AppCompatActivity {
     }
 
     private void eventRecyler(ArrayList eventList) {
-        eventRecyler.setHasFixedSize(true);
+       // eventRecyler.setHasFixedSize(true);
         eventRecyler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         adapter = new EventAdapterFind(eventList,MatchEventActivity.this, uid);
         eventRecyler.setAdapter(adapter);

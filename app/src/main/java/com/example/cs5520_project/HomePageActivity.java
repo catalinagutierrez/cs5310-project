@@ -151,14 +151,14 @@ public class HomePageActivity extends AppCompatActivity implements LocationListe
     }
 
     private void eventRecyler() {
-        eventRecyler.setHasFixedSize(true);
+        //eventRecyler.setHasFixedSize(true);
         eventRecyler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         adapter = new EventAdapterYourEvents(addedEventList, this, uid, true, friendsList);
         eventRecyler.setAdapter(adapter);
     }
 
     private void friendEventRecyler() {
-        friendEventRecyler.setHasFixedSize(true);
+       // friendEventRecyler.setHasFixedSize(true);
         friendEventRecyler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         friendsAdapter = new EventAdapterYourEvents(eventList, this, uid, false, friendsList);
         friendEventRecyler.setAdapter(friendsAdapter);
